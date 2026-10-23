@@ -1,0 +1,6 @@
+node_modules/
+out/
+resultados/
+.tmp-*
+*.mp4
+*.wav

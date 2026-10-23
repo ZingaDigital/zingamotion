@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Filme</title>
+<style>
+  /* fontes da marca: copie os .woff2 para fonts/ e declare aqui. Uma de título, uma de interface. */
+  :root { --titulo: system-ui, sans-serif; --interface: system-ui, sans-serif; }
+  html, body { margin: 0; background: #000; }
+  #palco { position: relative; overflow: hidden; }
+  #fundo { position: absolute; inset: 0; }
+  #planos { position: absolute; inset: 0; z-index: 1; }   /* contexto próprio: o z dos planos não vaza */
+  #grao { position: absolute; inset: 0; z-index: 3; opacity: .07; mix-blend-mode: overlay; pointer-events: none; }
+  .plano { position: absolute; inset: 0; perspective: 1800px; overflow: hidden; }
+  #filtros { position: absolute; width: 0; height: 0; }
+</style>
+<script src="lib/motion.js"></script>
+<script src="lib/audio.js"></script>
+<script src="lib/nucleo.js"></script>
+<!-- um arquivo por capítulo/ato, na ordem do roteiro -->
+<script src="planos/exemplo.js"></script>
+</head>
+<body>
+<div id="palco"><div id="fundo"></div><div id="planos"></div><div id="grao"></div></div>
+<svg id="filtros" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+const DURACAO = 8;                                   // segundos; o último quadro tem que preparar o primeiro (loop)
+window.FILM = { width: Z.W, height: Z.H, fps: 30, duration: DURACAO };
+const palco = document.getElementById('palco');
+palco.style.width = Z.W + 'px'; palco.style.height = Z.H + 'px';
+
+window.ready = Promise.all([
+  fetch('beats.json').then((r) => r.json()).catch(() => null),
+  fetch('assets/marca.json').then((r) => r.json()).catch(() => null),
+  document.fonts.ready,
+]).then(async ([beats, marca]) => {
+  if (beats) Z.BEATS = beats.beats;
+  // marca.json (captura.mjs): mapeie aqui as cores reais, ex. Z.marca({ destaque: marca.cores.botoes[0] })
+  document.getElementById('fundo').style.background = Z.COR.fundo;
+  Z.montaGrao();
+  const host = document.getElementById('planos');
+  Z.planos.sort((a, b) => a.z - b.z);
+  for (const p of Z.planos) {
+    p.el = Z.div(host, { inset: '0px', zIndex: p.z }, 'plano');
+    await p.montar?.(p.el, Z);
+  }
+  await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+});
+
+window.seek = function (t) {
+  for (const p of Z.planos) {
+    const ativo = t >= p.inicio && (t < p.fim || p.fim >= DURACAO);
+    p.el.style.display = ativo ? '' : 'none';
+    if (ativo) p.seek(t, p.el, Z);
+  }
+  Z.grao(document.getElementById('grao'), t);
+};
+
+// opcoes: { trilha: true, foley: true } (sfx.mjs --opcoes '{"foley":false}' exporta só a trilha pra medir)
+window.renderAudio = async function ({ trilha = true, foley = true } = {}) {
+  const SR = 48000;
+  const ctx = new OfflineAudioContext(2, Math.round(SR * DURACAO), SR);
+  const S = makeSynth(ctx, 0x2a1b);
+  if (trilha) Z.trilha(S, { compassos: [4, 4, 4, 4] });
+  if (foley) for (const p of Z.planos) p.som?.(S, Z);
+  return S.exportar(0.4);
+};
+
+if (!new URLSearchParams(location.search).has('render')) {
+  window.ready.then(() => {
+    const t0 = performance.now();
+    const tick = () => { seek(((performance.now() - t0) / 1000) % FILM.duration); requestAnimationFrame(tick); };
+    tick();
+  });
+}
+</script>
+</body>
+</html>
