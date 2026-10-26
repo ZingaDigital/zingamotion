@@ -1,8 +1,6 @@
 ---
 name: motion-reel
-description: Faz um vídeo de produto ou showreel em motion graphics renderizado a partir de código. Use quando
-  o usuário pedir vídeo de lançamento, showreel, reel de produto, explicativo animado, apresentação de interface, SAAS ou anúncio em motion.
-  Render próprio (HTML + window.seek(t) + Playwright + ffmpeg), sem Remotion nem Hyperframes.
+description: Faz um vídeo de produto ou showreel em motion graphics renderizado a partir de código. Use quando o usuário pedir vídeo de lançamento, showreel, reel de produto, explicativo animado, apresentação de interface, SAAS ou anúncio em motion. Render próprio (HTML + window.seek(t) + Playwright + ffmpeg), sem Remotion nem Hyperframes.
 ---
 
 # Motion reel
@@ -30,12 +28,15 @@ Pergunte só o que bloqueia (produto/URL). Padrões quando o usuário não diz: 
 
 ## Montagem do projeto (uma vez)
 ```bash
-SK=.claude/skills/motion-reel            # ou ~/.claude/skills/motion-reel
+SK=.claude/skills/motion-reel            # ou a pasta onde esta skill está instalada (~/.claude/skills, Cowork...)
 cp $SK/motor/* .                          # render.mjs sfx.mjs beats.py revisao.py emenda.py captura.mjs
 mkdir -p films docs out resultados && cp -r $SK/modelo films/<filme>
 cp $SK/docs-modelo/*.md docs/ && cat docs/regras-do-estudio.md >> CLAUDE.md
 npm i -D playwright                       # Chromium: use o do sistema se houver (PLAYWRIGHT_BROWSERS_PATH)
 ```
+Fora da nuvem (computador, Cowork), confira uma vez: `node -v` (20+), `ffmpeg -version`, `python3 -c "import numpy, PIL"`.
+O que faltar: `npx playwright install chromium`, ffmpeg pelo gerenciador do sistema (brew, apt, winget),
+`pip install numpy pillow`. Sem ffmpeg não há render; diga isso ao usuário em vez de contornar.
 
 ## Referências e entradas
 - Referência (link ou `./refs/`): `yt-dlp -o refs/ref.mp4 <link>`; quadros a cada 0,5 s com
