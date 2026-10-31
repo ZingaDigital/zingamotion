@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Treinamento Claude Zinga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: manual técnico institucional. Hero com arte 3D, depois duas partes numeradas (A. Fundação, B. Recursos) em grade de 12 colunas, índice fixo à esquerda. */
+:root {
+  --void: #000d1c;
+  --navy: #002140;
+  --panel: #04233f;
+  --line: #143a62;
+  --pink: #f50953;
+  --blue: #2f80ff;
+  --ice: #eaf1fa;
+  --mist: #8ea6c4;
+  --font-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--void);
+  background-image:
+    linear-gradient(rgba(47,128,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47,128,255,.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: var(--ice);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+}
+a { color: var(--ice); text-decoration-color: var(--pink); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+h2 { font-size: clamp(26px, 3.6vw, 40px); line-height: 1.1; }
+h3 { font-size: 18px; line-height: 1.3; }
+p { margin: 0; max-width: 68ch; }
+.mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.muted { color: var(--mist); }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--navy); }
+.hero-art { position: absolute; inset: 0; background: radial-gradient(60% 80% at 85% 40%, rgba(245,9,83,.18), transparent 60%), radial-gradient(50% 70% at 40% 70%, rgba(47,128,255,.16), transparent 60%), var(--navy); }
+.hero-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--void) 0%, rgba(0,13,28,.92) 34%, rgba(0,13,28,.35) 68%, rgba(0,13,28,.15) 100%), linear-gradient(0deg, var(--void) 0%, transparent 30%); }
+.hero .wrap { position: relative; padding-top: 32px; padding-bottom: 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 72px; flex-wrap: wrap; }
+.logo { font-family: var(--font-display); font-weight: 700; font-size: 26px; letter-spacing: -.03em; position: relative; padding-top: 4px; }
+.logo::before { content: ""; position: absolute; top: 0; left: 2px; width: 7px; height: 7px; border-radius: 50%; background: var(--pink); }
+.topbar .mono { color: var(--mist); }
+.kicker { color: var(--pink); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+.kicker::before { content: ""; width: 28px; height: 2px; background: var(--pink); }
+.hero h1 { font-size: clamp(38px, 6.2vw, 78px); line-height: 1.02; max-width: 13ch; }
+.hero h1 em { font-style: normal; color: var(--pink); }
+.hero .lede { font-size: 18px; color: #c9d7e8; margin-top: 22px; max-width: 54ch; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 170px)); gap: 0; margin-top: 44px; border-top: 1px solid var(--line); }
+.stats div { padding: 16px 18px 0 0; }
+.stats strong { display: block; font-family: var(--font-display); font-size: 30px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.stats strong span { color: var(--blue); }
+.stats small { color: var(--mist); font-size: 13px; }
+.src { margin-top: 28px; font-size: 13px; color: var(--mist); max-width: 60ch; }
+
+/* Shell */
+.shell { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 56px; padding-top: 56px; }
+nav.toc { position: sticky; top: 24px; align-self: start; font-size: 14px; display: grid; gap: 22px; }
+nav.toc ol { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 1px; }
+nav.toc a { display: grid; grid-template-columns: 34px 1fr; padding: 5px 10px; text-decoration: none; color: var(--mist); border-left: 1px solid var(--line); }
+nav.toc a:hover { color: var(--ice); border-left-color: var(--pink); background: rgba(245,9,83,.06); }
+nav.toc a b { font-family: var(--font-mono); font-weight: 400; font-size: 12px; color: var(--blue); padding-top: 2px; }
+nav.toc .mono { color: var(--mist); }
+main { display: grid; gap: 88px; padding-bottom: 96px; }
+
+/* Part headers */
+.part { display: grid; grid-template-columns: auto 1fr; gap: 8px 28px; align-items: end; padding-bottom: 28px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.part .letter { grid-row: span 2; font-family: var(--font-display); font-size: clamp(64px, 9vw, 112px); line-height: .82; font-weight: 700; color: transparent; -webkit-text-stroke: 1.5px var(--pink); }
+.part .mono { color: var(--pink); }
+.part p { grid-column: 2; color: var(--mist); }
+.sechead { display: grid; gap: 12px; margin-bottom: 28px; }
+.sechead .mono { color: var(--blue); }
+
+/* Map */
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.mode { background: var(--panel); padding: 26px; display: grid; gap: 12px; align-content: start; }
+.mode .mono { color: var(--blue); }
+.mode.code .mono { color: var(--pink); }
+.mode ul { margin: 0; padding-left: 18px; color: var(--mist); display: grid; gap: 4px; }
+
+/* Modules */
+.module { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 26px; padding: 36px 0; border-bottom: 1px solid var(--line); }
+.module:last-child { border-bottom: 0; }
+.code-id { font-family: var(--font-mono); font-size: 13px; color: var(--mist); display: grid; gap: 6px; align-content: start; }
+.code-id strong { font-family: var(--font-display); font-size: 40px; line-height: 1; font-weight: 600; color: var(--ice); font-variant-numeric: tabular-nums; }
+.code-id strong i { font-style: normal; color: var(--pink); }
+.mbody { display: grid; gap: 18px; min-width: 0; }
+.mtitle { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.chip { font-family: var(--font-mono); font-size: 12px; color: var(--mist); text-decoration: none; border: 1px solid var(--line); padding: 2px 9px; white-space: nowrap; }
+a.chip:hover { border-color: var(--pink); color: var(--ice); }
+.chip.new { color: var(--blue); border-color: rgba(47,128,255,.45); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.cols h4, .task h4 { margin: 0 0 10px; font-family: var(--font-mono); font-weight: 400; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--mist); }
+.cols ol, .cols ul { margin: 0; padding-left: 20px; display: grid; gap: 7px; }
+.cols li::marker { color: var(--blue); }
+.task { background: linear-gradient(135deg, rgba(245,9,83,.10), rgba(47,128,255,.06)); border: 1px solid rgba(245,9,83,.35); padding: 18px 20px; display: grid; gap: 8px; align-content: start; }
+.task h4 { color: var(--pink); margin: 0; }
+.note { font-size: 14px; color: var(--mist); padding-left: 14px; border-left: 2px solid var(--blue); }
+.note b { color: var(--ice); }
+.note.alert { border-left-color: var(--pink); }
+kbd, code { font-family: var(--font-mono); font-size: 13px; background: rgba(47,128,255,.10); border: 1px solid var(--line); padding: 1px 6px; color: var(--ice); }
+
+/* Tree + flow */
+.tree { background: #00101f; border: 1px solid var(--line); padding: 20px 22px; overflow-x: auto; }
+.tree pre { margin: 0; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.75; color: #cfe0f4; }
+.tree .c { color: var(--mist); }
+.tree .f { color: var(--blue); }
+.tree .k { color: var(--pink); }
+.flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line); }
+.flow div { padding: 16px; border-right: 1px solid var(--line); display: grid; gap: 4px; align-content: start; position: relative; background: var(--panel); }
+.flow div:last-child { border-right: 0; }
+.flow div:not(:last-child)::after { content: ""; position: absolute; right: -6px; top: 22px; width: 10px; height: 10px; background: var(--void); border-top: 1px solid var(--blue); border-right: 1px solid var(--blue); transform: rotate(45deg); z-index: 1; }
+.flow b { font-family: var(--font-mono); font-size: 12px; color: var(--blue); font-weight: 400; }
+.flow strong { font-family: var(--font-display); font-weight: 600; font-size: 15px; }
+.flow span { font-size: 13px; color: var(--mist); line-height: 1.5; }
+.glossary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.glossary div { background: var(--panel); padding: 16px 18px; display: grid; gap: 4px; align-content: start; }
+.glossary dt { font-family: var(--font-mono); color: var(--pink); font-size: 13px; }
+.glossary dd { margin: 0; font-size: 14px; color: var(--mist); }
+
+/* Prompts */
+.prompts { display: grid; gap: 14px; }
+.prompt { background: #00101f; border: 1px solid var(--line); }
+.prompt .pl { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px 10px 18px; border-bottom: 1px solid var(--line); }
+.prompt .pl .mono { color: var(--mist); }
+.prompt pre { margin: 0; padding: 16px 18px; white-space: pre-wrap; font-family: var(--font-mono); font-size: 13.5px; line-height: 1.6; color: #d6e4f5; }
+button.copy { font: 600 13px var(--font-body); background: var(--pink); color: #fff; border: 0; padding: 6px 14px; cursor: pointer; }
+button.copy:hover { background: #ff2a6c; }
+
+/* Agenda */
+.tablebox { overflow-x: auto; border: 1px solid var(--line); }
+table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 640px; }
+th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { font-family: var(--font-mono); font-weight: 400; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--mist); background: var(--panel); }
+tr.block th { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--ice); background: rgba(245,9,83,.08); letter-spacing: 0; text-transform: none; }
+td:first-child { font-family: var(--font-mono); font-size: 13px; color: var(--blue); white-space: nowrap; font-variant-numeric: tabular-nums; }
+td:last-child { color: var(--mist); }
+
+/* Cuidados */
+.crit { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.crit div { background: var(--panel); padding: 20px; display: grid; gap: 8px; align-content: start; }
+.crit .mono { color: var(--pink); }
+.crit h3 { font-size: 16px; }
+.crit p { font-size: 14px; color: var(--mist); }
+
+.check { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 28px; }
+.check li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; }
+.check li::before { content: ""; width: 14px; height: 14px; border: 1.5px solid var(--blue); margin-top: 5px; }
+
+footer { border-top: 1px solid var(--line); padding: 28px 0 44px; font-size: 13px; color: var(--mist); background: var(--void); }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 960px) {
+  .shell { grid-template-columns: 1fr; gap: 40px; }
+  nav.toc { position: static; grid-template-columns: 1fr 1fr; }
+  .crit, .glossary { grid-template-columns: 1fr 1fr; }
+  .flow { grid-template-columns: 1fr; }
+  .flow div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .flow div:not(:last-child)::after { right: auto; left: 22px; top: auto; bottom: -6px; transform: rotate(135deg); }
+}
+@media (max-width: 640px) {
+  .modes, .cols, .crit, .glossary, .check, nav.toc { grid-template-columns: 1fr; }
+  .module { grid-template-columns: 1fr; gap: 12px; }
+  .code-id { grid-auto-flow: column; justify-content: start; align-items: baseline; gap: 12px; }
+  .code-id strong { font-size: 30px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .hero-art::after { background: linear-gradient(0deg, var(--void) 10%, rgba(0,13,28,.88) 60%, rgba(0,13,28,.55) 100%); }
+  .topbar { margin-bottom: 48px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-art" role="img" aria-label="Rede de painéis de vidro conectados a um núcleo, em rosa e azul"><canvas id="art"></canvas></div>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="logo">zinga</div>
+      <span class="mono">Manual interno · IA aplicada · v1.1 · out/2026</span>
+    </div>
+    <p class="mono kicker">Programa de capacitação</p>
+    <h1>Como a Zinga trabalha com <em>Claude</em></h1>
+    <p class="lede">O passo a passo para a equipe sair do chat avulso e trabalhar com método: pastas organizadas, projetos com memória, tarefas rodando em paralelo, versionamento no GitHub e entregas na identidade da marca.</p>
+    <div class="stats">
+      <div><strong>15</strong><small>módulos práticos</small></div>
+      <div><strong>3<span>×</span>90</strong><small>minutos de aula</small></div>
+      <div><strong>5</strong><small>prompts prontos</small></div>
+      <div><strong>0</strong><small>linhas de código exigidas</small></div>
+    </div>
+    <p class="src">Parte B baseada no vídeo <a href="https://www.youtube.com/watch?v=gNC3Tyhr0P8">“Novo Claude: projetos, threads e sessões aninhadas na prática”</a> (Eli Rigobeli, 30/10/2026). A parte A foi escrita para a rotina da Zinga e não está no vídeo.</p>
+  </div>
+</header>
+
+<div class="wrap shell">
+  <nav class="toc" aria-label="Índice">
+    <div>
+      <span class="mono">Início</span>
+      <ol><li><a href="#mapa"><b>00</b>Mapa do app</a></li></ol>
+    </div>
+    <div>
+      <span class="mono">A · Fundação</span>
+      <ol>
+        <li><a href="#a1"><b>A1</b>Pastas no computador</a></li>
+        <li><a href="#a2"><b>A2</b>CLAUDE.md</a></li>
+        <li><a href="#a3"><b>A3</b>Git e GitHub</a></li>
+        <li><a href="#a4"><b>A4</b>Permissões e plano</a></li>
+        <li><a href="#a5"><b>A5</b>Comandos e skills</a></li>
+      </ol>
+    </div>
+    <div>
+      <span class="mono">B · Recursos</span>
+      <ol>
+        <li><a href="#b1"><b>B1</b>Organizar conversas</a></li>
+        <li><a href="#b2"><b>B2</b>Barra de sessões</a></li>
+        <li><a href="#b3"><b>B3</b>Sessões aninhadas</a></li>
+        <li><a href="#b4"><b>B4</b>Sessão mestre</a></li>
+        <li><a href="#b5"><b>B5</b>Projetos e threads</a></li>
+        <li><a href="#b6"><b>B6</b>Conectores e MCP</a></li>
+        <li><a href="#b7"><b>B7</b>Chat lateral</a></li>
+        <li><a href="#b8"><b>B8</b>Artefatos</a></li>
+        <li><a href="#b9"><b>B9</b>Mods</a></li>
+        <li><a href="#b10"><b>B10</b>Tela dividida</a></li>
+      </ol>
+    </div>
+    <div>
+      <span class="mono">Aplicação</span>
+      <ol>
+        <li><a href="#aula"><b>→</b>Roteiro das aulas</a></li>
+        <li><a href="#prompts"><b>→</b>Prompts prontos</a></li>
+        <li><a href="#cuidados"><b>!</b>Cuidados</a></li>
+        <li><a href="#checklist"><b>✓</b>Checklist final</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- 00 MAPA -->
+    <section id="mapa">
+      <div class="sechead">
+        <span class="mono">00 · Orientação</span>
+        <h2>O mapa do app em um minuto</h2>
+        <p class="muted">O app tem três modos (Chat, Cowork e Code) organizados em duas abas. Entender essa divisão acaba com a pergunta “onde eu coloco essa tarefa?”.</p>
+      </div>
+      <div class="modes">
+        <div class="mode">
+          <span class="mono">Aba Início</span>
+          <h3>Chat e Cowork viraram uma coisa só</h3>
+          <p class="muted">A Anthropic juntou os dois porque as pessoas não sabiam onde colocar cada tarefa e o que começava num não continuava no outro. O Claude decide sozinho se é pergunta rápida ou trabalho longo.</p>
+          <ul><li>Texto, pesquisa, planilhas e documentos</li><li>Dashboards, apresentações e designs</li><li>Conectores como Drive e Calendar</li></ul>
+        </div>
+        <div class="mode code">
+          <span class="mono">Aba Code</span>
+          <h3>Claude Code: onde o trabalho estruturado roda</h3>
+          <p class="muted">Nasceu para programadores e virou ferramenta para tudo. Trabalha dentro de uma pasta do computador ou de um repositório no GitHub, e é onde ficam projetos com threads, sessões aninhadas e mods.</p>
+          <ul><li>Projetos contínuos por cliente</li><li>Tarefas em paralelo e subagentes</li><li>Sites, landing pages e automações</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTE A -->
+    <section id="fundacao">
+      <div class="part">
+        <div class="letter">A</div>
+        <span class="mono">Parte A · Fundação</span>
+        <h2>Antes dos recursos novos, o método</h2>
+        <p>Sem pasta organizada, instrução de projeto e histórico de versões, qualquer recurso novo vira bagunça mais rápida. Estes cinco módulos não estão no vídeo e são a base do jeito Zinga de trabalhar.</p>
+      </div>
+
+      <article class="module" id="a1">
+        <div class="code-id"><strong>A<i>1</i></strong>fundação</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Estrutura de pastas no computador</h3><span class="chip new">padrão Zinga</span></div>
+          <p>O Claude Code trabalha dentro de uma pasta: tudo que ele lê, cria e altera fica ali. Por isso a regra número um é <b>um cliente, uma pasta, um repositório</b>. Pasta organizada também significa contexto limpo: o Claude não perde tempo lendo arquivo de outro job.</p>
+          <div class="tree"><pre><span class="f">Zinga/</span>
+├── <span class="f">_modelos/</span>                  <span class="c"># CLAUDE.md modelo, design system, templates</span>
+└── <span class="f">clientes/</span>
+    └── <span class="f">nome-do-cliente/</span>         <span class="c"># 1 cliente = 1 pasta = 1 repositório</span>
+        ├── <span class="k">CLAUDE.md</span>             <span class="c"># instruções que o Claude lê sempre (A2)</span>
+        ├── <span class="k">.gitignore</span>            <span class="c"># o que NÃO vai pro GitHub (A3)</span>
+        ├── <span class="f">01-briefing/</span>          <span class="c"># briefing, atas, contratos de escopo</span>
+        ├── <span class="f">02-referencias/</span>       <span class="c"># marca, concorrentes, moodboard</span>
+        ├── <span class="f">03-producao/</span>          <span class="c"># roteiros, copies, código, rascunhos</span>
+        └── <span class="f">04-entregas/</span>
+            └── <span class="f">2026-11-04-campanha-black/</span></pre></div>
+          <div class="cols">
+            <div><h4>Regras de nomes</h4><ul>
+              <li>Minúsculas, sem acento, palavras separadas por hífen.</li>
+              <li>Datas no formato <code>AAAA-MM-DD</code> para ordenar sozinho.</li>
+              <li>Prefixo numérico nas pastas fixas (01, 02...) para manter a ordem.</li>
+              <li>Nada de “final-final-v3”: versão é trabalho do Git.</li>
+            </ul></div>
+            <div class="task"><h4>Exercício</h4><p>Cada pessoa cria a estrutura para um cliente real, abre o Claude Code nessa pasta e pede: “Leia o briefing em 01-briefing e me diga o que está faltando para começar”.</p></div>
+          </div>
+          <p class="note alert"><b>Nunca abra o Claude Code na pasta do usuário inteira ou na Área de Trabalho.</b> Ele passa a enxergar tudo, inclusive arquivos pessoais e de outros clientes. Abra sempre na pasta do cliente.</p>
+        </div>
+      </article>
+
+      <article class="module" id="a2">
+        <div class="code-id"><strong>A<i>2</i></strong>fundação</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>CLAUDE.md: a memória fixa de cada projeto</h3><span class="chip new">padrão Zinga</span></div>
+          <p>É um arquivo de texto na raiz da pasta que o Claude Code lê automaticamente toda vez que começa a trabalhar ali. Ele substitui o “deixa eu te explicar o cliente de novo” em toda conversa. Existe em dois níveis: o da pasta do projeto (vai para o GitHub e vale para a equipe toda) e o pessoal, em <code>~/.claude/CLAUDE.md</code>, que vale para todas as suas pastas.</p>
+          <div class="cols">
+            <div><h4>O que colocar</h4><ul>
+              <li>Quem é o cliente, público e tom de voz.</li>
+              <li>Cores, fontes e o que é proibido na marca.</li>
+              <li>Onde fica cada coisa na estrutura de pastas.</li>
+              <li>Como entregar: formatos, tamanhos, nomes de arquivo.</li>
+              <li>O que o Claude deve checar antes de mostrar qualquer coisa.</li>
+            </ul></div>
+            <div><h4>Como criar</h4><ol>
+              <li>Dentro da pasta, rode <code>/init</code>: o Claude lê os arquivos e escreve um primeiro CLAUDE.md.</li>
+              <li>Revise e complete com o que só a equipe sabe.</li>
+              <li>Quando o Claude errar algo recorrente, peça: “adicione essa regra no CLAUDE.md”.</li>
+            </ol></div>
+          </div>
+          <p class="note"><b>Exemplo real:</b> o repositório de motion da Zinga já tem um CLAUDE.md com contrato de render, padrões visuais proibidos, regras de som e um loop de autoavaliação antes de mostrar qualquer coisa. É esse o nível de detalhe que funciona. Há um modelo pronto na seção Prompts.</p>
+        </div>
+      </article>
+
+      <article class="module" id="a3">
+        <div class="code-id"><strong>A<i>3</i></strong>fundação</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Git e GitHub sem precisar ser dev</h3><span class="chip new">padrão Zinga</span></div>
+          <p>Git é o histórico de versões da pasta: cada alteração vira um ponto salvo que dá para comparar e desfazer. GitHub é onde esse histórico fica guardado na nuvem e compartilhado com a equipe. Para nós ele importa por três motivos: as threads de projeto só continuam rodando na nuvem se o projeto estiver no GitHub, ninguém mais perde trabalho, e toda entrega tem rastro de quem mudou o quê.</p>
+          <div class="flow">
+            <div><b>01</b><strong>Pasta</strong><span>Você e o Claude trabalham nos arquivos do cliente.</span></div>
+            <div><b>02</b><strong>Commit</strong><span>Um ponto salvo com descrição: “ajusta copy da landing”.</span></div>
+            <div><b>03</b><strong>Branch</strong><span>Uma cópia paralela para cada tarefa, sem mexer na versão oficial.</span></div>
+            <div><b>04</b><strong>Push</strong><span>Envia os commits para o GitHub.</span></div>
+            <div><b>05</b><strong>Pull request</strong><span>Pedido de revisão. Alguém aprova e a mudança entra na versão oficial.</span></div>
+          </div>
+          <div class="cols">
+            <div><h4>Configuração única (uma vez por pessoa)</h4><ol>
+              <li>Criar conta no GitHub com o e-mail da Zinga e pedir convite para a organização.</li>
+              <li>Instalar o GitHub Desktop, que faz tudo com botões.</li>
+              <li>No Claude Code na web, conectar a conta do GitHub e instalar o app do Claude nos repositórios da Zinga.</li>
+              <li>Criar um repositório por cliente, privado, com o mesmo nome da pasta.</li>
+            </ol></div>
+            <div><h4>No dia a dia, peça ao Claude</h4><ul>
+              <li>“Crie uma branch para essa tarefa.”</li>
+              <li>“Faça commit do que mudou com uma descrição clara.”</li>
+              <li>“Envie para o GitHub e abra um pull request.”</li>
+              <li>“O que mudou desde ontem?” ou “Volte esse arquivo para a versão de segunda.”</li>
+            </ul></div>
+          </div>
+          <dl class="glossary">
+            <div><dt>.gitignore</dt><dd>Lista do que não sobe: senhas, arquivos <code>.env</code>, vídeos brutos, exportações pesadas.</dd></div>
+            <div><dt>limite de 100 MB</dt><dd>O GitHub bloqueia arquivos maiores que isso. Vídeo e PSD pesado ficam no Drive, com o link anotado no CLAUDE.md.</dd></div>
+            <div><dt>main</dt><dd>A versão oficial do projeto. Ninguém trabalha direto nela.</dd></div>
+          </dl>
+          <p class="note alert"><b>Senha e token nunca vão para o GitHub</b>, nem em repositório privado. Se subiu por engano, troque a senha na hora: apagar o arquivo não apaga o histórico.</p>
+        </div>
+      </article>
+
+      <article class="module" id="a4">
+        <div class="code-id"><strong>A<i>4</i></strong>fundação</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Permissões e modo plano</h3><span class="chip new">padrão Zinga</span></div>
+          <p>O Claude Code pede autorização antes de editar arquivos ou rodar comandos. Dá para afrouxar isso, e é aí que mora o risco. O modo plano é o contrário: ele pesquisa e propõe um plano sem mexer em nada até você aprovar.</p>
+          <div class="cols">
+            <div><h4>Os modos</h4><ul>
+              <li><b>Padrão:</b> pede aprovação a cada ação. Use enquanto aprende.</li>
+              <li><b>Aceitar edições:</b> edita arquivos sem perguntar. Bom em pasta versionada no Git, onde tudo pode ser desfeito.</li>
+              <li><b>Plano:</b> só lê e propõe. Use em toda tarefa grande ou nova.</li>
+            </ul><p class="muted" style="margin-top:10px">No app, troque pelo seletor de modo. No terminal, <kbd>Shift</kbd> + <kbd>Tab</kbd> alterna entre eles.</p></div>
+            <div class="task"><h4>Exercício</h4><p>Em modo plano, peça: “Planeje uma landing page para este cliente usando o briefing”. Discuta o plano em grupo, ajuste e só então aprove a execução.</p></div>
+          </div>
+          <p class="note"><b>Regra da casa:</b> “aceitar tudo” só em pasta com Git. Sem Git, um erro do Claude pode sobrescrever trabalho sem volta.</p>
+        </div>
+      </article>
+
+      <article class="module" id="a5">
+        <div class="code-id"><strong>A<i>5</i></strong>fundação</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Comandos essenciais e skills</h3><span class="chip new">padrão Zinga</span></div>
+          <p>Comandos começam com barra e controlam a sessão. Skills são pacotes de instrução reutilizáveis: em vez de colar o mesmo prompt gigante toda vez, a skill ensina o Claude a fazer aquilo do jeito da casa.</p>
+          <dl class="glossary">
+            <div><dt>/init</dt><dd>Cria o CLAUDE.md da pasta.</dd></div>
+            <div><dt>/context</dt><dd>Mostra quanto do contexto já foi usado.</dd></div>
+            <div><dt>/compact</dt><dd>Resume a conversa para liberar espaço.</dd></div>
+            <div><dt>/clear</dt><dd>Começa do zero na mesma pasta. Use ao trocar de tarefa.</dd></div>
+            <div><dt>/btw</dt><dd>Pergunta rápida que não entra na conversa principal.</dd></div>
+            <div><dt>Esc Esc</dt><dd>Volta a conversa e os arquivos para um ponto anterior.</dd></div>
+          </dl>
+          <div class="cols">
+            <div><h4>Skills que a Zinga já tem</h4><ul>
+              <li><b>zinga-visual-identity:</b> paleta, estilos de post e prompts de imagem na marca.</li>
+              <li><b>zinga-motion</b> e <b>motion-reel:</b> vídeos e motion a partir de briefing.</li>
+              <li><b>metodo-olivetto:</b> conceitos, bordões e roteiros de campanha.</li>
+            </ul></div>
+            <div class="task"><h4>Exercício</h4><p>Pedir um post para um cliente fictício sem citar a skill e depois citando “use a skill zinga-visual-identity”. Comparar os dois resultados em grupo.</p></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- PARTE B -->
+    <section id="recursos">
+      <div class="part">
+        <div class="letter">B</div>
+        <span class="mono">Parte B · Recursos do novo Claude</span>
+        <h2>Os 10 recursos mostrados no vídeo</h2>
+        <p>Cada módulo traz o que ensinar, como fazer na tela e um exercício. O selo com horário leva direto ao trecho do vídeo.</p>
+      </div>
+
+      <article class="module" id="b1">
+        <div class="code-id"><strong>B<i>1</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Organizar conversas em sessões</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=251s">▶ 4:11</a></div>
+          <p>As sessões funcionam como pastas na lista lateral: você agrupa conversas por cliente ou job e para de caçar aquela conversa importante.</p>
+          <div class="cols">
+            <div><h4>Como fazer</h4><ol>
+              <li>Clique com o botão direito na lista lateral.</li>
+              <li>Escolha <b>Nova sessão</b> (a segunda opção, não “nova conversa”).</li>
+              <li>Dê um nome, clique em Criar e arraste as conversas para dentro.</li>
+            </ol></div>
+            <div class="task"><h4>Exercício</h4><p>Criar uma sessão por cliente atendido, com o nome igual ao da pasta do A1, e arrastar pelo menos três conversas antigas.</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="module" id="b2">
+        <div class="code-id"><strong>B<i>2</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Barra de sessões: o painel de controle</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=128s">▶ 2:08</a></div>
+          <div class="cols">
+            <div><h4>Os quatro itens</h4><ul>
+              <li><b>Ambiente:</b> onde a tarefa roda, no seu computador ou na nuvem. Aqui liga o <b>Remote Control</b> para acompanhar pelo celular com o PC ligado.</li>
+              <li><b>Contexto:</b> uso da memória da conversa (até 1 milhão de tokens), separado por mensagens, ferramentas, MCP e skills. Quando enche, aparece o botão de compactar.</li>
+              <li><b>Conectores:</b> apps ligados ao Claude.</li>
+              <li><b>Saídas:</b> tudo que foi gerado na conversa.</li>
+            </ul></div>
+            <div class="task"><h4>Exercício</h4><p>Pedir um dashboard simples e mostrar para a turma o contexto subindo e o resultado aparecendo em Saídas.</p><p class="muted">Configurações → Claude Code → Remote Control → “conectar novas sessões” deixa todas disponíveis no celular.</p></div>
+          </div>
+          <p class="note"><b>Antes de compactar,</b> peça ao Claude para registrar as decisões importantes no CLAUDE.md. O resumo perde detalhes.</p>
+        </div>
+      </article>
+
+      <article class="module" id="b3">
+        <div class="code-id"><strong>B<i>3</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Sessões aninhadas: tarefas em paralelo</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=290s">▶ 4:50</a></div>
+          <p>Você pede várias tarefas de uma vez e o Claude abre uma conversa separada para cada uma, embaixo da principal. Cada uma faz só a sua parte e devolve o resultado, sem lotar o contexto da principal.</p>
+          <div class="cols">
+            <div><h4>A diferença que a equipe precisa entender</h4><ul>
+              <li><b>Sessão aninhada</b> é uma conversa de verdade: você entra, acompanha e dá direção.</li>
+              <li><b>Subagente</b> é um ajudante que roda e some. Cada aninhada pode chamar os seus (três pontinhos → Tarefa em segundo plano).</li>
+              <li>Fechar a principal fecha todas as aninhadas.</li>
+            </ul></div>
+            <div class="task"><h4>Exercício</h4><p>Landing page fictícia com quatro sessões em paralelo: front-end, back-end, pesquisa e revisão. Depois, entrar na de pesquisa e pedir um ajuste sem mexer nas outras.</p></div>
+          </div>
+          <p class="note">Liberação gradual: se não aparecer para alguém, não é erro da pessoa.</p>
+        </div>
+      </article>
+
+      <article class="module" id="b4">
+        <div class="code-id"><strong>B<i>4</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Sessão mestre</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=464s">▶ 7:44</a></div>
+          <p>Uma conversa fixada no topo que olha o final das outras e avisa o que está parado esperando decisão sua. É o gerente de tráfego das suas tarefas.</p>
+          <div class="cols">
+            <div><h4>Como fazer</h4><ol>
+              <li>Crie uma conversa e fixe no topo.</li>
+              <li>Mande: “Você é minha sessão mestre. Quais conversas estão esperando uma decisão minha?”</li>
+              <li>Use na abertura e no fechamento do dia.</li>
+            </ol></div>
+            <div class="task"><h4>Exercício</h4><p>Após o B3, cada um cria sua mestre e pergunta o status das sessões da landing page.</p></div>
+          </div>
+          <p class="note">Limite: ela vê as 20 sessões mais recentes e não enxerga sessões na nuvem.</p>
+        </div>
+      </article>
+
+      <article class="module" id="b5">
+        <div class="code-id"><strong>B<i>5</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Projetos com threads</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=509s">▶ 8:29</a><span class="chip">beta</span></div>
+          <p>Antes, projeto era uma pasta. Agora é uma conversa contínua que coordena o trabalho e abre threads para cada frente. Cada thread conhece os repositórios, as instruções e o histórico. Você fecha o notebook e as threads continuam na nuvem.</p>
+          <div class="cols">
+            <div><h4>Como fazer</h4><ol>
+              <li>Aba Code → Projetos (beta) → Começar. Atualize ou arquive os antigos.</li>
+              <li>Crie o projeto com o nome do cliente, ligue o repositório do A3 e arraste o briefing.</li>
+              <li>No primeiro prompt, mande guardar na <b>memória do projeto</b> tom, cores e público.</li>
+              <li>Peça as frentes como threads paralelas que trocam informação entre si.</li>
+              <li>Acompanhe pelo ícone <b>Visão geral</b>.</li>
+            </ol></div>
+            <div class="task"><h4>Exercício principal</h4><p>Projeto de cliente fictício com três threads: site, conteúdo e plano de lançamento no Instagram (8 ideias de posts com calendário). Prompt pronto na seção Prompts.</p></div>
+          </div>
+          <p class="note alert"><b>Pré-requisito:</b> para rodar na nuvem, o projeto precisa estar no GitHub. Sem isso, as threads usam a pasta local e param quando o computador desliga. É por isso que o A3 vem antes.</p>
+        </div>
+      </article>
+
+      <article class="module" id="b6">
+        <div class="code-id"><strong>B<i>6</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Conectores e MCP</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=803s">▶ 13:23</a></div>
+          <p>Conector (MCP) é a ponte entre o Claude e outro app. No vídeo, o Higgsfield gera o logo de dentro de uma thread. Para a Zinga, os mais úteis são Google Drive, Calendar e as plataformas de imagem e vídeo como o Magnific.</p>
+          <div class="cols">
+            <div><h4>Como fazer</h4><ol>
+              <li>No site da ferramenta, procure a opção MCP e copie a URL ou clique em conectar.</li>
+              <li>No Claude, adicione o conector e vincule a conta.</li>
+              <li>Thread travada com ferramenta bloqueada: Conectores → app → mude para <b>Requer aprovação</b>.</li>
+              <li>Volte na thread e responda para ela seguir.</li>
+            </ol></div>
+            <div class="task"><h4>Exercício</h4><p>Conectar o Google Drive e pedir um resumo de um briefing que está lá.</p></div>
+          </div>
+          <p class="note">O trecho do Higgsfield é patrocinado. A ferramenta cobra por crédito (o exemplo de vídeo e imagens custou 141). Comparem custo com o que já usamos antes de adotar.</p>
+        </div>
+      </article>
+
+      <article class="module" id="b7">
+        <div class="code-id"><strong>B<i>7</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Chat lateral</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=948s">▶ 15:48</a></div>
+          <p>O Claude está no meio de uma tarefa e você quer perguntar algo sem atrapalhar. O chat lateral abre uma cópia separada: sabe tudo da conversa, mas o que você pergunta ali não entra na principal.</p>
+          <div class="cols">
+            <div><h4>Como abrir</h4><ul>
+              <li>Três pontinhos → Chat lateral.</li>
+              <li><kbd>Ctrl</kbd> + <kbd>;</kbd> no Windows, <kbd>⌘</kbd> + <kbd>;</kbd> no Mac.</li>
+              <li>Alternativa: <code>/btw</code>.</li>
+            </ul></div>
+            <div class="task"><h4>Exercício</h4><p>Com a landing rodando, abrir o chat lateral e perguntar: “O que ainda está quebrado nesse projeto?”</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="module" id="b8">
+        <div class="code-id"><strong>B<i>8</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Artefatos: o que a gente entrega</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=1014s">▶ 16:54</a></div>
+          <p>Artefato é a entrega pronta que abre num link. Quatro tipos hoje: documento, apresentação, design e painel. Todos aceitam compartilhamento e comentários.</p>
+          <div class="cols">
+            <div><h4>O que ensinar</h4><ul>
+              <li><b>Painel com dado vivo:</b> com o Drive conectado, peça um dashboard que “atualize conforme a planilha muda”.</li>
+              <li><b>Design system:</b> três pontinhos → ver design systems → novo. Suba logo e cores, ou vincule o repositório do site.</li>
+              <li><b>Apresentação:</b> edita, cria slides e apresenta com notas, cronômetro e próximo slide.</li>
+              <li><b>Comentários:</b> marque um trecho e envie para o Claude resolver.</li>
+            </ul></div>
+            <div class="task"><h4>Exercício</h4><p>Criar o design system da Zinga (navy, rosa, logo) e gerar uma apresentação de case com cinco slides usando ele. Cada pessoa deixa um comentário pedindo uma alteração.</p></div>
+          </div>
+          <p class="note">Ainda não existe artefato do tipo site com domínio próprio. Landing de cliente continua sendo publicada em hospedagem externa, a partir do repositório.</p>
+        </div>
+      </article>
+
+      <article class="module" id="b9">
+        <div class="code-id"><strong>B<i>9</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Mods</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=1270s">▶ 21:10</a></div>
+          <p>Mod muda a aparência e o comportamento do Claude Code: painel de progresso, comando novo, até um jogo enquanto ele trabalha. Você cria só descrevendo em português.</p>
+          <div class="cols">
+            <div><h4>Como fazer</h4><ol>
+              <li>Descreva o que mostra, quando aparece, cores e posição.</li>
+              <li>Ative numa sessão nova quando ele perguntar.</li>
+              <li>Chame pelo comando que ele definir.</li>
+            </ol></div>
+            <div class="task"><h4>Exercício (demonstração)</h4><p>Criar um painel discreto nas cores da Zinga que lista cada ação do Claude e o tempo total.</p></div>
+          </div>
+          <p class="note alert"><b>Mod é código que roda no seu computador.</b> Nada de instalar mod baixado da internet sem revisão. Criem os seus.</p>
+        </div>
+      </article>
+
+      <article class="module" id="b10">
+        <div class="code-id"><strong>B<i>10</i></strong>recurso</div>
+        <div class="mbody">
+          <div class="mtitle"><h3>Vários chats na mesma tela</h3><a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=1388s">▶ 23:08</a></div>
+          <p>Arraste conversas para os lados ou use “Mover visualização dividida”. Combinado com sessões aninhadas, você vê todas as frentes do projeto ao mesmo tempo.</p>
+          <div class="task"><h4>Exercício</h4><p>Abrir lado a lado a conversa principal e as quatro aninhadas do B3.</p></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- AULA -->
+    <section id="aula">
+      <div class="sechead">
+        <span class="mono">Aplicação · Para quem conduz</span>
+        <h2>Roteiro em três encontros</h2>
+        <p class="muted">Não passe tudo de uma vez. Quem sai do primeiro encontro com a própria pasta e o próprio repositório funcionando volta pro segundo pronto para os recursos avançados.</p>
+      </div>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Minutos</th><th>Conteúdo</th><th>Resultado esperado</th></tr></thead>
+          <tbody>
+            <tr class="block"><th colspan="3">Encontro 1 · Fundação</th></tr>
+            <tr><td>00–10</td><td>Mapa do app: Início e Code</td><td>Todos sabem em que aba trabalhar</td></tr>
+            <tr><td>10–30</td><td>A1 e A2: estrutura de pastas e CLAUDE.md com <code>/init</code></td><td>Uma pasta de cliente com CLAUDE.md revisado</td></tr>
+            <tr><td>30–65</td><td>A3: GitHub Desktop, primeiro repositório, commit, branch e pull request pedidos ao Claude</td><td>Repositório privado do cliente no GitHub</td></tr>
+            <tr><td>65–85</td><td>A4 e A5: modo plano, comandos e skills da Zinga</td><td>Primeiro plano aprovado em grupo</td></tr>
+            <tr><td>85–90</td><td>Tarefa: migrar mais um cliente para o padrão</td><td></td></tr>
+            <tr class="block"><th colspan="3">Encontro 2 · Trabalho em paralelo</th></tr>
+            <tr><td>00–15</td><td>B1 e B2: sessões e barra de controle</td><td>Conversas organizadas por cliente</td></tr>
+            <tr><td>15–45</td><td>B3, B4 e B10: aninhadas, subagentes, sessão mestre, tela dividida</td><td>Landing fictícia feita em paralelo</td></tr>
+            <tr><td>45–85</td><td>B5: projeto com três threads ligado ao repositório</td><td>Projeto com memória de marca e plano de Instagram</td></tr>
+            <tr><td>85–90</td><td>Tarefa: repetir com um job real</td><td></td></tr>
+            <tr class="block"><th colspan="3">Encontro 3 · Entrega</th></tr>
+            <tr><td>00–15</td><td>Revisão das tarefas na tela dividida</td><td>Erros comuns corrigidos em grupo</td></tr>
+            <tr><td>15–35</td><td>B6 e B7: conectores, permissões e chat lateral</td><td>Drive conectado em todas as contas</td></tr>
+            <tr><td>35–75</td><td>B8: design system Zinga, painel com planilha viva e apresentação</td><td>Apresentação de case na marca</td></tr>
+            <tr><td>75–90</td><td>B9 como demonstração e regras de segurança</td><td>Equipe sabe o que pode e não pode instalar</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PROMPTS -->
+    <section id="prompts">
+      <div class="sechead">
+        <span class="mono">Aplicação · Copiar e colar</span>
+        <h2>Prompts prontos</h2>
+        <p class="muted">Troque o que estiver entre colchetes.</p>
+      </div>
+      <div class="prompts">
+        <div class="prompt"><div class="pl"><span class="mono">A2 · Modelo de CLAUDE.md</span><button class="copy" type="button">Copiar</button></div><pre># [Nome do cliente]
+
+## Quem é
+[O que a empresa faz, em 2 linhas.] Público: [quem compra]. Tom: [ex.: próximo, direto, sem jargão].
+
+## Marca
+- Cores: [hex principal], [hex destaque]. Fontes: [título] e [texto].
+- Proibido: [ex.: gradiente roxo, banco de imagem genérico, promessas de resultado].
+
+## Pastas
+- 01-briefing: briefing e atas. Leia antes de qualquer tarefa.
+- 02-referencias: marca e concorrentes.
+- 03-producao: rascunhos. 04-entregas: só versão aprovada, com data no nome.
+
+## Como entregar
+- Formatos: [ex.: feed 1080x1350, stories 1080x1920].
+- Antes de me mostrar, confira marca, ortografia e se respondeu ao briefing.
+- Arquivos acima de 100 MB ficam no Drive: [link].</pre></div>
+
+        <div class="prompt"><div class="pl"><span class="mono">A3 · Primeiro repositório</span><button class="copy" type="button">Copiar</button></div><pre>Esta pasta é do cliente [nome]. Inicie o Git aqui, crie um .gitignore que exclua senhas, arquivos .env, vídeos e exportações acima de 50 MB, e faça o primeiro commit. Depois me explique, em linguagem simples, como enviar para um repositório privado chamado [nome-da-pasta] no GitHub da Zinga.</pre></div>
+
+        <div class="prompt"><div class="pl"><span class="mono">B3 · Tarefas em paralelo</span><button class="copy" type="button">Copiar</button></div><pre>Crie uma landing page simples para [cliente fictício] nesta pasta. Inicie uma sessão separada para cada tarefa abaixo, rodando em paralelo:
+1. Front-end: página em HTML e CSS.
+2. Back-end: servidor simples em Node para o formulário de contato.
+3. Pesquisa: os 10 diferenciais mais citados por concorrentes desse segmento no Brasil.
+4. Revisão e testes: quando as outras terminarem, teste tudo e me diga o que quebrou.</pre></div>
+
+        <div class="prompt"><div class="pl"><span class="mono">B5 · Projeto com threads</span><button class="copy" type="button">Copiar</button></div><pre>Este projeto é para lançar [nome do cliente], [o que ele faz]. Guarde na memória do projeto: o tom é [tom de voz], as cores da marca são [cores] e o público principal é [público].
+Abra três threads, uma para cada frente, trabalhando ao mesmo tempo: site, conteúdo e plano de lançamento no Instagram (8 ideias de posts com formato, legenda sugerida e calendário).
+Acompanhe as threads, passe para cada uma o que ela precisa da outra e me avise quando tudo estiver pronto, com um resumo do que foi entregue.</pre></div>
+
+        <div class="prompt"><div class="pl"><span class="mono">B8 · Painel com dado vivo</span><button class="copy" type="button">Copiar</button></div><pre>Gere um dashboard a partir dos dados da planilha "[nome exato no Drive]". Quero que ele atualize conforme os dados da planilha mudam. Destaque faturamento total, volume e evolução mês a mês.</pre></div>
+      </div>
+    </section>
+
+    <!-- CUIDADOS -->
+    <section id="cuidados">
+      <div class="sechead">
+        <span class="mono">Governança</span>
+        <h2>Cuidados antes de levar para a equipe</h2>
+      </div>
+      <div class="crit">
+        <div><span class="mono">Expectativa</span><h3>“Claude 3.0” é opinião</h3><p>O autor do vídeo aposta que Chat, Cowork e Code vão virar um app só. Não é anúncio da Anthropic. Ensinem o que existe hoje.</p></div>
+        <div><span class="mono">Disponibilidade</span><h3>Beta e diferenças por plano</h3><p>Projetos estão em beta, sessões aninhadas chegam aos poucos e a interface muda conforme o plano. Testem nas contas da equipe antes da aula.</p></div>
+        <div><span class="mono">LGPD</span><h3>Dado de cliente em conector</h3><p>Conectar o Drive dá acesso ao que estiver lá. Definam quais pastas podem ser usadas e evitem dados pessoais sem necessidade.</p></div>
+        <div><span class="mono">Compartilhamento</span><h3>Link aberto é público</h3><p>No vídeo, um plano foi liberado para “qualquer pessoa com o link”. Material de cliente se compartilha só com quem precisa.</p></div>
+        <div><span class="mono">Segurança</span><h3>Senhas fora do Git e mods revisados</h3><p>Token em repositório e mod de terceiros são as duas portas de entrada mais comuns para problema. As duas regras valem para todos.</p></div>
+        <div><span class="mono">Qualidade</span><h3>A IA erra, alguém revisa</h3><p>No próprio vídeo, o chat lateral aponta dois problemas graves num servidor que o Claude tinha acabado de fazer. Toda entrega passa por revisão humana.</p></div>
+      </div>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section id="checklist">
+      <div class="sechead">
+        <span class="mono">Certificação interna</span>
+        <h2>A pessoa está pronta quando consegue</h2>
+      </div>
+      <ul class="check">
+        <li>Montar a pasta de um cliente no padrão e escrever o CLAUDE.md.</li>
+        <li>Criar repositório privado, branch, commit e pull request pedindo ao Claude.</li>
+        <li>Usar o modo plano antes de qualquer tarefa grande.</li>
+        <li>Ler a barra de contexto e saber quando limpar ou compactar.</li>
+        <li>Rodar três tarefas em paralelo e intervir numa sem parar as outras.</li>
+        <li>Montar um projeto com memória de marca e threads que conversam.</li>
+        <li>Conectar o Drive e liberar uma ferramenta bloqueada sozinha.</li>
+        <li>Entregar um artefato na identidade Zinga com a permissão de acesso certa.</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="wrap"><span>zinga · manual interno de IA aplicada</span><span>Recursos em beta podem mudar de nome ou de lugar. Revisar a cada trimestre.</span></div>
+</footer>
+
+<script>
+document.querySelectorAll('button.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var text = btn.closest('.prompt').querySelector('pre').innerText;
+    var done = function (msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = 'Copiar'; }, 1600); };
+    try {
+      navigator.clipboard.writeText(text).then(function () { done('Copiado'); }, function () { done('Selecione e copie'); });
+    } catch (e) { done('Selecione e copie'); }
+  });
+});
+</script>
+
+<script>
+(function () {
+  var cv = document.getElementById('art'); if (!cv || !cv.getContext) return;
+  function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function draw() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), W = cv.clientWidth, H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr; var c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H);
+    var r = rng(20261031), hz = H * 0.58, vx = W * 0.72;
+    // piso em perspectiva
+    c.lineWidth = 1;
+    for (var i = -24; i <= 24; i++) { c.strokeStyle = 'rgba(47,128,255,' + (0.05 + 0.10 * (1 - Math.abs(i) / 24)) + ')'; c.beginPath(); c.moveTo(vx, hz); c.lineTo(vx + i * W * 0.09, H * 1.05); c.stroke(); }
+    for (var j = 1; j < 14; j++) { var y = hz + Math.pow(j / 14, 2.2) * (H - hz + 20); c.strokeStyle = 'rgba(47,128,255,' + (0.04 + j * 0.008) + ')'; c.beginPath(); c.moveTo(0, y); c.lineTo(W, y); c.stroke(); }
+    // núcleo
+    var cx = W * 0.74, cy = H * 0.42, R = Math.min(W, H) * 0.09;
+    var nodes = [];
+    for (var k = 0; k < 14; k++) {
+      var ang = -Math.PI * 0.95 + k / 13 * Math.PI * 1.9 + (r() - .5) * 0.25, dist = R * (2.2 + r() * 2.6);
+      nodes.push({ x: cx + Math.cos(ang) * dist * 1.5, y: cy + Math.sin(ang) * dist * 0.75, w: 40 + r() * 70, h: 26 + r() * 40, d: r() });
+    }
+    nodes.sort(function (a, b) { return a.d - b.d; });
+    nodes.forEach(function (n) {
+      var g = c.createLinearGradient(cx, cy, n.x, n.y); g.addColorStop(0, 'rgba(245,9,83,.55)'); g.addColorStop(1, 'rgba(47,128,255,.35)');
+      c.strokeStyle = g; c.beginPath(); c.moveTo(cx, cy); var mx = (cx + n.x) / 2; c.bezierCurveTo(mx, cy, mx, n.y, n.x, n.y); c.stroke();
+    });
+    nodes.forEach(function (n) {
+      var s = 0.6 + n.d * 0.7, w = n.w * s, h = n.h * s, x = n.x - w / 2, y = n.y - h / 2;
+      var pg = c.createLinearGradient(x, y, x + w, y + h); pg.addColorStop(0, 'rgba(234,241,250,.10)'); pg.addColorStop(1, 'rgba(47,128,255,.05)');
+      c.fillStyle = pg; c.fillRect(x, y, w, h);
+      c.strokeStyle = n.d > .6 ? 'rgba(245,9,83,.75)' : 'rgba(142,166,196,.45)'; c.strokeRect(x + .5, y + .5, w, h);
+      c.fillStyle = 'rgba(234,241,250,.35)'; for (var q = 0; q < 3; q++) c.fillRect(x + 6, y + 7 + q * 6 * s, (w - 12) * (0.4 + r() * 0.5), 1.5);
+    });
+    var cg = c.createRadialGradient(cx, cy, 0, cx, cy, R * 2.4); cg.addColorStop(0, 'rgba(245,9,83,.55)'); cg.addColorStop(.35, 'rgba(245,9,83,.12)'); cg.addColorStop(1, 'rgba(245,9,83,0)');
+    c.fillStyle = cg; c.beginPath(); c.arc(cx, cy, R * 2.4, 0, Math.PI * 2); c.fill();
+    c.save(); c.translate(cx, cy); c.rotate(Math.PI / 4); c.strokeStyle = '#f50953'; c.lineWidth = 1.5; c.strokeRect(-R * .5, -R * .5, R, R); c.strokeStyle = 'rgba(234,241,250,.7)'; c.strokeRect(-R * .28, -R * .28, R * .56, R * .56); c.restore();
+    // partículas
+    for (var p = 0; p < 140; p++) { var px = W * 0.35 + r() * W * 0.65, py = r() * H; c.fillStyle = r() > .5 ? 'rgba(245,9,83,' + (r() * .6) + ')' : 'rgba(47,128,255,' + (r() * .6) + ')'; c.fillRect(px, py, 1.5, 1.5); }
+  }
+  draw(); var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(draw, 120); });
+})();
+</script>
+</body>
+</html>
