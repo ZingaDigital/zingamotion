@@ -26,17 +26,17 @@ uma referência (quadro, vídeo ou pasta de imagens), música (arquivo ou "sinte
 Pergunte só o que bloqueia (produto/URL). Padrões quando o usuário não diz: 15 s, 9:16, trilha sintetizada a
 120 BPM, fundo neutro e quente, cores e fontes tiradas do site.
 
-## Montagem do projeto (uma vez)
+## Montagem do projeto (uma vez por projeto)
+Na pasta do projeto (no Cowork: a pasta que o usuário escolheu), rode o preparador da skill. `<skill>` é a pasta
+onde este SKILL.md está (`.claude/skills/motion-reel`, `~/.claude/skills/motion-reel` ou a do Cowork):
 ```bash
-SK=.claude/skills/motion-reel            # ou a pasta onde esta skill está instalada (~/.claude/skills, Cowork...)
-cp $SK/motor/* .                          # render.mjs sfx.mjs beats.py revisao.py emenda.py captura.mjs
-mkdir -p films docs out resultados && cp -r $SK/modelo films/<filme>
-cp $SK/docs-modelo/*.md docs/ && cat docs/regras-do-estudio.md >> CLAUDE.md
-npm i -D playwright                       # Chromium: use o do sistema se houver (PLAYWRIGHT_BROWSERS_PATH)
+node <skill>/motor/preparar.mjs <filme> --bpm 120 --duracao 15
 ```
-Fora da nuvem (computador, Cowork), confira uma vez: `node -v` (20+), `ffmpeg -version`, `python3 -c "import numpy, PIL"`.
-O que faltar: `npx playwright install chromium`, ffmpeg pelo gerenciador do sistema (brew, apt, winget),
-`pip install numpy pillow`. Sem ffmpeg não há render; diga isso ao usuário em vez de contornar.
+Ele confere Node 20+, ffmpeg, Python com numpy e Pillow, Playwright e Chromium; instala sozinho o que dá (npm, npx,
+pip); copia o motor para a raiz; cria `films/<filme>` a partir do modelo, `docs/` e as regras no `CLAUDE.md`; gera a
+grade de batidas e faz um render de teste de 2 quadros. Termina com "Pronto." ou com a lista do que falta e o comando
+de cada item. Sem ffmpeg não há render: diga isso ao usuário em vez de contornar. Só conferir: `--so-checar`.
+No Windows, troque `python3` por `python` nos comandos abaixo.
 
 ## Referências e entradas
 - Referência (link ou `./refs/`): `yt-dlp -o refs/ref.mp4 <link>`; quadros a cada 0,5 s com

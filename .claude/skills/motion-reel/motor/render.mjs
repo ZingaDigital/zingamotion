@@ -161,7 +161,7 @@ try {
     const wav = flag('no-audio') ? null : await somDaPagina(page, path.join(tmpDir, 'audio-bruto.wav'));
     if (wav) await finalizaSom({ wav, video: silent, saida: final, tmp: tmpDir, de: from });
     else await run('ffmpeg', ['-hide_banner', '-y', '-i', silent, '-c', 'copy', '-movflags', '+faststart', final]);
-    console.log(`Render: ${final} (${total} quadros, ${film.width}x${film.height}@${fps}, ${((Date.now() - started) / 1000).toFixed(1)}s)`);
+    console.log(`Render: ${final} (${total} quadros, ${rascunho ? film.width / 2 : film.width}x${rascunho ? film.height / 2 : film.height}@${fps}, ${((Date.now() - started) / 1000).toFixed(1)}s)`);
   }
 } catch (e) {
   console.error(`\n${e.message}`);
