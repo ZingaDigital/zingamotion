@@ -16,7 +16,11 @@ Lista de 01 a 27 enviada no chat. Acrescentar:
 - 28-rotinas: tela de rotinas / tarefas agendadas com uma rotina criada.
 - 29-cowork-antes: pasta bagunçada antes de pedir ao Cowork para organizar.
 - 30-cowork-depois: a mesma pasta depois de organizada.
+- 31-seletor-modelo: menu de modelos (Opus, Sonnet, Fable, Haiku), esforço e modo rápido. RECEBIDO.
 
 ## Fontes
 - Manual do Notion: https://app.notion.com/p/Manual-Operacional-do-Projeto-383d07a0c6df8056862aed181d1c91e3
 - Design system: repositório ZingaDigital/design-system-zinga
+
+## Tema novo
+- Qual modelo usar: Opus, Sonnet, Fable (pede créditos de uso), Haiku; esforço; modo rápido. Print 31.
