@@ -36,3 +36,7 @@ context/, fontes/, output/, referencias/, tipografia/, AGENTS.md, CONTEXTO-SODER
 ## Notas dos prints de 03/11
 - O app tem um design system chamado "Zinga Cowork" (print 26). Confirmar se é o mesmo conteúdo do repositório design-system-zinga.
 - Tema novo: uso e limite (print 32). Limite semanal reinicia quarta 13:00. Créditos de uso ligados (saldo R$ 8,35): quando o limite acaba, o Claude passa a gastar créditos.
+
+## Pedido do Vinícius (03/11)
+- Cada print vem com explicação da função, escrita para quem nunca usou. O próprio Vinícius também não conhece todas as funções.
+- Se faltar uma tela importante, criar a imagem: tela ilustrativa em HTML no design system, marcada como ilustração.
