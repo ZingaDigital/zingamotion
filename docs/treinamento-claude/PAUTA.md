@@ -29,3 +29,6 @@ Lista de 01 a 27 enviada no chat. Acrescentar:
 - O app mostra três modos: Automático (Claude gerencia as decisões de permissão), Aceitar edições e Plano. Não aparece "Padrão". Reescrever o A4 com esses nomes. Print 09.
 - Prints do GitHub: pedir com tradução do navegador desligada (filial = branch, Comprometa-se = commit, Solicitações de pull = pull requests).
 - Aviso: conta Pro em 93% do limite semanal em 03/11.
+
+## Estrutura real de pasta de cliente (print 02, cliente Sodertecno)
+context/, fontes/, output/, referencias/, tipografia/, AGENTS.md, CONTEXTO-SODERTECNO.md. Usar como base da explicação de pastas.
