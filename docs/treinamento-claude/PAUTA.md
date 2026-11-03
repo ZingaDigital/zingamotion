@@ -24,3 +24,8 @@ Lista de 01 a 27 enviada no chat. Acrescentar:
 
 ## Tema novo
 - Qual modelo usar: Opus, Sonnet, Fable (pede créditos de uso), Haiku; esforço; modo rápido. Print 31.
+
+## Correção para o módulo A4
+- O app mostra três modos: Automático (Claude gerencia as decisões de permissão), Aceitar edições e Plano. Não aparece "Padrão". Reescrever o A4 com esses nomes. Print 09.
+- Prints do GitHub: pedir com tradução do navegador desligada (filial = branch, Comprometa-se = commit, Solicitações de pull = pull requests).
+- Aviso: conta Pro em 93% do limite semanal em 03/11.
