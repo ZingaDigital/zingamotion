@@ -32,3 +32,7 @@ Lista de 01 a 27 enviada no chat. Acrescentar:
 
 ## Estrutura real de pasta de cliente (print 02, cliente Sodertecno)
 context/, fontes/, output/, referencias/, tipografia/, AGENTS.md, CONTEXTO-SODERTECNO.md. Usar como base da explicação de pastas.
+
+## Notas dos prints de 03/11
+- O app tem um design system chamado "Zinga Cowork" (print 26). Confirmar se é o mesmo conteúdo do repositório design-system-zinga.
+- Tema novo: uso e limite (print 32). Limite semanal reinicia quarta 13:00. Créditos de uso ligados (saldo R$ 8,35): quando o limite acaba, o Claude passa a gastar créditos.
