@@ -4,3 +4,7 @@ resultados/
 .tmp-*
 *.mp4
 *.wav
+*.woff2
+*.woff
+*.ttf
+*.otf
