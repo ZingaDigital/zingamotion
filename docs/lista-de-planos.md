@@ -2,7 +2,7 @@
 
 Fonte: firecrawl de https://nexaperformanceseguros.com.br/ (texto + screenshots mobile 360 px e desktop 1440 px).
 Visual: design system Zinga (navy #002140, rosa #F50953 de destaque, blooms #2478C9 só no fundo, card com aresta em degradê).
-Fonte de título/interface: Montserrat (substituta da Nexa; Typekit bloqueado no ambiente de render).
+Fonte de título/interface: Switzer (fonte do design system Zinga, pesos 500 a 900, via npm @carrot-kpi/switzer-font).
 Curva do celular: velocity 100/60 = cubic-bezier(.6, 0, 0, 1). Saída espelhada (1, 0, .4, 1).
 
 | # | tempo | batidas | celular (iPhone 17 em CSS 3D) | texto | cascata | som |

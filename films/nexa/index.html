@@ -4,12 +4,13 @@
 <meta charset="utf-8">
 <title>Nexa Performance · portfólio Zinga</title>
 <style>
-  /* Nexa (Zinga) vem do Typekit, bloqueado no ambiente de render: Montserrat como substituta geométrica. */
-  @font-face { font-family: 'Mont'; src: url(fonts/montserrat-latin-500-normal.woff2) format('woff2'); font-weight: 500; }
-  @font-face { font-family: 'Mont'; src: url(fonts/montserrat-latin-700-normal.woff2) format('woff2'); font-weight: 700; }
-  @font-face { font-family: 'Mont'; src: url(fonts/montserrat-latin-800-normal.woff2) format('woff2'); font-weight: 800; }
-  @font-face { font-family: 'Mont'; src: url(fonts/montserrat-latin-900-normal.woff2) format('woff2'); font-weight: 900; }
-  :root { --titulo: 'Mont', sans-serif; --interface: 'Mont', sans-serif; }
+  /* Switzer: fonte do design system Zinga (Fontshare, via @carrot-kpi/switzer-font). */
+  @font-face { font-family: 'Switzer'; src: url(fonts/switzer-latin-500-normal.woff2) format('woff2'); font-weight: 500; }
+  @font-face { font-family: 'Switzer'; src: url(fonts/switzer-latin-600-normal.woff2) format('woff2'); font-weight: 600; }
+  @font-face { font-family: 'Switzer'; src: url(fonts/switzer-latin-700-normal.woff2) format('woff2'); font-weight: 700; }
+  @font-face { font-family: 'Switzer'; src: url(fonts/switzer-latin-800-normal.woff2) format('woff2'); font-weight: 800; }
+  @font-face { font-family: 'Switzer'; src: url(fonts/switzer-latin-900-normal.woff2) format('woff2'); font-weight: 900; }
+  :root { --titulo: 'Switzer', sans-serif; --interface: 'Switzer', sans-serif; }
   html, body { margin: 0; background: #000; }
   #palco { position: relative; overflow: hidden; }
   #fundo { position: absolute; inset: 0; }
@@ -40,7 +41,7 @@ window.ready = Promise.all([
 ]).then(async ([beats, marca]) => {
   if (beats) Z.BEATS = beats.beats;
   // marca.json (captura.mjs): mapeie aqui as cores reais, ex. Z.marca({ destaque: marca.cores.botoes[0] })
-  await Promise.all([500, 700, 800, 900].map((w) => document.fonts.load(`${w} 40px Mont`)));
+  await Promise.all([500, 600, 700, 800, 900].map((w) => document.fonts.load(`${w} 40px Switzer`)));
   Z.montaGrao();
   const host = document.getElementById('planos');
   Z.planos.sort((a, b) => a.z - b.z);

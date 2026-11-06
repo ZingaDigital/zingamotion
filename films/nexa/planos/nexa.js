@@ -113,7 +113,7 @@
       site = Z.img(tela, 'mobile', { position: 'absolute', left: '0px', top: BARRA + 'px', width: SW + 'px', transformOrigin: '0 0' });
       // barra de status do iOS + Dynamic Island
       const barra = Z.div(tela, { left: '0px', top: '0px', width: SW + 'px', height: BARRA + 'px', background: SITE_NAVY, zIndex: 3 });
-      barra.innerHTML = `<div style="position:absolute;left:52px;top:22px;font:700 25px Mont,sans-serif;color:#fff;letter-spacing:-.3px">9:41</div>
+      barra.innerHTML = `<div style="position:absolute;left:52px;top:22px;font:700 25px Switzer,sans-serif;color:#fff;letter-spacing:-.3px">9:41</div>
         <svg style="position:absolute;right:40px;top:26px" width="96" height="22" viewBox="0 0 96 22">
           <g fill="#fff"><rect x="0" y="13" width="5" height="7" rx="1.5"/><rect x="7.5" y="9" width="5" height="11" rx="1.5"/><rect x="15" y="5" width="5" height="15" rx="1.5"/><rect x="22.5" y="1" width="5" height="19" rx="1.5"/>
           <path d="M44 8.5a12 12 0 0 1 16 0l-2 2.2a9 9 0 0 0-12 0z M47.5 12.3a7 7 0 0 1 9 0L52 17z"/>
@@ -126,10 +126,10 @@
         background: 'rgba(255,255,255,.55)', border: '3px solid #fff', boxSizing: 'border-box', display: 'none' });
       chat = Z.div(tela, { left: '22px', width: SW - 44 + 'px', bottom: '36px', zIndex: 5, borderRadius: '26px', overflow: 'hidden',
         background: '#efeae2', boxShadow: '0 20px 40px rgba(0,0,0,.35)', display: 'none' });
-      chat.innerHTML = `<div style="background:#075e54;color:#fff;padding:22px 26px;font:700 26px Mont,sans-serif">WhatsApp</div>
-        <div style="padding:22px 22px 10px"><div style="background:#fff;border-radius:6px 20px 20px 20px;padding:18px 22px;font:500 23px/1.35 Mont,sans-serif;color:#111">
+      chat.innerHTML = `<div style="background:#075e54;color:#fff;padding:22px 26px;font:700 26px Switzer,sans-serif">WhatsApp</div>
+        <div style="padding:22px 22px 10px"><div style="background:#fff;border-radius:6px 20px 20px 20px;padding:18px 22px;font:500 23px/1.35 Switzer,sans-serif;color:#111">
         Olá, boas-vindas ao <b>Nexa Performance | Consultoria em Seguros</b><br><br>Podemos ajudar você?</div></div>
-        <div style="margin:14px 22px 24px;background:#25d366;color:#fff;border-radius:40px;padding:18px;text-align:center;font:700 25px Mont,sans-serif">Abrir bate-papo</div>`;
+        <div style="margin:14px 22px 24px;background:#25d366;color:#fff;border-radius:40px;padding:18px;text-align:center;font:700 25px Switzer,sans-serif">Abrir bate-papo</div>`;
 
       // ---- títulos ----
       titulos = TITULOS.map((d) => {
@@ -137,7 +137,7 @@
         L.box.style.zIndex = 20; L.box.style.letterSpacing = '-1.5px';
         L.palavras.forEach((s) => { s.style.fontWeight = '800'; s.style.fontStyle = 'normal'; });
         if (d.over) {
-          L.over = Z.div(cena, { left: '66px', top: '236px', font: '700 26px Mont, sans-serif', letterSpacing: '6px', color: ROSA, zIndex: 20 });
+          L.over = Z.div(cena, { left: '66px', top: '236px', font: '700 26px Switzer, sans-serif', letterSpacing: '6px', color: ROSA, zIndex: 20 });
           L.over.textContent = d.over;
         }
         return L;
@@ -150,11 +150,11 @@
           background: `linear-gradient(150deg, ${CARD}, #031d38) padding-box, linear-gradient(45deg, ${NAVY} 0%, ${ROSA} 50%, ${NAVY} 100%) border-box`,
           boxShadow: '0 24px 60px -20px #00060dcc' });
         const n = Z.div(c, { left: '28px', top: '34px', width: '80px', height: '80px', borderRadius: '22px',
-          background: `linear-gradient(150deg, ${ROSA} 0%, #b50f4e 100%)`, font: '900 38px Mont, sans-serif', color: '#fff',
+          background: `linear-gradient(150deg, ${ROSA} 0%, #b50f4e 100%)`, font: '900 38px Switzer, sans-serif', color: '#fff',
           display: 'flex', alignItems: 'center', justifyContent: 'center' });
         n.textContent = String(i + 1);
-        const tx = Z.div(c, { left: '132px', top: '30px', width: '390px', font: '800 42px/1.1 Mont, sans-serif', color: '#fff', letterSpacing: '-.5px' });
-        tx.innerHTML = `${a}<div style="font:500 25px/1.3 Mont,sans-serif;color:${MUTED};letter-spacing:0;margin-top:6px">${b}</div>`;
+        const tx = Z.div(c, { left: '132px', top: '30px', width: '390px', font: '800 42px/1.1 Switzer, sans-serif', color: '#fff', letterSpacing: '-.5px' });
+        tx.innerHTML = `${a}<div style="font:500 25px/1.3 Switzer,sans-serif;color:${MUTED};letter-spacing:0;margin-top:6px">${b}</div>`;
         return c;
       });
 
@@ -167,9 +167,9 @@
       // ---- assinatura ----
       assin = Z.div(cena, { left: '64px', top: '560px', width: '700px', zIndex: 20 });
       assin.logo = Z.img(assin, 'assets/logo-branco.png', { width: '470px' });
-      assin.l1 = Z.div(assin, { position: 'relative', marginTop: '46px', font: '800 84px/1.04 Mont, sans-serif', color: '#fff', letterSpacing: '-1px' });
+      assin.l1 = Z.div(assin, { position: 'relative', marginTop: '46px', font: '800 84px/1.04 Switzer, sans-serif', color: '#fff', letterSpacing: '-1px' });
       assin.l1.innerHTML = 'Mais um site<br>no ar.';
-      assin.l2 = Z.div(assin, { position: 'relative', marginTop: '22px', font: '700 34px Mont, sans-serif', color: ROSA });
+      assin.l2 = Z.div(assin, { position: 'relative', marginTop: '22px', font: '700 34px Switzer, sans-serif', color: ROSA });
       assin.l2.textContent = 'nexaperformanceseguros.com.br';
     },
 
