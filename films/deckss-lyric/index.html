@@ -19,6 +19,7 @@
 </style>
 <script src="lib/motion.js"></script>
 <script src="comum.js"></script>
+<script src="lettering.js"></script>
 <script src="modelo.js"></script>
 </head>
 <body>
@@ -35,8 +36,9 @@ window.ready = Promise.all([
   await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
 });
 window.seek = function (t) {
-  MODELO.seek(t);
+  const r = MODELO.seek(t);
   C.grao(document.getElementById('grao'), t, MODELO.fpsGrao || 30);
+  return r;
 };
 // sem efeitos: a trilha é a música do cliente (musica-edit.wav), o render só precisa de uma base silenciosa
 window.renderAudio = async () => { const n = Math.round(48000 * C.DUR); const b = new Uint8Array(new Float32Array(n).buffer); let s = ''; for (let i = 0; i < b.length; i += 32768) s += String.fromCharCode.apply(null, b.subarray(i, i + 32768)); const b64 = btoa(s); return { sampleRate: 48000, channels: [b64, b64] }; };

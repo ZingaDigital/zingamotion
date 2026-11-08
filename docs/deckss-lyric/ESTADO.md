@@ -18,3 +18,15 @@ na tela toda, palavras na vertical. Modelo 6 (films/lyric-m6, modelos/m6.js): 15
 de "Ainda existe um lugar" até "Vai fazer sentido" + arte do título na nota longa (73,25). Quatro fontes por pedido do
 cliente (exceção à regra de uma fonte de título). Bloco: linhas justificadas + coluna vertical, escolha automática da
 quebra (mascara força uma quebra), esticado em Y até 1,7x para fechar a tela. Aguardando aprovação e os vídeos do cliente.
+
+Sessão 3: cliente achou o lettering amador e pediu TODA letra igual à arte do título. Novo motor lettering.js:
+borda áspera (feTurbulence+feDisplacementMap), fio escuro, contorno preto grosso, filete creme/amarelo, sombra,
+preenchimento tex/fill-creme.png ou tex/fill-fogo.png (prep/preenchimentos.py) e pingos ancorados no pé real das letras.
+Fontes: Sedgwick (principal) + Permanent Marker (~28%). Acento: o preenchimento precisa de padding em cima (0.32em).
+Letra inteira marcada em letra.json (prep/marca_letra.py): janelas por verso à mão + âncoras do Parakeet v3
+(sherpa-onnx, modelo do GitHub, voz separada) + onsets. Refrão 2 = refrão 1 + 65,1 s; refrão 3 = + 106,6 s.
+Correção: "Vai" do 1º refrão em 72,08 (não 71,23).
+Material da banda: films/deckss-lyric/footage (vídeos do cliente, quadros em footage/q/<nome>, fotos/ recortes da selfie).
+Vocal de preto (3 vídeos), guitarrista Volcom (4 vídeos + foto), cantor de moletom verde (1 vídeo de 2 s);
+baixista, camisa do Grêmio, jaqueta e quem fez a selfie só aparecem na foto de grupo.
+Aprovação v2: films/lyric-m7 (modelos/m7.js), mesmos 15 s do refrão.
