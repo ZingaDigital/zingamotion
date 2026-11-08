@@ -5,4 +5,4 @@ Filme em planos/filme.js (um plano só, cenas por batida). Recortes: prep/recort
 Fontes: Bangers (apoio), Figtree (player). Título e logo = arte original recortada.
 render.mjs: usa /opt/pw-browsers/chromium e mistura musica-edit.wav automaticamente.
 Crítica: docs/registro-de-critica.md (rodada 2: tudo >= 8). Render final: out/deckss-vfs.mp4 -> resultados/.
-Magnific: NÃO usado (gasto não confirmado). Opcional: capa animada no refrão (~1.635 créditos).
+Magnific: capa animada no Kling 2.5 (2 versões, 650 créditos). Usada a versão B (título intacto); quadros em assets/viva (30 fps, 151), clipe original em assets/capa-viva-kling.mp4. Rede: pikaso.cdnpk.net e ak-data.magnific.com liberados no ambiente.

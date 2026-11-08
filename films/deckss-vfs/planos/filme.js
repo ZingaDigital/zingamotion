@@ -83,12 +83,18 @@
   };
 
   // =================================================================================================
+  let VIVA_N = 0, vivaAtual = '';
+  const vivaSrc = (t) => {
+    if (!VIVA_N || t < B(38)) return 'assets/capa.png';
+    const i = Math.min(VIVA_N, 1 + Math.floor((t - B(38)) * 30 + 1e-6));
+    return `assets/viva/f${String(i).padStart(3, '0')}.jpg`;
+  };
   let cam, cav, pecasA, fitaNovo, logo, logoE, logoD, vai, sentido, capaEsc, pecasC, titTopo, capaViva, luz, fita0112, selo,
     player, capaPl, plTit, plArt, barraFundo, barraCheia, bolinha, tIni, tFim, check, toque, fim, tc, data, presave, risco, cavFim;
 
   Z.plano({
     id: 'filme', inicio: 0, fim: 30.3,
-    montar(el) {
+    async montar(el) {
       cam = Z.div(el, { left: '0px', top: '0px', width: Z.W + 'px', height: Z.H + 'px', transformOrigin: '540px 960px' });
       // ---- abertura
       pecasA = PECAS_A.map(([f, w, h]) => img(cam, `rec/${f}.png`, w, h, { filter: 'drop-shadow(0 14px 18px rgba(0,0,0,.55))' }));
@@ -108,6 +114,7 @@
       sentido = img(cam, 'rec/titulo.png', TIT.w, TIT.h, { clipPath: `inset(${TIT.corte - 6}px 0 0 0)` });
       // ---- refrão
       capaViva = img(cam, 'capa.png', CAPA, CAPA, { zIndex: 5 });
+      VIVA_N = await fetch('assets/viva/n.json').then((r) => r.json()).then((j) => j.n).catch(() => 0);
       luz = Z.div(cam, { left: '0px', top: '0px', width: CAPA + 'px', height: CAPA + 'px', transformOrigin: '50% 50%', mixBlendMode: 'screen', zIndex: 6,
         background: 'radial-gradient(38% 30% at 66% 44%, rgba(255,190,90,.55), rgba(255,150,40,0) 70%)' });
       titTopo = img(cam, 'rec/logo.png', LOGO.w, LOGO.h, { zIndex: 7 });
@@ -139,8 +146,9 @@
     },
 
     seek(t) {
+      const espera = [];
       // ================= câmera global =================
-      const picos = [0, B(18), B(20), B(38), B(68), B(80)];
+      const picos = [0, B(18), B(20), B(38), B(68), B(79)];
       const tr = tremor(t, picos, 16);
       let camS = 1, camR = 0, camY = 0;
       if (t < B(18)) { camS = 1 + 0.06 * E.suave(M.prog(t, 0, B(18))) + 0.03 * E.entra(M.prog(t, B(14), B(18))); camR = -1.5 + 3 * E.suave(M.prog(t, 0, B(18))); }
@@ -179,7 +187,7 @@
 
       // ================= LOGO (k18 a ~k21) =================
       const lT = tapa(t, B(18), { s0: 1.25, f: 3.2, z: 0.6 });
-      const rasga = M.prog(t, B(20), B(20) + 0.28);
+      const rasga = M.prog(t, B(20), B(20) + 0.2);
       Z.mostra(logo, lT && rasga < 1, 'block');
       if (lT) {
         let s = LS * lT.s;
@@ -195,7 +203,7 @@
       const TW0 = 1000, TW1 = 900;
       const tS = M.lerp(TW0, TW1, sobe) / TIT.w;
       const tCx = 540, tCy = M.lerp(880, 500, sobe);
-      const vT = tapa(t, B(20), { s0: 1.5 }), sT = tapa(t, B(22), { s0: 1.5 });
+      const vT = tapa(t, B(20) + 0.1, { s0: 1.5 }), sT = tapa(t, B(22), { s0: 1.5 });
       const naMontagem = t < B(38);
       Z.mostra(vai, vT && naMontagem, 'block');
       Z.mostra(sentido, sT && naMontagem, 'block');
@@ -230,12 +238,14 @@
         const cx = M.lerp(CAPA_R.cx, ARTE.x + ARTE.w / 2, paraPlayer), cy = M.lerp(CAPA_R.cy, ARTE.y + ARTE.w / 2, paraPlayer);
         const s = M.lerp(s0, ARTE.w / CAPA, paraPlayer);
         poe(capaViva, CAPA, CAPA, cx, cy, s);
+        const src = vivaSrc(t);
+        if (src !== vivaAtual) { vivaAtual = src; capaViva.src = src; espera.push(capaViva.decode().catch(() => {})); }
         poe(luz, CAPA, CAPA, cx, cy, s);
         let brilho = 0.55;
         for (let k = 38; k < 52; k += 2) brilho += 0.45 * M.kick(t, B(k), 1, 2.4, 0.9);
         luz.style.opacity = M.clamp(brilho).toFixed(3);
       }
-      const ttT = tapa(t, B(38), { s0: 1.6 });
+      const ttT = tapa(t, B(39), { s0: 1.6 });
       Z.mostra(titTopo, ttT && t < B(53), 'block');
       if (ttT) poe(titTopo, LOGO.w, LOGO.h, 540, 330 - 900 * E.sai(paraPlayer) + 8 * M.kick(t, B(46), 1, 5, 0.4), (580 / LOGO.w) * ttT.s, M.lerp(-8, -3, ttT.p));
       const f12 = tapa(t, B(42), { s0: 1.8 });
@@ -279,6 +289,7 @@
         }
       }
 
+      if (t >= B(52) && VIVA_N) { const ult = `assets/viva/f${String(VIVA_N).padStart(3, '0')}.jpg`; if (!capaPl.src.endsWith(ult)) { capaPl.src = ult; espera.push(capaPl.decode().catch(() => {})); } }
       // ================= ASSINATURA (k68 a fim) =================
       Z.mostra(fim, t >= B(68), 'block');
       if (t >= B(68)) {
@@ -288,41 +299,42 @@
         Z.mostra(tc, solta < 1, 'block');
         let s = (940 / TC.w) * tT.s;
         for (let k = 69; k < 78; k++) s += (940 / TC.w) * M.kick(t, B(k), 0.02, 6, 0.5);
-        poe(tc, TC.w, TC.h, 540, 650 + 1500 * cai(0), s, M.lerp(-7, -2, tT.p) + 30 * cai(0));
+        poe(tc, TC.w, TC.h, 540, 650 - 1500 * cai(0), s, M.lerp(-7, -2, tT.p) - 20 * cai(0));
         const dT = tapa(t, B(70), { s0: 1.9 });
         Z.mostra(data, dT && solta < 1, 'block');
-        if (dT) poe(data, 600, 250, 540, 1250 + 1500 * cai(1), dT.s, M.lerp(9, 3, dT.p) - 25 * cai(1));
+        if (dT) poe(data, 600, 250, 540 - 1300 * cai(1), 1250, dT.s, M.lerp(9, 3, dT.p) - 25 * cai(1));
         const pT2 = tapa(t, B(72), { s0: 1.9 });
         Z.mostra(presave, pT2 && solta < 1, 'block');
-        if (pT2) poe(presave, 900, 104, 540, 1430 + 1500 * cai(2), pT2.s, M.lerp(-6, -2, pT2.p) + 20 * cai(2));
+        if (pT2) poe(presave, 900, 104, 540 + 1400 * cai(2), 1430, pT2.s, M.lerp(-6, -2, pT2.p) + 20 * cai(2));
         const rs = E.entra(M.prog(t, B(74), B(74) + 0.3));
         Z.mostra(risco, rs > 0 && solta < 1, 'block');
-        if (rs > 0) risco.style.transform = `translate(160px, ${1492 + 1500 * cai(3)}px) rotate(-2deg) scaleX(${rs.toFixed(4)})`;
+        if (rs > 0) risco.style.transform = `translate(${160 + 1400 * cai(2)}px, 1492px) rotate(-2deg) scaleX(${rs.toFixed(4)})`;
         // caveira volta pro quadro inicial na batida 80
-        const cv = tapa(t, B(80), { s0: 1.4, f: 3.6, z: 0.6 });
+        const cv = tapa(t, B(79), { s0: 1.4, f: 3.6, z: 0.6 });
         Z.mostra(cavFim, !!cv, 'block');
-        if (cv) poe(cavFim, CAV.w, CAV.h, CAV0.cx, CAV0.cy, CAV0.s * (1 + 0.14 * (1 - M.spring(t - B(80) + 0.06, 3.6, 0.6))) * (cv.s / (1 + 0.4 * (1 - cv.p)) ), 0);
+        if (cv) poe(cavFim, CAV.w, CAV.h, CAV0.cx, CAV0.cy, CAV0.s * (1 + 0.14 * (1 - M.spring(t - B(79) + 0.06, 3.6, 0.6))) * (cv.s / (1 + 0.4 * (1 - cv.p)) ), 0);
       }
+      return espera.length ? Promise.all(espera) : undefined;
     },
 
     som(S) {
-      const carimbo = (t, k = 0.35) => S.impact(t, k);
-      const papel = (t, k = 0.25) => S.swoosh(t, 0.16, k, false);
+      const carimbo = (t, k = 0.35) => S.impact(t, k * 1.8);
+      const papel = (t, k = 0.25) => { S.swoosh(t, 0.16, k * 2, false); S.hat(t, 0.25, true); };
       carimbo(0.0, 0.25);
       S.zip(B(2), 0.1, 0.08);
       PECAS_A.forEach(([, , , , , , , k]) => papel(B(k), 0.22));
       S.riser(B(14), B(18), 0.12);
-      S.swoosh(B(20), 0.4, 0.3, true);                       // rasgo do logo
+      S.swoosh(B(20), 0.4, 0.6, true);                       // rasgo do logo
       S.zip(B(20) + 0.02, 0.2, 0.06, false);
       PECAS_C.forEach(([, , , k]) => papel(B(k), 0.16));
       S.swoosh(B(52), 0.35, 0.18, true);
-      S.click(B(58), 0.22);
+      S.click(B(58), 0.4);
       S.swoosh(B(60), 0.3, 0.12, true);
       S.riser(B(66), B(68), 0.1);
       S.zip(B(42), 0.1, 0.07); carimbo(B(46), 0.18);
       S.click(B(70), 0.12); S.click(B(72), 0.12);
       S.swoosh(B(78), 0.5, 0.2, false);
-      carimbo(B(80), 0.22);
+      carimbo(B(79), 0.4);
     },
   });
 })();

@@ -50,12 +50,14 @@ window.ready = Promise.all([
 });
 
 window.seek = function (t) {
+  const espera = [];
   for (const p of Z.planos) {
     const ativo = t >= p.inicio && (t < p.fim || p.fim >= DURACAO);
     p.el.style.display = ativo ? '' : 'none';
-    if (ativo) p.seek(t, p.el, Z);
+    if (ativo) { const r = p.seek(t, p.el, Z); if (r) espera.push(r); }
   }
   Z.grao(document.getElementById('grao'), t);
+  return espera.length ? Promise.all(espera) : undefined;
 };
 
 // opcoes: { trilha: true, foley: true } (sfx.mjs --opcoes '{"foley":false}' exporta só a trilha pra medir)
