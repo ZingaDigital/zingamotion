@@ -12,3 +12,9 @@ Sessão 1: 5 modelos de estilo para aprovação, cada um com 10,3 s no mesmo tre
 - Drive do cliente: pasta não visível pela conta conectada (pede login). Aguardando os vídeos.
 - Armadilha paga: perspective/preserve-3d no Chromium gera quadro diferente conforme o histórico (verify falha). Use skew+scaleX.
 Próximo: cliente escolhe o modelo -> cronometrar a música inteira (versos e refrões) e montar o filme completo (3:17).
+
+Sessão 2: cliente escolheu o 5 misturado com tipografia/fundo do 1 e do 2, várias fontes, lettering encaixado em bloco
+na tela toda, palavras na vertical. Modelo 6 (films/lyric-m6, modelos/m6.js): 15,45 s do refrão (faixa 58,95 a 74,40),
+de "Ainda existe um lugar" até "Vai fazer sentido" + arte do título na nota longa (73,25). Quatro fontes por pedido do
+cliente (exceção à regra de uma fonte de título). Bloco: linhas justificadas + coluna vertical, escolha automática da
+quebra (mascara força uma quebra), esticado em Y até 1,7x para fechar a tela. Aguardando aprovação e os vídeos do cliente.
