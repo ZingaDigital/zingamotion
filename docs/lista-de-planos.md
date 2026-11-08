@@ -30,14 +30,23 @@ Formato principal 9:16 (1080x1920), 30 fps. Música do cliente, editada em 3 blo
 | 8 | 0:14,1 a 0:19 | Capa viva: pôsteres piscam por recorte, pingos do título descem | push lento | | |
 | 9 | 0:19 a 0:21 | Capa encolhe e vira a arte do player | zoom out e encaixe | | swoosh |
 | 10 | 0:21 a 0:25 | ZOOM IN no player: barra enche com o tempo real da música (0:50 → 1:05), contador corre; dedo toca o check verde no tempo forte | zoom in até a barra | Vai fazer sentido / Deckss | click na batida |
-| 11 | 0:25 a 0:30 | Assinatura: título + logo na colagem, chamada final; último quadro = caveira no papel (prepara o loop) | dolly out | [DATA] · [CHAMADA] | impacto final + cauda |
+| 11 | 0:25 a 0:30 | Assinatura: título + logo na colagem, chamada final; último quadro = caveira no papel (prepara o loop) | dolly out | 01.12 · PRÉ-SAVE NA BIO | impacto final + cauda |
 
 ## Tipografia
 O lettering da capa e do logo é desenhado à mão, nenhuma fonte reproduz. Título e logo serão a ARTE ORIGINAL
 recortada e animada por máscara (traço de spray, pingos). Fonte só para texto de apoio, a definir no guia de estilo.
 
-## Pendências do cliente
-- Data de lançamento e chamada final.
-- Confirmar entrada do vocal (~0:15,4) e refrão (~0:49,9).
-- Player mostra 3:08, o arquivo tem 3:17.
-- Formatos além do 9:16.
+## Decisões do cliente (sessão 1)
+- Lançamento 01/12, chamada "PRÉ-SAVE NA BIO".
+- Vocal ~0:15,4 e refrão ~0:49,9 confirmados.
+- Player com duração 3:17, refeito em código com as cores medidas do print.
+- Formato: 9:16 (padrão, cliente não pediu outro).
+
+## Magnific (aguardando OK de gasto, saldo 59.809 créditos)
+| Item | Uso | Créditos |
+|---|---|---|
+| Upscale 2x da capa | nitidez no zoom e na paralaxe | ~180 (90 a 270) |
+| Expandir capa para 9:16 | capa ocupa a tela inteira no refrão | 50 |
+| Segmentar 3 camadas (garoto+caixa, crianças, fundo) | paralaxe 2,5D do plano 6 | 105 |
+| Kling 2.5, 5 s, 1080p, 2 clipes x 2 tentativas | capa viva do plano 8 | 1.300 |
+| Total | | ~1.635 |
