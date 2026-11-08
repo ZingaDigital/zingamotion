@@ -1,0 +1,1 @@
+../deckss-lyric/modelos/m4.js

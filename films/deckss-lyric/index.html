@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Deckss - Vai Fazer Sentido - lyric</title>
+<style>
+  @font-face { font-family: 'Permanent Marker'; src: url(fonts/permanent-marker.woff2) format('woff2'); }
+  @font-face { font-family: 'Sedgwick'; src: url(fonts/sedgwick-ave-display.woff2) format('woff2'); }
+  @font-face { font-family: 'Knewave'; src: url(fonts/knewave.woff2) format('woff2'); }
+  @font-face { font-family: 'Wet Paint'; src: url(fonts/rubik-wet-paint.woff2) format('woff2'); }
+  @font-face { font-family: 'Caveat Brush'; src: url(fonts/caveat-brush.woff2) format('woff2'); }
+  @font-face { font-family: 'Rock Salt'; src: url(fonts/rock-salt.woff2) format('woff2'); }
+  @font-face { font-family: 'Covered'; src: url(fonts/covered-by-your-grace.woff2) format('woff2'); }
+  html, body { margin: 0; background: #000; }
+  #palco { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #0b0a09; }
+  #cena { position: absolute; inset: 0; }
+  #grao { position: absolute; inset: 0; opacity: .08; mix-blend-mode: overlay; pointer-events: none; z-index: 50; }
+  .p { position: absolute; left: 0; top: 0; white-space: nowrap; line-height: 1; }
+</style>
+<script src="lib/motion.js"></script>
+<script src="comum.js"></script>
+<script src="modelo.js"></script>
+</head>
+<body>
+<div id="palco"><div id="cena"></div><div id="grao"></div></div>
+<script>
+window.FILM = { width: 1920, height: 1080, fps: 30, duration: C.DUR };
+window.ready = Promise.all([
+  fetch('beats.json').then((r) => r.json()).catch(() => null),
+  ...['Permanent Marker', 'Sedgwick', 'Knewave', 'Wet Paint', 'Caveat Brush', 'Rock Salt', 'Covered'].map((f) => document.fonts.load(`100px "${f}"`, 'AÇãé')),
+]).then(async () => {
+  await document.fonts.ready;
+  C.montaGrao();
+  await MODELO.montar(document.getElementById('cena'));
+  await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+});
+window.seek = function (t) {
+  MODELO.seek(t);
+  C.grao(document.getElementById('grao'), t, MODELO.fpsGrao || 30);
+};
+// sem efeitos: a trilha é a música do cliente (musica-edit.wav), o render só precisa de uma base silenciosa
+window.renderAudio = async () => { const n = Math.round(48000 * C.DUR); const b = new Uint8Array(new Float32Array(n).buffer); let s = ''; for (let i = 0; i < b.length; i += 32768) s += String.fromCharCode.apply(null, b.subarray(i, i + 32768)); const b64 = btoa(s); return { sampleRate: 48000, channels: [b64, b64] }; };
+if (!new URLSearchParams(location.search).has('render')) {
+  window.ready.then(() => { const t0 = performance.now(); const tick = () => { seek(((performance.now() - t0) / 1000) % FILM.duration); requestAnimationFrame(tick); }; tick(); });
+}
+</script>
+</body>
+</html>

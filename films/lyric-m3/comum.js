@@ -1,0 +1,1 @@
+../deckss-lyric/comum.js

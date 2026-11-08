@@ -1,0 +1,1 @@
+../deckss-lyric/modelos/m3.js
