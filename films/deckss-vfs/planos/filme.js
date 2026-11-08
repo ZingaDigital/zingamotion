@@ -142,7 +142,7 @@
       presave = texto(fim, 'PRÉ-SAVE NA BIO', 104, 900);
       risco = Z.div(fim, { left: '0px', top: '0px', width: '760px', height: '26px', background: AMARELO, transformOrigin: '0 50%',
         clipPath: 'polygon(0 30%, 6% 0, 100% 20%, 98% 100%, 3% 85%)' });
-      cavFim = img(fim, 'rec/caveira.png', CAV.w, CAV.h);
+      cavFim = img(fim, 'rec/logo.png', LOGO.w, LOGO.h);
     },
 
     seek(t) {
@@ -259,9 +259,9 @@
       const pT = M.spring(t - B(52), 2.4, 0.72);
       Z.mostra(player, t >= B(52) && t < B(68), 'block');
       if (t >= B(52)) {
-        const sobeP = (1 - pT) * 1400;
+        const sobeP = (1 - pT) * 1400 + 1920 * E.entra(M.prog(t, B(67.25), B(68)));
         // zoom até a barra: k60 a k62, segura; k67 mergulha na bolinha
-        const zoom = 1 + 0.7 * M.spring(t - B(60), 1.6, 0.75) + 30 * Math.pow(M.prog(t, B(67), B(68)), 3);
+        const zoom = 1;
         const frac = faixa(t) / DUR_FAIXA;
         const bx = PL.bx0 + (PL.bx1 - PL.bx0) * frac;
         const foco = M.spring(t - B(66.4), 2, 0.8);          // no fim o foco anda até a bolinha
@@ -269,7 +269,7 @@
         player.style.transformOrigin = `${ox.toFixed(1)}px ${oy.toFixed(1)}px`;
         player.style.transform = `translate(0px, ${sobeP.toFixed(2)}px) scale(${zoom.toFixed(4)})`;
         Z.mostra(capaPl, t >= B(54), 'block');
-        let pc = 1; for (let k = 54; k < 60; k += 2) pc += M.kick(t, B(k), 0.03, 5, 0.5);
+        let pc = 1; for (let k = 54; k < 67; k += 2) pc += M.kick(t, B(k), 0.03, 5, 0.5);
         capaPl.style.transformOrigin = '50% 50%';
         capaPl.style.transform = `translate(${ARTE.x + ARTE.w / 2 - CAPA / 2}px, ${ARTE.y + ARTE.w / 2 - CAPA / 2}px) scale(${(pc * ARTE.w / CAPA).toFixed(5)})`;
         barraCheia.style.width = (bx - PL.bx0).toFixed(2) + 'px';
@@ -312,7 +312,7 @@
         // caveira volta pro quadro inicial na batida 80
         const cv = tapa(t, B(79), { s0: 1.4, f: 3.6, z: 0.6 });
         Z.mostra(cavFim, !!cv, 'block');
-        if (cv) poe(cavFim, CAV.w, CAV.h, CAV0.cx, CAV0.cy, CAV0.s * (1 + 0.14 * (1 - M.spring(t - B(79) + 0.06, 3.6, 0.6))) * (cv.s / (1 + 0.4 * (1 - cv.p)) ), 0);
+        if (cv) { let sl = (980 / LOGO.w) * cv.s; sl += (980 / LOGO.w) * M.kick(t, B(81), 0.03, 6, 0.5); poe(cavFim, LOGO.w, LOGO.h, 540, 900, sl, M.lerp(-6, 0, cv.p)); }
       }
       return espera.length ? Promise.all(espera) : undefined;
     },
@@ -329,12 +329,14 @@
       PECAS_C.forEach(([, , , k]) => papel(B(k), 0.16));
       S.swoosh(B(52), 0.35, 0.18, true);
       S.click(B(58), 0.4);
-      S.swoosh(B(60), 0.3, 0.12, true);
-      S.riser(B(66), B(68), 0.1);
+            S.riser(B(66), B(68), 0.1);
       S.zip(B(42), 0.1, 0.07); carimbo(B(46), 0.18);
       S.click(B(70), 0.12); S.click(B(72), 0.12);
       S.swoosh(B(78), 0.5, 0.2, false);
-      carimbo(B(79), 0.4);
+      carimbo(B(79), 0.5);
+      S.riser(B(33), B(37), 0.3);                         // verso desce, riser leva ao refrão
+      carimbo(B(38), 0.55);
+      S.swoosh(B(67.25), 0.35, 0.4, false);
     },
   });
 })();
