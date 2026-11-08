@@ -4,3 +4,8 @@ resultados/
 .tmp-*
 *.mp4
 *.wav
+films/deckss-vfs/musica*.mp3
+films/deckss-vfs/musica*.wav
+out/
+node_modules/
+resultados/*.mp4

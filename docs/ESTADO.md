@@ -1,4 +1,8 @@
 # Estado | deckss-vfs
-Sessão 1: música medida, estrutura de roteiro escrita (docs/lista-de-planos.md). Pendências respondidas (ver lista-de-planos). Aguardando OK do gasto Magnific (~1.635 créditos).
-Assets em films/deckss-vfs/assets. Música: upload do cliente (não versionada), copiar para films/deckss-vfs/musica.mp3.
-Próximo: preparar.mjs, grade fina 161,5 BPM, guia de estilo, quadros parados por plano.
+Sessão 1: roteiro aprovado. Música editada em 3 blocos (films/deckss-vfs/musica-edit.wav, gerada de musica.mp3, não versionadas):
+A 8.074-14.700, B 14.700-21.694, C 49.670-66.30 (fade 15.3 s). Grade 163 BPM, compasso em k%4==2. Banda k18 (6.626), voz ~7.33, refrão k38 (13.988).
+Filme em planos/filme.js (um plano só, cenas por batida). Recortes: prep/recortes.py e prep/colagem.py -> assets/rec.
+Fontes: Bangers (apoio), Figtree (player). Título e logo = arte original recortada.
+render.mjs: usa /opt/pw-browsers/chromium e mistura musica-edit.wav automaticamente.
+Crítica: docs/registro-de-critica.md (rodada 2: tudo >= 8). Render final: out/deckss-vfs.mp4 -> resultados/.
+Magnific: NÃO usado (gasto não confirmado). Opcional: capa animada no refrão (~1.635 créditos).
