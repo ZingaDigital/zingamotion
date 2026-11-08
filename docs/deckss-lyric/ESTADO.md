@@ -30,3 +30,14 @@ Material da banda: films/deckss-lyric/footage (vídeos do cliente, quadros em fo
 Vocal de preto (3 vídeos), guitarrista Volcom (4 vídeos + foto), cantor de moletom verde (1 vídeo de 2 s);
 baixista, camisa do Grêmio, jaqueta e quem fez a selfie só aparecem na foto de grupo.
 Aprovação v2: films/lyric-m7 (modelos/m7.js), mesmos 15 s do refrão.
+
+Sessão 4: cliente mandou 6 vídeos novos (vocal camiseta cinza, baixista, baterista, guitarrista 2, estúdio, guitarra).
+Pediu: só vídeo (nada de foto parada), rosto como fundo de lettering, prioridade a rostos, animação como a referência
+do blink-182 (vista pelo embed do YouTube via Firecrawl: P&B alto contraste, papel com buraco rasgado, palavras
+gigantes estourando a tela, cortes secos), texturas grunge e ruído.
+- footage/pb/<clip>: 14 vídeos em P&B (prep/extrai_pb.sh). Rostos: footage/rostos-manual.json [cx, cy, tamanho] por clipe
+  (Haar falhou nos perfis; centros marcados à mão e conferidos). Sem rosto: guit-0043, guit-1006, vocal-7503.
+- Lettering pré-renderizado: node films/deckss-lyric/prep/letras.mjs -> letras/<hash>.png + indice.json (144 palavras,
+  6 min). Render do filme virou ~19 s por segundo de vídeo em 1 processo (antes 150 s/s).
+- motor-lyric.js: Video (rosto enquadrado), furo (papel rasgado evenodd), Palavra/bloco/escorre, Grunge.
+- Aprovação v3: films/lyric-m8 (modelos/m8.js).

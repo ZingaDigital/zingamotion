@@ -57,7 +57,7 @@
     Object.assign(corpo.style, { position: 'relative', padding: `${tam * 0.12}px ${tam * 0.14}px ${tam * 0.2}px` });
     const el = document.createElement('div'); corpo.append(el);
     Object.assign(el.style, { fontFamily: fonte, fontSize: tam + 'px', lineHeight: '1', whiteSpace: 'nowrap', color: 'transparent', padding: '0.32em 0 0.12em', margin: '-0.32em 0 -0.12em',
-      backgroundImage: `url(tex/fill-${tipo}.png)`, backgroundSize: tipo === 'fogo' ? '100% 100%' : `${tam * 4}px ${tam * 2}px`,
+      backgroundImage: `url(${window.TEX || 'tex/'}fill-${tipo}.png)`, backgroundSize: tipo === 'fogo' ? '100% 100%' : `${tam * 4}px ${tam * 2}px`,
       backgroundPosition: `${Math.floor(R() * 500)}px ${tipo === 'fogo' ? 0 : Math.floor(R() * 200)}px`, WebkitBackgroundClip: 'text', backgroundClip: 'text' });
     el.textContent = txt;
     // pingos: tubinho com contorno e gota na ponta, saindo de onde a letra toca a base

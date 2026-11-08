@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Sedgwick';src:url(../../fonts/sedgwick-ave-display.woff2)}
+@font-face{font-family:'Permanent Marker';src:url(../../fonts/permanent-marker.woff2)}
+html,body{margin:0;background:transparent}
+</style><script>window.TEX="../../tex/"</script><script src="../../lib/motion.js"></script><script src="../../lettering.js"></script></head><body><div id="p" style="position:absolute;left:60px;top:150px"></div>
+<script>
+// monta uma palavra por vez (a página é fotografada pelo prep/letras.mjs)
+window.monta = async (txt, fonte, tipo, semente, tam) => {
+  await document.fonts.load(`${tam}px "${fonte}"`, txt);
+  const p = document.getElementById('p'); p.innerHTML = ''; document.querySelectorAll('filter').forEach((f) => f.remove());
+  const w = LT.palavra(p, txt, { fonte, tam, tipo, semente, pingos: 0 });
+  // retira o filtro do DOM antigo? não: cada palavra tem o seu; limpa defs velhos
+  const r = w.caixa.getBoundingClientRect();
+  const c = document.createElement('canvas').getContext('2d'); c.font = `${tam}px "${fonte}"`;
+  const m = c.measureText(txt);
+  return { w: Math.ceil(r.width), h: Math.ceil(r.height), padX: tam * 0.14, padY: tam * 0.12, tw: m.width, A: m.fontBoundingBoxAscent, D: m.fontBoundingBoxDescent };
+};
+</script></body></html>
