@@ -69,19 +69,25 @@
       const a = ML.Palavra(normal, w, tam, sem, pingos);
       let b = null;
       if (sil) b = ML.Palavra(sil, w, tam, sem, pingos);
-      return { a, b, poe: (tf) => { a.el.style.transform = tf(a); if (b) b.el.style.transform = tf(b); } };
+      return { a, b, vis: (v) => [a, b].forEach((e) => { if (e) e.el.style.display = v ? '' : 'none'; }), poe: (tf) => { a.el.style.transform = tf(a); if (b) b.el.style.transform = tf(b); } };
     };
     // texto em fonte comum (ex.: Anton) numa etiqueta de papel rasgado; o = { txt, fonte, tam, cor, fundo, sem }
     const etiqueta = (o) => {
+      const spans = [];
       const mk = (camada) => {
         const el = div(camada, { left: '0px', top: '0px', transformOrigin: '50% 50%' });
         const t = div(el, { position: 'relative', fontFamily: o.fonte || 'Anton', fontSize: o.tam + 'px', lineHeight: '1', color: o.cor || '#f3e6cc',
-          padding: `${o.tam * 0.1}px ${o.tam * 0.16}px ${o.tam * 0.06}px`, whiteSpace: 'nowrap', letterSpacing: '0.01em' }, o.txt);
+          padding: `${o.tam * 0.1}px ${o.tam * 0.16}px ${o.tam * 0.06}px`, whiteSpace: 'nowrap', letterSpacing: '0.01em' });
+        o.txt.split(' ').forEach((w, i) => { const sp = document.createElement('span'); sp.textContent = (i ? ' ' : '') + w; t.append(sp); (spans[i] = spans[i] || []).push(sp); });
         if (o.fundo) { t.style.background = o.fundo; t.style.clipPath = CG.poly(rasgado(0, 0, 100, 100, 0, o.sem || 1, 3, 9).map(([x, y]) => [x + 50, y + 50])).replace(/px/g, '%'); }
         return el;
       };
       const a = mk(normal), b = sil ? mk(sil) : null;
-      return { a, b, w: () => a.offsetWidth, h: () => a.offsetHeight, poe: (cx, cy, tf = '') => [a, b].forEach((e) => { if (e) e.style.transform = `translate(${cx - a.offsetWidth / 2}px, ${cy - a.offsetHeight / 2}px) ${tf}`; }) };
+      const W0 = a.offsetWidth, H0 = a.offsetHeight;
+      return { a, b, spans, W0, H0, w: () => W0, h: () => H0,
+        mostra: (n) => spans.forEach((l, i) => l.forEach((sp) => { sp.style.visibility = i < n ? 'visible' : 'hidden'; })),
+        vis: (v) => [a, b].forEach((e) => { if (e) e.style.display = v ? '' : 'none'; }),
+        poe: (cx, cy, tf = '') => [a, b].forEach((e) => { if (e) e.style.transform = `translate(${cx - W0 / 2}px, ${cy - H0 / 2}px) ${tf}`; }) };
     };
     return { normal, inv, vInv, palavra, etiqueta };
   };
