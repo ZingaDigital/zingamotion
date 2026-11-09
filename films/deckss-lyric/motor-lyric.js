@@ -23,14 +23,15 @@
     const n = R0.n, i = Math.max(1, Math.min(n, (uso.ini || 1) + Math.floor(tl * FPS)));
     troca(v.im, `footage/pb/${uso.clip}/f${String(i).padStart(4, '0')}.jpg`, espera);
     const [fx, fy, fs] = man;
-    const alvo = uso.rosto || 420, sc = (alvo / fs) * (1 + (uso.deriva ?? 0.04) * tl);
+    const alvo = uso.rosto || 420; let sc = (alvo / fs) * (1 + (uso.deriva ?? 0.04) * tl);
     const cx = uso.cx ?? W / 2, cy = uso.cy ?? H * 0.45;
     // não deixa aparecer borda: limita a translação
     let x = cx - fx * sc, y = cy - fy * sc;
-    const BW = uso.wBox ?? W;
-    x = Math.min(0, Math.max(BW - R0.w * sc, x)); y = Math.min(0, Math.max(H - R0.h * sc, y));
-    if (R0.w * sc < BW) x = (BW - R0.w * sc) / 2;
-    if (R0.h * sc < H) y = (H - R0.h * sc) / 2;
+    // caixa visível (o vídeo tem que cobrir ela inteira): uso.box = [x0, y0, x1, y1]; padrão a tela toda
+    const [bx0, by0, bx1, by1] = uso.box || [0, 0, uso.wBox ?? W, H];
+    const minSc = Math.max((bx1 - bx0) / R0.w, (by1 - by0) / R0.h);
+    if (sc < minSc) { sc = minSc; x = cx - fx * sc; y = cy - fy * sc; }
+    x = Math.min(bx0, Math.max(bx1 - R0.w * sc, x)); y = Math.min(by0, Math.max(by1 - R0.h * sc, y));
     v.im.style.width = R0.w + 'px'; v.im.style.height = R0.h + 'px';
     v.im.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${sc.toFixed(4)})`;
   };
@@ -132,6 +133,6 @@
       CHAVE = new Set(await fetch('chave.json').then((r) => r.json()));
       await Promise.all(['Sedgwick', 'Permanent Marker'].map((f) => document.fonts.load(`100px "${f}"`, 'AÇÃÉ')));
     },
-    Video, poeVideo, furo, Palavra, escorre, poePal, bloco, regra, Grunge, grunge, tremor, rnd, troca,
+    Video, poeVideo, furo, Palavra, escorre, poePal, bloco, regra, medida, Grunge, grunge, tremor, rnd, troca,
   };
 })();

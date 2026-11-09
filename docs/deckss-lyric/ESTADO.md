@@ -41,3 +41,14 @@ gigantes estourando a tela, cortes secos), texturas grunge e ruído.
   6 min). Render do filme virou ~19 s por segundo de vídeo em 1 processo (antes 150 s/s).
 - motor-lyric.js: Video (rosto enquadrado), furo (papel rasgado evenodd), Palavra/bloco/escorre, Grunge.
 - Aprovação v3: films/lyric-m8 (modelos/m8.js).
+
+Sessão 5: nova direção (colagem). Refs: artifact "Biblioteca de Motion Zinga" > collage.mp4 (recortes P&B bitmap com borda
+branca, papel amassado com faixas de luz, etiquetas, caneta) + Punk Goes Pop 5 (Memphis May Fire "Grenade", We Came As
+Romans "Glad You Came"): encaixe de palavras pequenas empilhadas na altura da grande, palavra em perspectiva, palavra no chão.
+Regras do cliente: vídeo nunca o tempo todo, intercalar fotos, um vídeo por vez (nunca dois juntos), vídeo na lateral
+sempre com rosto, borda rasgada de verdade (nada de estrela), negativo onde a letra cruza o vídeo, lettering aprovado.
+- footage/recorte/<n>-bit.png: recortes (u2net_human_seg do GitHub do rembg, prep/recorta.py).
+- tex/papel-amassado.jpg (prep/papel.py). colagem.js: rasgado, PedacoVideo, Recorte, Fita, Rabisco, Letras (negativo:
+  camada clipada no vídeo com cópia do vídeo + letras em grayscale/difference; mix-blend precisa do vídeo no mesmo contexto).
+- ML.poeVideo aceita uso.box (caixa que o vídeo cobre). Fonte de apoio: Anton (etiquetas).
+- 3 telas estáticas: films/lyric-telas (modelos/telas.js), shot-telas.mjs -> out/tela-N.png. Aguardando aprovação.
