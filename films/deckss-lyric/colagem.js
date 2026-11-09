@@ -48,7 +48,7 @@
   const Rabisco = (pai, { cx, cy, rx, ry, voltas = 1.3, cor = '#d8261c', larg = 7, sem = 5, rot = 0 }) => {
     const R = M.mulberry32(sem), n = Math.round(60 * voltas), p = [];
     for (let i = 0; i <= n; i++) { const a = -0.6 + i / 60 * Math.PI * 2, j = 1 + (R() - 0.5) * 0.06 + i / n * 0.07; p.push(`${(cx + Math.cos(a) * rx * j).toFixed(1)},${(cy + Math.sin(a) * ry * j).toFixed(1)}`); }
-    return C.svg(pai, W, H, `<polyline points="${p.join(' ')}" fill="none" stroke="${cor}" stroke-width="${larg}" stroke-linecap="round" stroke-linejoin="round" opacity=".92" transform="rotate(${rot} ${cx} ${cy})"/>`, { left: '0px', top: '0px' });
+    return C.svg(pai, W, H, `<polyline points="${p.join(' ')}" fill="none" stroke="${cor}" stroke-width="${larg}" stroke-linecap="round" stroke-linejoin="round" opacity=".92" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" transform="rotate(${rot} ${cx} ${cy})"/>`, { left: '0px', top: '0px' });
   };
 
   // Camada de letras com negativo: normal fora do vídeo, negativo (diferença) dentro.
@@ -85,7 +85,7 @@
       const a = mk(normal), b = sil ? mk(sil) : null;
       const W0 = a.offsetWidth, H0 = a.offsetHeight;
       return { a, b, spans, W0, H0, w: () => W0, h: () => H0,
-        mostra: (n) => spans.forEach((l, i) => l.forEach((sp) => { sp.style.visibility = i < n ? 'visible' : 'hidden'; })),
+        mostra: (n) => spans.forEach((l, i) => l.forEach((sp) => { sp.style.display = i < n ? '' : 'none'; })),
         vis: (v) => [a, b].forEach((e) => { if (e) e.style.display = v ? '' : 'none'; }),
         poe: (cx, cy, tf = '') => [a, b].forEach((e) => { if (e) e.style.transform = `translate(${cx - W0 / 2}px, ${cy - H0 / 2}px) ${tf}`; }) };
     };

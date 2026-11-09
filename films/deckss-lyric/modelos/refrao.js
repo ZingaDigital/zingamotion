@@ -30,11 +30,11 @@
         { w: 'lugar', tam: 380, cx: 1060, cy: 760, rx: 46, pingos: 0 }] },
     { linha: 16, tipo: 'lateral', peca: { cx: 1540, cy: 540, w: 690, h: 1000, rot: 2.5, sem: 4 },
       uso: { clip: 'vocal-0342', ini: 50, rosto: 300, cx: 1600, cy: 330, box: [1170, 20, 1900, 1070] }, recortes: [['bateria', 600, 1000, 420, -9]],
-      deco: [['linhas', 60, 560, 520, 380, -4], ['sucata', 420, 210, 760, 230, -3, PRETO, 41], ['ret', -240, 480, 820], ['fita', 1270, 70, 210, -28], ['fita', 1810, 1010, 210, -22], ['rabisco', 330, 740, 175, 125, PRETO, -6]],
+      deco: [['linhas', 60, 560, 520, 380, -4], ['sucata', 420, 210, 760, 230, -3, PRETO, 41], ['ret', -240, 480, 820], ['fita', 1270, 70, 210, -28], ['fita', 1810, 1010, 210, -22], ['rabisco', 330, 740, 175, 125, PRETO, -6, 63.78]],
       itens: [{ etq: 'ONDE AS', tam: 150, cx: 430, cy: 205, rz: -3 }, { w: 'memórias', tam: 250, cx: 960, cy: 440, ry: 20, rz: -2 },
         { etq: 'NÃO', tam: 170, fundo: VERM, cx: 330, cy: 740, rz: 5 }, { w: 'morrem', tam: 280, cx: 1010, cy: 770, ry: 20, rz: 1 }] },
     { linha: 17, tipo: 'papel', recortes: [['baixo', 260, 760, 600, -5], ['bateria', 1740, 640, 820, 6]],
-      deco: [['sucata', 960, 440, 2300, 400, -4, PRETO, 21], ['linhas', 1240, 700, 520, 330, 3], ['ret', 1180, -300, 1000], ['fita', 1640, 160, 190, 28], ['rabisco', 1000, 880, 380, 110, VERM, 0]],
+      deco: [['sucata', 960, 440, 2300, 400, -4, PRETO, 21], ['linhas', 1240, 700, 520, 330, 3], ['ret', 1180, -300, 1000], ['fita', 1640, 160, 190, 28], ['rabisco', 1000, 880, 380, 110, VERM, 0, 67.18]],
       itens: [{ etq: 'ONDE', tam: 130, cx: 560, cy: 370, rz: -3 }, { etq: 'O', tam: 130, cor: PRETO, fundo: CREME, cx: 610, cy: 510, rz: 4 },
         { w: 'tempo', tam: 330, cx: 1220, cy: 440, ry: 30, rz: -3, pingos: 0 }, { etq: 'NÃO', tam: 110, cor: PRETO, fundo: CREME, cx: 1170, cy: 690, rz: -4 },
         { etq: 'VENCE', tam: 110, fundo: VERM, cx: 1400, cy: 700, rz: 3 }, { etq: 'O', tam: 130, fundo: PRETO, cx: 640, cy: 880, rz: -6 },
@@ -58,7 +58,7 @@
     else if (k === 'ret') img(t, 'tex/reticula-disco.png', { left: a[0] + 'px', top: a[1] + 'px', width: a[2] + 'px', opacity: '.45', filter: 'invert(1)', mixBlendMode: 'multiply' });
     else if (k === 'fita') CG.Fita(t, { cx: a[0], cy: a[1], w: a[2], rot: a[3], cor: FITA, sem: a[0] % 97 });
     else if (k === 'caveira') img(t, 'rec/caveira.png', { left: a[0] - a[2] / 2 + 'px', top: a[1] - a[2] / 2 + 'px', width: a[2] + 'px', opacity: '.9', transform: `rotate(${a[3]}deg)`, mixBlendMode: 'multiply' });
-    else if (k === 'rabisco') CG.Rabisco(t, { cx: a[0], cy: a[1], rx: a[2], ry: a[3], cor: a[4], sem: a[0] % 13, larg: 5, rot: a[5], voltas: 1.15 });
+    else if (k === 'rabisco') return { el: CG.Rabisco(t, { cx: a[0], cy: a[1], rx: a[2], ry: a[3], cor: a[4], sem: a[0] % 13, larg: 5, rot: a[5], voltas: 1.15 }), t: a[6] - OFF };
   };
 
   window.MODELO = {
@@ -82,7 +82,7 @@
         const camRec = div(raiz, { inset: '0px' });
         (cf.recortes || []).forEach(([n, cx, cy, h, rot]) => S.recs.push(CG.Recorte(camRec, n, { cx, cy, h, rot })));
         if (cf.tipo === 'lateral') { const pv = CG.PedacoVideo(raiz, cf.peca); S.vids.push([pv.v, cf.uso]); formas = [pv.pts]; }
-        (cf.deco || []).filter((d) => d[0] === 'fita' || d[0] === 'rabisco').forEach((d) => decoPoe(raiz, d));
+        S.rabiscos = (cf.deco || []).filter((d) => d[0] === 'fita' || d[0] === 'rabisco').map((d) => decoPoe(raiz, d)).filter(Boolean);
         const L = CG.Letras(raiz, { formas }); if (L.vInv) S.vids.push([L.vInv, cf.uso]);
         S.camRec = camRec;
         // itens consomem as palavras da letra em ordem
@@ -115,6 +115,7 @@
         S.raiz.style.transform = `translate(${M.wiggle(t, 0.5, 4, i).toFixed(1)}px, ${M.wiggle(t, 0.4, 3, i + 9).toFixed(1)}px) rotate(${r.toFixed(2)}deg) scale(${s.toFixed(4)})`;
         S.camRec.style.transform = `translate(${(-tl * 9 * (i % 2 ? 1 : -1)).toFixed(1)}px, ${(-tl * 3).toFixed(1)}px) scale(${(1 + 0.02 * tl).toFixed(4)})`;
         S.vids.forEach(([v, u]) => ML.poeVideo(v, u, Math.max(0, tl), espera));
+        S.rabiscos.forEach((r) => { const q = M.E.entra(M.prog(t, r.t + 0.08, r.t + 0.42)); r.el.style.display = q > 0 ? '' : 'none'; r.el.querySelector('polyline').setAttribute('stroke-dashoffset', (1 - q).toFixed(3)); });
         const final = t >= TFIM - 0.1 && i === cenas.length - 1;
         S.itens.forEach((o, j) => {
           if (o.tipo === 'etq') {
