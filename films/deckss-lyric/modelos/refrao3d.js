@@ -19,21 +19,21 @@
       linhas: [[['Se', 'cada'], 'adeus'], [['fosse'], 'visível']],
       itens: [['rec', 'vocal2', 760, 120, -500, 900, 4], ['rec', 'tatuado', -820, 330, -300, 380, -6]] },
     { linha: 13, g: [2300, -300, -800, -55, 0, 0], sway: [24, -6], fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'vocal-7501', ini: 120, rosto: 290 } },
-      linhas: [[['Talvez', 'a', 'gente'], 'aprendesse'], [['a'], 'olhar']], itens: [] },
+      linhas: [[['Talvez', 'a'], 'gente'], ['aprendesse'], [['a'], 'olhar']], itens: [] },
     { linha: 14, g: [2700, 1500, -2900, -20, 55, 0], sway: [-20, -12], fundo: { tipo: 'cheio', uso: { clip: 'estudio-1400', ini: 250, rosto: 380, cx: 1350, cy: 380 } },
       linhas: [[['Mas', 'mesmo'], 'quando'], [['tudo', 'parece'], 'perdido']],
       itens: [['rec', 'volcom', -980, 260, 200, 520, -6]] },
     { linha: 15, g: [600, 2300, -4300, 38, 0, -7], sway: [20, 10], fundo: { tipo: 'papel' },
-      linhas: [[['Ainda', 'existe', 'um'], 'lugar']],
-      itens: [['rec', 'guit2', -860, 120, -400, 900, -3], ['rec', 'moletom', 900, -120, -600, 640, 6]] },
+      linhas: [[['Ainda'], 'existe'], [['um'], 'lugar']],
+      itens: [['rec', 'guit2', -1250, 150, -700, 900, -3], ['rec', 'moletom', 1250, -100, -800, 640, 6]] },
     { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-24, 6], fundo: { tipo: 'cheio', uso: { clip: 'vocal-0342', ini: 40, rosto: 360, cx: 1380, cy: 360 } },
       linhas: [[['Onde', 'as'], 'memórias'], [['não'], 'morrem']],
       itens: [['rec', 'bateria', -930, 300, 250, 480, -8]] },
     { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], fundo: { tipo: 'faixa', lado: 'esq', uso: { clip: 'bateria-1317', ini: 250, rosto: 260 } },
       linhas: [[['Onde', 'o'], 'tempo', ['não', 'vence']], [['o'], 'amor']], itens: [] },
     { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], fundo: { tipo: 'papel' },
-      linhas: [[['E', 'um', 'dia'], 'tudo', ['que', 'hoje', 'é']], ['pergunta']],
-      itens: [['rec', 'baixo', -880, 340, -350, 560, -5], ['rec', 'vocal', 900, 120, -500, 820, 5]] },
+      linhas: [[['E', 'um'], 'dia'], [['tudo', 'que'], 'hoje'], [['é'], 'pergunta']],
+      itens: [['rec', 'baixo', -1200, 360, -600, 560, -5], ['rec', 'vocal', 1200, 120, -700, 820, 5]] },
     { linha: 19, g: [1800, -1200, -10500, 0, 18, 0], sway: [16, 6], fundo: { tipo: 'cheio', uso: { clip: 'vocal-7522', ini: 1, rosto: 330, cx: 1320, cy: 330, vaivem: true } },
       linhas: [[['Vai', 'fazer'], 'sentido']],
       itens: [['rec', 'guit2', -930, 280, 250, 520, -4]] },
@@ -57,8 +57,11 @@
     const rows = linhas.map((ln) => {
       const its = ln.map((it) => {
         if (typeof it === 'string') return { w: it, larg: ML.medida(it).w100, alt: CAP * 100 };
-        const inv = it.reduce((a, w) => a + ANT.cap / anton(w), 0), g = 8, Ws = Math.max(28, (CAP * 100 - g * (it.length - 1)) / inv) * (it.length > 2 ? 1.25 : 1);
-        return { pilha: it, larg: Ws, g };
+        // largura comum da pilha; cada palavra limitada a 60% da altura (palavra curta não engole a pilha)
+        const g = 8, alvo = CAP * 100 - g * (it.length - 1), hMax = alvo * (it.length > 1 ? 0.6 : 1);
+        const alt = (Ws) => it.reduce((a, w) => a + Math.min(hMax, Ws * ANT.cap / anton(w)), 0);
+        let lo = 1, hi = 2000; for (let n = 0; n < 40; n++) { const m = (lo + hi) / 2; if (alt(m) < alvo) lo = m; else hi = m; }
+        return { pilha: it, larg: lo, g, hMax };
       });
       const tot = its.reduce((a, b) => a + b.larg, 0) + 22 * (its.length - 1), k = larg / tot;
       return { its, k, h: CAP * 100 * k };
@@ -70,7 +73,7 @@
       r.its.forEach((it) => {
         const L = it.larg * r.k;
         if (it.w) out.push({ w: it.w, tipo: 'grande', tam: 100 * r.k, lx: x + L / 2, ly: y + r.h / 2 });
-        else { let yy = y; it.pilha.forEach((w) => { const tam = L / anton(w), h = ANT.cap * tam; out.push({ w, tipo: 'peq', tam, lx: x + L / 2, ly: yy + h / 2 }); yy += h + it.g * r.k; }); }
+        else { let yy = y + (r.h - it.pilha.reduce((a, w) => a + Math.min(it.hMax * r.k, ANT.cap * L / anton(w)), 0) - it.g * r.k * (it.pilha.length - 1)) / 2; it.pilha.forEach((w) => { const h = Math.min(it.hMax * r.k, ANT.cap * L / anton(w)), tam = h / ANT.cap; out.push({ w, tipo: 'peq', tam, lx: x + L / 2, ly: yy + h / 2 }); yy += h + it.g * r.k; }); }
         x += L + 22 * r.k;
       });
       y += r.h + gapY;
@@ -123,7 +126,7 @@
         S.L.normal.style.perspective = P + 'px'; S.L.normal.style.perspectiveOrigin = '50% 50%';
         S.clip = S.L.normal.style.clipPath;
         if (S.L.inv) { const silEl = S.L.inv.lastChild; silEl.style.perspective = P + 'px'; silEl.style.perspectiveOrigin = '50% 50%'; }
-        const naPapel = cf.fundo.tipo === 'papel';
+        const naPapel = cf.fundo.tipo !== 'cheio';
         const bloco = montaBloco(cf.linhas);
         bloco.forEach((b, k) => {
           b.t = pals[k] ? pals[k].t : pals[pals.length - 1].t;
