@@ -32,8 +32,8 @@
   const fita = (pai, txt, tam, w) => {                    // fita adesiva com ponta rasgada
     const f = Z.div(pai, { left: '0px', top: '0px', width: w + 'px', height: Math.round(tam * 1.35) + 'px', background: 'rgba(236, 226, 204, 0.94)',
       clipPath: 'polygon(1% 8%, 4% 0%, 96% 3%, 99% 0%, 98% 30%, 100% 62%, 97% 100%, 3% 96%, 0% 100%, 2% 60%, 0% 28%)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Bangers', fontSize: tam + 'px', color: '#0b0a09',
-      letterSpacing: '0.04em', transformOrigin: '50% 50%' });
+      display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Anton', fontSize: tam + 'px', color: '#0b0a09',
+      letterSpacing: '0.03em', transformOrigin: '50% 50%' });
     f.textContent = txt; return f;
   };
 
@@ -82,6 +82,44 @@
     return real;
   };
 
+  // ---------- câmera 3D com projeção à mão (mesma matemática do refrão 3D do lyric): pai só com perspective ----------
+  const P3 = 1600, rad = (d) => d * Math.PI / 180;
+  const rotY = ([x, y, z], a) => { const c = Math.cos(rad(a)), s = Math.sin(rad(a)); return [x * c + z * s, y, -x * s + z * c]; };
+  const rotX = ([x, y, z], a) => { const c = Math.cos(rad(a)), s = Math.sin(rad(a)); return [x, y * c - z * s, y * s + z * c]; };
+  const rotZ = ([x, y, z], a) => { const c = Math.cos(rad(a)), s = Math.sin(rad(a)); return [x * c - y * s, x * s + y * c, z]; };
+  const aplica = (v, ry, rx, rz) => rotY(rotX(rotZ(v, rz), rx), ry);
+  const desfaz = (v, ry, rx, rz) => rotZ(rotX(rotY(v, -ry), -rx), -rz);
+  const camStr = (c) => `rotateZ(${(-c.rz).toFixed(3)}deg) rotateX(${(-c.rx).toFixed(3)}deg) rotateY(${(-c.ry).toFixed(3)}deg) translate3d(${(-c.x).toFixed(1)}px, ${(-c.y).toFixed(1)}px, ${(-c.z).toFixed(1)}px)`;
+  const grpStr = (g) => `translate3d(${g[0]}px, ${g[1]}px, ${g[2]}px) rotateY(${g[3]}deg) rotateX(${g[4]}deg) rotateZ(${g[5]}deg)`;
+  const prof = (c, g, l) => { const q = aplica(l, g[3], g[4], g[5]); return desfaz([g[0] + q[0] - c.x, g[1] + q[1] - c.y, g[2] + q[2] - c.z], c.ry, c.rx, c.rz)[2]; };
+
+  // câmera do filme (até a assinatura): o plano inteiro gira em X/Y sob perspectiva e chicoteia nas trocas de cena
+  const CAMK = [ // [batida, ry, rx] (valores no início e no fim de cada trecho)
+    [0, -7, 5], [18, 6, -2], [18, -9, 3], [24, 4, -2], [24, -5, 3], [38, 5, -3], [38, -6, 4], [52, 5, -3], [52, -2.5, 1.5], [68, 2.5, -1.5]];
+  const CHICOTES = [[18, 16], [20, -12], [24, 14], [38, -18], [52, 12]];
+  const angCam = (t) => {
+    let ry = CAMK[0][1], rx = CAMK[0][2];
+    for (let i = 0; i < CAMK.length - 1; i += 2) {
+      const [k0, a0, b0] = CAMK[i], [k1, a1, b1] = CAMK[i + 1];
+      if (t >= B(k0)) { const u = E.suave(M.prog(t, B(k0), B(k1))); ry = M.lerp(a0, a1, u); rx = M.lerp(b0, b1, u); }
+    }
+    for (const [k, a] of CHICOTES) { ry += M.kick(t, B(k), a, 2.4, 0.5); rx += M.kick(t, B(k), -a * 0.3, 2.4, 0.5); }
+    return { ry, rx };
+  };
+
+  // assinatura: título, bloco "em breve" e logo em grupos no espaço; a câmera segue a palavra e chicoteia entre grupos
+  const GRUPOS = [
+    { g: [0, 0, 0, 0, 0, 0], t0: B(68), sway: [-16, 6], dz: [420, 180] },
+    { g: [1700, 1150, -1500, -32, 12, -4], t0: B(70) - 0.12, sway: [12, -6], dz: [380, 230] },
+    { g: [600, 2100, -2300, 6, -14, 2], t0: B(78.6), sway: [-12, 5], dz: [260, 0], fixo: true },
+  ];
+  const TEXTO = [   // linhas do bloco: itens em Anton ('a') ou no lettering do título ('l'), com a batida de entrada
+    [{ w: 'EM', a: true, cor: 'amarelo', k: 70 }, { w: 'BREVE', fonte: 'Sedgwick', tipo: 'fogo', k: 71 }],
+    [{ w: 'EM', a: true, k: 72 }, { w: 'TODAS', a: true, k: 72.5 }],
+    [{ w: 'PLATAFORMAS', fonte: 'Sedgwick', tipo: 'creme', k: 73 }],
+    [{ w: 'DE', a: true, k: 74 }, { w: 'STREAMING', fonte: 'Permanent Marker', tipo: 'creme', k: 74.5 }],
+  ];
+
   // =================================================================================================
   let VIVA_N = 0, vivaAtual = '';
   const vivaSrc = (t) => {
@@ -90,7 +128,7 @@
     return `assets/viva/f${String(i).padStart(3, '0')}.jpg`;
   };
   let cam, cav, pecasA, fitaNovo, logo, logoE, logoD, vai, sentido, capaEsc, pecasC, titTopo, capaViva, luz, fita0112, selo,
-    player, capaPl, plTit, plArt, barraFundo, barraCheia, bolinha, tIni, tFim, check, toque, fim, tc, data, presave, risco, cavFim;
+    player, capaPl, plTit, plArt, barraFundo, barraCheia, bolinha, tIni, tFim, check, toque, fim, MUNDO;
 
   Z.plano({
     id: 'filme', inicio: 0, fim: 30.3,
@@ -99,7 +137,7 @@
       // ---- abertura
       pecasA = PECAS_A.map(([f, w, h]) => img(cam, `rec/${f}.png`, w, h, { filter: 'drop-shadow(0 14px 18px rgba(0,0,0,.55))' }));
       cav = img(cam, 'rec/caveira.png', CAV.w, CAV.h);
-      fitaNovo = fita(cam, 'NOVO SINGLE', 78, 560);
+      fitaNovo = fita(cam, 'NOVO SINGLE', 70, 560);
       // ---- logo (metades para o rasgo)
       logo = Z.div(cam, { left: '0px', top: '0px', width: LOGO.w + 'px', height: LOGO.h + 'px', transformOrigin: '50% 50%' });
       const rasgo = 'polygon(0 0, 52% 0, 49% 12%, 53% 25%, 48% 38%, 52% 52%, 47% 66%, 51% 80%, 48% 92%, 51% 100%, 0 100%)';
@@ -118,7 +156,7 @@
       luz = Z.div(cam, { left: '0px', top: '0px', width: CAPA + 'px', height: CAPA + 'px', transformOrigin: '50% 50%', mixBlendMode: 'screen', zIndex: 6,
         background: 'radial-gradient(38% 30% at 66% 44%, rgba(255,190,90,.55), rgba(255,150,40,0) 70%)' });
       titTopo = img(cam, 'rec/logo.png', LOGO.w, LOGO.h, { zIndex: 7 });
-      fita0112 = fita(cam, '01.12', 96, 300); fita0112.style.zIndex = 7;
+      fita0112 = fita(cam, 'EM BREVE', 72, 340); fita0112.style.zIndex = 7;
       selo = img(cam, 'rec/caveira.png', CAV.w, CAV.h, { zIndex: 7, filter: 'drop-shadow(0 0 0 #000) drop-shadow(6px 8px 0 #0b0a09)' });
       // ---- player
       player = Z.div(cam, { left: '0px', top: '0px', width: Z.W + 'px', height: Z.H + 'px', transformOrigin: '540px 1471px', zIndex: 4 });
@@ -135,14 +173,52 @@
       check = Z.div(player, { left: (PL.check[0] - 44) + 'px', top: (PL.check[1] - 44) + 'px', width: '88px', height: '88px', borderRadius: '50%', background: '#1ed760', transformOrigin: '50% 50%' });
       check.innerHTML = '<svg viewBox="0 0 88 88" width="88" height="88"><path d="M25 45 L38 58 L64 31" fill="none" stroke="#000" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       toque = Z.div(player, { left: '0px', top: '0px', width: '120px', height: '120px', borderRadius: '50%', border: '6px solid #fff', boxSizing: 'border-box', background: 'rgba(255,255,255,.18)' });
-      // ---- assinatura
-      fim = Z.div(cam, { left: '0px', top: '0px', width: Z.W + 'px', height: Z.H + 'px', zIndex: 9 });
-      tc = img(fim, 'rec/titulo-caveira.png', TC.w, TC.h);
-      data = texto(fim, '01.12', 250, 600, { color: AMARELO });
-      presave = texto(fim, 'PRÉ-SAVE NA BIO', 104, 900);
-      risco = Z.div(fim, { left: '0px', top: '0px', width: '760px', height: '26px', background: AMARELO, transformOrigin: '0 50%',
-        clipPath: 'polygon(0 30%, 6% 0, 100% 20%, 98% 100%, 3% 85%)' });
-      cavFim = img(fim, 'rec/logo.png', LOGO.w, LOGO.h);
+      // ---- assinatura (mundo 3D)
+      await Promise.all(['100px Sedgwick', '100px "Permanent Marker"', '100px Anton'].map((f) => document.fonts.load(f, 'ÉÃ')));
+      fim = Z.div(cam, { left: '0px', top: '0px', width: Z.W + 'px', height: Z.H + 'px', zIndex: 9, perspective: P3 + 'px', perspectiveOrigin: '50% 50%' });
+      MUNDO = [];
+      const noMundo = (el, w, h, grupo, l, t, tipo, ox = w / 2, oy = h / 2) => {
+        Object.assign(el.style, { left: (Z.W / 2 - ox) + 'px', top: (Z.H / 2 - oy) + 'px', transformOrigin: `${ox}px ${oy}px` });
+        MUNDO.push({ el, grupo, l, t, tipo }); return el;
+      };
+      const tcW = 940, tcH = TC.h * tcW / TC.w;
+      noMundo(img(fim, 'rec/titulo-caveira.png', tcW, tcH), tcW, tcH, 0, [0, -40], B(68), 'img');
+      // bloco do texto: cada linha preenche a largura (pilha em Anton na altura da palavra grande)
+      const cv = document.createElement('canvas').getContext('2d');
+      const met = (fonte) => { cv.font = `100px ${fonte}`; const m = cv.measureText('H'); return { cap: m.actualBoundingBoxAscent / 100, A: m.fontBoundingBoxAscent / 100, D: m.fontBoundingBoxDescent / 100 }; };
+      const larg = (fonte, txt) => { cv.font = `100px ${fonte}`; return cv.measureText(txt).width / 100; };
+      const MA = met('Anton'), BW = 960, GAP = 34, CAPMAX = 210;
+      const fq = (f) => (f === 'Sedgwick' ? 'Sedgwick' : '"Permanent Marker"');
+      const linhas = TEXTO.map((ln) => {
+        // tamanho 100 de cada item normalizado pra mesma altura de maiúscula (100 px de cap)
+        const its = ln.map((it) => { const fm = it.a ? 'Anton' : fq(it.fonte), m = it.a ? MA : met(fm), tam = 100 / m.cap; return { ...it, fm, m, tam, w100: larg(fm, it.w) * tam }; });
+        const tot = its.reduce((a, b) => a + b.w100, 0) + 30 * (its.length - 1), k = Math.min(BW / tot, CAPMAX / 100);
+        return { its, k, cap: 100 * k, larg: tot * k };
+      });
+      const altura = linhas.reduce((a, r) => a + r.cap, 0) + GAP * (linhas.length - 1);
+      let y = -altura / 2;
+      linhas.forEach((r, li) => {
+        let x = -r.larg / 2;
+        r.its.forEach((it, ii) => {
+          const tam = it.tam * r.k, w = it.w100 * r.k, cx = x + w / 2, cy = y + r.cap / 2, mg = it.m;
+          const capC = ((1 - (mg.A + mg.D)) / 2 + mg.A - mg.cap / 2) * tam;
+          if (it.a) {
+            const d = Z.div(fim, { left: '0px', top: '0px', fontFamily: 'Anton', fontSize: tam + 'px', lineHeight: '1', whiteSpace: 'nowrap',
+              color: it.cor === 'amarelo' ? AMARELO : CREME, textShadow: `${(tam * 0.04).toFixed(1)}px ${(tam * 0.05).toFixed(1)}px 0 #0b0a09` });
+            d.textContent = it.w;
+            noMundo(d, d.offsetWidth, tam, 1, [cx, cy], B(it.k), 'peq', d.offsetWidth / 2, capC);
+          } else {
+            const pal = LT.palavra(fim, it.w, { fonte: it.fm.replace(/"/g, ''), tam, tipo: it.tipo, semente: 31 + li * 3 + ii, pingos: it.tipo === 'fogo' ? 4 : 2 });
+            const cw = pal.caixa.offsetWidth;
+            noMundo(pal.caixa, cw, 0, 1, [cx, cy], B(it.k), 'grande', cw / 2, tam * 0.12 + capC);
+            MUNDO[MUNDO.length - 1].pal = pal;
+          }
+          x += w + 30 * r.k;
+        });
+        y += r.cap + GAP;
+      });
+      const lW = 980, lH = LOGO.h * lW / LOGO.w;
+      noMundo(img(fim, 'rec/logo.png', lW, lH), lW, lH, 2, [0, 0], B(78.6) - 0.2, 'img');
     },
 
     seek(t) {
@@ -156,7 +232,14 @@
       else if (t < B(52)) { camS = 1 + 0.07 * E.suave(M.prog(t, B(38), B(52))); camR = -1 + 2 * E.suave(M.prog(t, B(38), B(52))); }
       else if (t < B(68)) { camS = 1; camR = 0; }
       else { camS = 1.06 - 0.06 * E.suave(M.prog(t, B(68), B(80))); camR = 1.5 - 1.5 * E.suave(M.prog(t, B(68), B(80))); }
-      cam.style.transform = `translate(${tr.x.toFixed(2)}px, ${(tr.y + camY).toFixed(2)}px) rotate(${(camR + tr.r).toFixed(3)}deg) scale(${camS.toFixed(4)})`;
+      let a3 = { ry: 0, rx: 0 }, borr = 0;
+      if (t < B(68)) {
+        a3 = angCam(t); const a2 = angCam(t + 1 / 30);
+        borr = Math.min(8, Math.max(0, Math.abs(a2.ry - a3.ry) + Math.abs(a2.rx - a3.rx) - 0.7) * 2.2);
+        camS *= 1.05;                                          // sobra de quadro pras bordas não aparecerem na rotação
+      }
+      cam.style.transform = `translate(${tr.x.toFixed(2)}px, ${(tr.y + camY).toFixed(2)}px) rotateX(${a3.rx.toFixed(3)}deg) rotateY(${a3.ry.toFixed(3)}deg) rotate(${(camR + tr.r).toFixed(3)}deg) scale(${camS.toFixed(4)})`;
+      cam.style.filter = borr > 0.3 ? `blur(${borr.toFixed(1)}px)` : 'none';
 
       // ================= ABERTURA (k0 a k18) =================
       const naAbertura = t < B(18) + 0.001;
@@ -250,7 +333,7 @@
       if (ttT) poe(titTopo, LOGO.w, LOGO.h, 540, 330 - 900 * E.sai(paraPlayer) + 8 * M.kick(t, B(46), 1, 5, 0.4), (580 / LOGO.w) * ttT.s, M.lerp(-8, -3, ttT.p));
       const f12 = tapa(t, B(42), { s0: 1.8 });
       Z.mostra(fita0112, f12 && t < B(53), 'flex');
-      if (f12) poe(fita0112, 300, 130, 230 - 700 * E.sai(paraPlayer), 1430, f12.s, M.lerp(-16, -7, f12.p));
+      if (f12) poe(fita0112, 340, 97, 230 - 700 * E.sai(paraPlayer), 1430, f12.s, M.lerp(-16, -7, f12.p));
       const sl = tapa(t, B(46), { s0: 2.2, f: 4, z: 0.55 });
       Z.mostra(selo, sl && t < B(53), 'block');
       if (sl) poe(selo, CAV.w, CAV.h, 930 + 700 * E.sai(paraPlayer), 560, 0.26 * sl.s, M.lerp(28, 12, sl.p));
@@ -290,29 +373,49 @@
       }
 
       if (t >= B(52) && VIVA_N) { const ult = `assets/viva/f${String(VIVA_N).padStart(3, '0')}.jpg`; if (!capaPl.src.endsWith(ult)) { capaPl.src = ult; espera.push(capaPl.decode().catch(() => {})); } }
-      // ================= ASSINATURA (k68 a fim) =================
+      // ================= ASSINATURA (k68 a fim): mundo 3D =================
       Z.mostra(fim, t >= B(68), 'block');
       if (t >= B(68)) {
-        const solta = M.prog(t, B(78), B(78) + 0.6);          // tudo cai e sobra a caveira (loop)
-        const cai = (i) => E.entra(M.prog(t, B(78) + i * 0.05, B(78) + 0.5 + i * 0.05));
-        const tT = tapa(t, B(68), { s0: 1.5, f: 3.2, z: 0.6 });
-        Z.mostra(tc, solta < 1, 'block');
-        let s = (940 / TC.w) * tT.s;
-        for (let k = 69; k < 78; k++) s += (940 / TC.w) * M.kick(t, B(k), 0.02, 6, 0.5);
-        poe(tc, TC.w, TC.h, 540, 650 - 1500 * cai(0), s, M.lerp(-7, -2, tT.p) - 20 * cai(0));
-        const dT = tapa(t, B(70), { s0: 1.9 });
-        Z.mostra(data, dT && solta < 1, 'block');
-        if (dT) poe(data, 600, 250, 540 - 1300 * cai(1), 1250, dT.s, M.lerp(9, 3, dT.p) - 25 * cai(1));
-        const pT2 = tapa(t, B(72), { s0: 1.9 });
-        Z.mostra(presave, pT2 && solta < 1, 'block');
-        if (pT2) poe(presave, 900, 104, 540 + 1400 * cai(2), 1430, pT2.s, M.lerp(-6, -2, pT2.p) + 20 * cai(2));
-        const rs = E.entra(M.prog(t, B(74), B(74) + 0.3));
-        Z.mostra(risco, rs > 0 && solta < 1, 'block');
-        if (rs > 0) risco.style.transform = `translate(${160 + 1400 * cai(2)}px, 1492px) rotate(-2deg) scaleX(${rs.toFixed(4)})`;
-        // caveira volta pro quadro inicial na batida 80
-        const cv = tapa(t, B(79), { s0: 1.4, f: 3.6, z: 0.6 });
-        Z.mostra(cavFim, !!cv, 'block');
-        if (cv) { let sl = (980 / LOGO.w) * cv.s; sl += (980 / LOGO.w) * M.kick(t, B(81), 0.03, 6, 0.5); poe(cavFim, LOGO.w, LOGO.h, 540, 900, sl, M.lerp(-6, 0, cv.p)); }
+        const pose = (gi, tt) => {
+          const G = GRUPOS[gi], g = G.g, fim2 = GRUPOS[gi + 1] ? GRUPOS[gi + 1].t0 : 30.3, f = M.clamp((tt - G.t0) / (fim2 - G.t0));
+          const its = MUNDO.filter((m) => m.grupo === gi && tt >= m.t);
+          let ox = 0, oy = 0;
+          if (its.length && !G.fixo) {
+            const cur = its[its.length - 1], prev = its[its.length - 2] || cur, e = E.cruza(M.prog(tt, cur.t, cur.t + 0.45));
+            const solta = E.suave(M.prog(tt, cur.t + 0.7, cur.t + 1.6));          // depois da última palavra, mostra o bloco inteiro
+            ox = M.lerp(prev.l[0], cur.l[0], e) * 0.12 * (1 - solta); oy = M.lerp(prev.l[1], cur.l[1], e) * 0.12 * (1 - solta);
+          }
+          const dz = M.lerp(G.dz[0], G.dz[1], E.suave(f));
+          const o = aplica([ox, oy, dz], g[3], g[4], g[5]);
+          const sy = M.lerp(G.sway[0], G.fixo ? 0 : G.sway[0] * 0.3, E.suave(f)), sx = M.lerp(G.sway[1], G.fixo ? 0 : G.sway[1] * 0.3, E.suave(f));
+          return { x: g[0] + o[0], y: g[1] + o[1], z: g[2] + o[2], ry: g[3] + sy, rx: g[4] + sx, rz: g[5] };
+        };
+        const camEm = (tt) => {
+          let k = 0; GRUPOS.forEach((G, i) => { if (tt >= G.t0 - 0.18) k = i; });
+          const a = pose(k, tt); if (k === 0) return a;
+          const e = E.cruza(M.prog(tt, GRUPOS[k].t0 - 0.18, GRUPOS[k].t0 + 0.32)); if (e >= 1) return a;
+          const b = pose(k - 1, tt), r = {}; for (const key in a) r[key] = M.lerp(b[key], a[key], e); return r;
+        };
+        const c = camEm(t), c2 = camEm(t + 1 / 30);
+        const vel = Math.hypot(c2.x - c.x, c2.y - c.y, c2.z - c.z) / 40 + Math.abs(c2.ry - c.ry) + Math.abs(c2.rx - c.rx);
+        const bl = Math.min(9, Math.max(0, vel - 0.6) * 1.6);
+        fim.style.filter = bl > 0.3 ? `blur(${bl.toFixed(1)}px)` : 'none';
+        const cs = camStr(c);
+        let gAtivo = 0; GRUPOS.forEach((G, i) => { if (t >= G.t0) gAtivo = i; });
+        MUNDO.forEach((m, k) => {
+          const G = GRUPOS[m.grupo], g = G.g;
+          const vis = t >= m.t - 0.08 && m.grupo >= gAtivo - 1 && !(gAtivo === 2 && m.grupo < 2 && t > G.t0 + 0.5 && t > GRUPOS[2].t0 + 0.35);
+          if (!vis) { m.el.style.display = 'none'; return; }
+          const q = M.spring(t - (m.t - 0.08), m.tipo === 'peq' ? 4 : 3, 0.6);
+          const lz = m.tipo === 'peq' ? M.lerp(500, 0, q) : M.lerp(-900, 0, q), giro = (1 - q) * (k % 2 ? 40 : -40);
+          const z = prof(c, g, [m.l[0], m.l[1], lz]);
+          if (z > P3 * 0.8) { m.el.style.display = 'none'; return; }
+          m.el.style.display = '';
+          m.el.style.zIndex = String(Math.round(5000 + z));
+          let pulso = 1; if (m.tipo === 'img') for (let b = Math.ceil((m.t) / B(1)) + 1; B(b) <= t && b < 82; b++) pulso += M.kick(t, B(b), 0.018, 6, 0.5);
+          m.el.style.transform = `${cs} ${grpStr(g)} translate3d(${m.l[0].toFixed(1)}px, ${m.l[1].toFixed(1)}px, ${lz.toFixed(1)}px) rotateY(${giro.toFixed(2)}deg) scale(${pulso.toFixed(4)})`;
+          if (m.pal) LT.escorre(m.pal, t, m.t + 0.1);
+        });
       }
       return espera.length ? Promise.all(espera) : undefined;
     },
@@ -331,8 +434,8 @@
       S.click(B(58), 0.4);
             S.riser(B(66), B(68), 0.1);
       S.zip(B(42), 0.1, 0.07); carimbo(B(46), 0.18);
-      S.click(B(70), 0.12); S.click(B(72), 0.12);
-      S.swoosh(B(78), 0.5, 0.2, false);
+      TEXTO.flat().forEach((it) => (it.a ? S.click(B(it.k), 0.14) : carimbo(B(it.k), 0.22))); S.swoosh(B(70) - 0.12, 0.3, 0.3, true);
+      S.swoosh(B(78.6), 0.45, 0.4, true);
       carimbo(B(79), 0.5);
       S.riser(B(33), B(37), 0.3);                         // verso desce, riser leva ao refrão
       carimbo(B(38), 0.55);

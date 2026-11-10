@@ -7,3 +7,4 @@
 | 2 | 8 | 8 | 8 | 8 | 9 | 8 | (restante) leve sobreposição de 3 quadros no rasgo em 7,45 s; vazio de 0,5 s antes da caveira final (28,9-29,4) |
 | 3 (capa viva Kling) | 8 | 8 | 8 | 9 | 9 | 8 | logo DECKSS embolado no slam do refrão (atrasado 1 batida); saída da assinatura empilhada (agora cada peça sai pra um lado); rasgo do logo e vazio final corrigidos |
 | 4 (pedido do cliente) | - | - | - | - | - | - | verso desce em fade-out (12,0 a 13,6 s) com riser até o refrão; sem zoom no player (sai pra baixo em 24,7 s); final no logo DECKSS em vez da caveira (deixa de ser loop) |
+| 5 (v4, tipografia e câmera do lyric) | 8 | 9 | 9 | 9 | 9 | 8 | bloco em breve pequeno com pilha ilegível (refeito em 4 linhas); BREVE cortado pela câmera (seguimento 12%, sway menor); chicote vazio até o logo (grupos aproximados) |

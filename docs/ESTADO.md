@@ -6,3 +6,9 @@ Fontes: Bangers (apoio), Figtree (player). Título e logo = arte original recort
 render.mjs: usa /opt/pw-browsers/chromium e mistura musica-edit.wav automaticamente.
 Crítica: docs/registro-de-critica.md (rodada 2: tudo >= 8). Render final: out/deckss-vfs.mp4 -> resultados/.
 Magnific: capa animada no Kling 2.5 (2 versões, 650 créditos). Usada a versão B (título intacto); quadros em assets/viva (30 fps, 151), clipe original em assets/capa-viva-kling.mp4. Rede: pikaso.cdnpk.net e ak-data.magnific.com liberados no ambiente.
+Sessão 2 (v4): tipografia e câmera do Lyric Deckss (branch ccr-9c2f80cf-a5yd25, films/deckss-lyric).
+- lib/lettering.js copiado do lyric (LT.palavra/LT.escorre), fontes Sedgwick, Permanent Marker, Anton; assets/tex/fill-*.png.
+- Câmera global: cam gira em rotateX/Y sob a perspective do plano (CAMK + CHICOTES, borrão pela velocidade), escala 1.05.
+- Assinatura em mundo 3D (projeção à mão do refrão 3D do lyric): GRUPOS título -> bloco "EM BREVE / EM TODAS /
+  PLATAFORMAS / DE STREAMING" (TEXTO, câmera segue a palavra a 12%) -> logo DECKSS (chicote em k78.6).
+- Removidos "01.12" e "PRÉ-SAVE NA BIO"; fita do refrão virou "EM BREVE" (Anton). Bangers saiu.

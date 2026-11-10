@@ -6,6 +6,9 @@
 <style>
   /* fontes da marca: copie os .woff2 para fonts/ e declare aqui. Uma de título, uma de interface. */
   @font-face { font-family: 'Bangers'; src: url(fonts/bangers.woff2) format('woff2'); }
+  @font-face { font-family: 'Sedgwick'; src: url(fonts/sedgwick-ave-display.woff2) format('woff2'); }
+  @font-face { font-family: 'Permanent Marker'; src: url(fonts/permanent-marker.woff2) format('woff2'); }
+  @font-face { font-family: 'Anton'; src: url(fonts/anton.woff2) format('woff2'); }
   @font-face { font-family: 'Figtree'; src: url(fonts/figtree.woff2) format('woff2'); font-weight: 300 900; }
   :root { --titulo: 'Bangers', sans-serif; --interface: 'Figtree', sans-serif; }
   html, body { margin: 0; background: #000; }
@@ -19,6 +22,8 @@
 <script src="lib/motion.js"></script>
 <script src="lib/audio.js"></script>
 <script src="lib/nucleo.js"></script>
+<script>window.TEX = 'assets/tex/';</script>
+<script src="lib/lettering.js"></script>
 <!-- um arquivo por capítulo/ato, na ordem do roteiro -->
 <script src="planos/filme.js"></script>
 </head>
