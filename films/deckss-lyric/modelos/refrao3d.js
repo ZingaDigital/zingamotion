@@ -35,7 +35,7 @@
     { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], desloc: [0, 280], larg: 1150,
       fundo: { tipo: 'cheio', uso: { clip: 'baixo-1252', ini: 150, rosto: 340, cx: 980, cy: 330 } },
       linhas: [[['Onde', 'o'], 'tempo', ['não', 'vence']], [['o'], 'amor']] },
-    { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], desloc: [-280, 0], larg: 1150,
+    { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], desloc: [-320, -15], larg: 900,
       fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'guit2-1606', ini: 100, rosto: 220, cy: 260 } },
       linhas: [[['E', 'um'], 'dia'], [['tudo', 'que'], 'hoje'], [['é'], 'pergunta']] },
     { linha: 19, g: [1800, -1200, -10500, 0, 18, 0], sway: [16, 6], desloc: [0, 250], larg: 1350,
