@@ -14,31 +14,34 @@
   const rad = (d) => d * Math.PI / 180;
 
   // ---------- roteiro: linhas do bloco ([pilha], 'grande', [pilha]); grupo no mundo; fundo ----------
+  // fundos: 'cheio' (vídeo em tela cheia), 'faixa' (vertical em faixa rasgada sobre papel), 'furo' (rasgo no papel
+  // revela o vídeo), 'cortes' (um integrante por batida). desloc: onde o bloco fica na tela (deixa o rosto livre).
   const CENAS = [
-    { linha: 12, g: [0, 0, 0, 0, 0, 0], sway: [-28, 8], fundo: { tipo: 'papel' },
-      linhas: [[['Se', 'cada'], 'adeus'], [['fosse'], 'visível']],
-      itens: [['rec', 'vocal2', 760, 120, -500, 900, 4], ['rec', 'tatuado', -820, 330, -300, 380, -6]] },
-    { linha: 13, g: [2300, -300, -800, -55, 0, 0], sway: [24, -6], fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'vocal-7501', ini: 120, rosto: 290 } },
-      linhas: [[['Talvez', 'a'], 'gente'], ['aprendesse'], [['a'], 'olhar']], itens: [] },
-    { linha: 14, g: [2700, 1500, -2900, -20, 55, 0], sway: [-20, -12], fundo: { tipo: 'cheio', uso: { clip: 'estudio-1400', ini: 250, rosto: 380, cx: 1350, cy: 380 } },
-      linhas: [[['Mas', 'mesmo'], 'quando'], [['tudo', 'parece'], 'perdido']],
-      itens: [['rec', 'volcom', -980, 260, 200, 520, -6]] },
-    { linha: 15, g: [600, 2300, -4300, 38, 0, -7], sway: [20, 10], fundo: { tipo: 'papel' },
-      linhas: [[['Ainda'], 'existe'], [['um'], 'lugar']],
-      itens: [['rec', 'guit2', -1250, 150, -700, 900, -3], ['rec', 'moletom', 1250, -100, -800, 640, 6]] },
-    { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-24, 6], fundo: { tipo: 'cheio', uso: { clip: 'vocal-0342', ini: 40, rosto: 360, cx: 1380, cy: 360 } },
-      linhas: [[['Onde', 'as'], 'memórias'], [['não'], 'morrem']],
-      itens: [['rec', 'bateria', -930, 300, 250, 480, -8]] },
-    { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], fundo: { tipo: 'faixa', lado: 'esq', uso: { clip: 'bateria-1317', ini: 250, rosto: 260 } },
-      linhas: [[['Onde', 'o'], 'tempo', ['não', 'vence']], [['o'], 'amor']], itens: [] },
-    { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], fundo: { tipo: 'papel' },
-      linhas: [[['E', 'um'], 'dia'], [['tudo', 'que'], 'hoje'], [['é'], 'pergunta']],
-      itens: [['rec', 'baixo', -1200, 360, -600, 560, -5], ['rec', 'vocal', 1200, 120, -700, 820, 5]] },
-    { linha: 19, g: [1800, -1200, -10500, 0, 18, 0], sway: [16, 6], fundo: { tipo: 'cheio', uso: { clip: 'vocal-7522', ini: 1, rosto: 330, cx: 1320, cy: 330, vaivem: true } },
-      linhas: [[['Vai', 'fazer'], 'sentido']],
-      itens: [['rec', 'guit2', -930, 280, 250, 520, -4]] },
+    { linha: 12, g: [0, 0, 0, 0, 0, 0], sway: [-24, 6], desloc: [60, 290], larg: 1300,
+      fundo: { tipo: 'cheio', uso: { clip: 'vocal-0342', ini: 3, rosto: 520, cx: 1080, cy: 300 } },
+      linhas: [[['Se', 'cada'], 'adeus'], [['fosse'], 'visível']] },
+    { linha: 13, g: [2300, -300, -800, -55, 0, 0], sway: [24, -6], desloc: [-280, 0], larg: 1150,
+      fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'vocal-7498', ini: 60, rosto: 300 } },
+      linhas: [[['Talvez', 'a'], 'gente'], ['aprendesse'], [['a'], 'olhar']] },
+    { linha: 14, g: [2700, 1500, -2900, -20, 55, 0], sway: [-20, -12], desloc: [300, 0], larg: 1150,
+      fundo: { tipo: 'faixa', lado: 'esq', uso: { clip: 'guit-0049', ini: 230, rosto: 280 } },
+      linhas: [[['Mas', 'mesmo'], 'quando'], [['tudo', 'parece'], 'perdido']] },
+    { linha: 15, g: [600, 2300, -4300, 38, 0, -7], sway: [20, 10], desloc: [0, 300], larg: 1250,
+      fundo: { tipo: 'cheio', uso: { clip: 'vocal-0342', ini: 63, rosto: 480, cx: 1060, cy: 300 } },
+      linhas: [[['Ainda'], 'existe'], [['um'], 'lugar']] },
+    { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-24, 6], desloc: [-450, 250], larg: 950,
+      fundo: { tipo: 'furo', furo: [1330, 470, 900, 720, -3], uso: { clip: 'bateria-1317', ini: 243, rosto: 330, cx: 1330, cy: 420 } },
+      linhas: [[['Onde', 'as'], 'memórias'], [['não'], 'morrem']] },
+    { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], desloc: [0, 280], larg: 1150,
+      fundo: { tipo: 'cheio', uso: { clip: 'baixo-1252', ini: 150, rosto: 340, cx: 980, cy: 330 } },
+      linhas: [[['Onde', 'o'], 'tempo', ['não', 'vence']], [['o'], 'amor']] },
+    { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], desloc: [-280, 0], larg: 1150,
+      fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'guit2-1606', ini: 100, rosto: 300 } },
+      linhas: [[['E', 'um'], 'dia'], [['tudo', 'que'], 'hoje'], [['é'], 'pergunta']] },
+    { linha: 19, g: [1800, -1200, -10500, 0, 18, 0], sway: [16, 6], desloc: [0, 290], larg: 1300,
+      fundo: { tipo: 'cortes', usos: [{ clip: 'vocal-7498', ini: 60, rosto: 420, cy: 280 }, { clip: 'vocal-7522', ini: 4, rosto: 420, cy: 280 }, { clip: 'bateria-1317', ini: 300, rosto: 360, cy: 280 }, { clip: 'guit-0046', ini: 160, rosto: 380, cy: 280 }, { clip: 'baixo-1252', ini: 230, rosto: 400, cy: 280 }, { clip: 'vocal-0342', ini: 90, rosto: 420, cy: 280 }] },
+      linhas: [[['Vai', 'fazer'], 'sentido']] },
   ];
-
   // ---------- matemática da câmera (convenções do CSS: y para baixo) ----------
   const rotY = ([x, y, z], a) => { const c = Math.cos(rad(a)), s = Math.sin(rad(a)); return [x * c + z * s, y, -x * s + z * c]; };
   const rotX = ([x, y, z], a) => { const c = Math.cos(rad(a)), s = Math.sin(rad(a)); return [x, y * c - z * s, y * s + z * c]; };
@@ -81,16 +84,21 @@
     return out;
   };
 
-  let cenas = [], titulo, grg, papel, vCheio, faixa, mundo, letrasHost;
+  let cenas = [], titulo, grg, papel, vCheio, faixa, furoL, mundo, letrasHost;
 
   window.MODELO = {
     async montar(cena) {
       await ML.carregar(); await document.fonts.load('100px Anton', 'ÃÕÓÉ'); anton('A');
       const letra = await fetch('letra.json').then((r) => r.json());
       // fundos de tela
-      papel = div(cena, { left: '-120px', top: '-80px', width: W + 240 + 'px', height: H + 160 + 'px', background: 'url(tex/papel-amassado.jpg) center / cover' });
-      img(papel, 'tex/reticula-disco.png', { left: '1300px', top: '-200px', width: '900px', opacity: '.4', filter: 'invert(1)', mixBlendMode: 'multiply' });
+      papel = div(cena, { left: '-120px', top: '-80px', width: W + 240 + 'px', height: H + 160 + 'px', background: 'url(tex/papel-creme.jpg) center / cover' });
+      img(papel, 'tex/reticula-disco.png', { left: '-150px', top: '380px', width: '1100px', opacity: '.35', filter: 'invert(1)', mixBlendMode: 'multiply' });
       vCheio = ML.Video(cena);
+      furoL = { raiz: div(cena, { inset: '0px' }) };
+      furoL.sombra = div(furoL.raiz, { inset: '0px', background: 'rgba(0,0,0,.5)', filter: 'blur(12px)' });
+      furoL.fibra = div(furoL.raiz, { inset: '0px', background: '#f6f1e6' });
+      furoL.papel = div(furoL.raiz, { inset: '0px', background: 'url(tex/papel-creme.jpg) center / cover' });
+      img(furoL.papel, 'tex/reticula-disco.png', { left: '-200px', top: '300px', width: '1100px', opacity: '.35', filter: 'invert(1)', mixBlendMode: 'multiply' });
       faixa = { raiz: div(cena, { inset: '0px' }) };
       faixa.sombra = div(faixa.raiz, { inset: '0px', background: 'rgba(0,0,0,.4)', filter: 'blur(8px)' });
       faixa.fibra = div(faixa.raiz, { inset: '0px', background: '#f6f1e6' });
@@ -108,8 +116,9 @@
           S.faixaBox = dir ? [1120, 0, 1920, 1080] : [0, 0, 800, 1080];
           S.faixaCx = cx; formas = [S.faixaPts];
         }
+        if (cf.fundo.tipo === 'furo') { const [fx, fy, fw, fh, fr] = cf.fundo.furo; S.furoPts = CG.rasgado(fx, fy, fw, fh, fr, 80 + ci, 22, 12); S.furoC = [fx, fy]; formas = [S.furoPts]; }
         // colagem do mundo (recortes e sucata)
-        for (const it of cf.itens) {
+        for (const it of (cf.itens || [])) {
           if (it[0] === 'rec') {
             const [, n, lx, ly, lz, h, rz] = it, el = img(mundo, `footage/recorte/${n}-bit.png`, { left: '0px', top: '0px', height: h + 'px', filter: 'drop-shadow(10px 14px 6px rgba(0,0,0,.35))' });
             await el.decode().catch(() => {}); const w = el.naturalWidth * h / el.naturalHeight;
@@ -126,8 +135,8 @@
         S.L.normal.style.perspective = P + 'px'; S.L.normal.style.perspectiveOrigin = '50% 50%';
         S.clip = S.L.normal.style.clipPath;
         if (S.L.inv) { const silEl = S.L.inv.lastChild; silEl.style.perspective = P + 'px'; silEl.style.perspectiveOrigin = '50% 50%'; }
-        const naPapel = cf.fundo.tipo !== 'cheio';
-        const bloco = montaBloco(cf.linhas);
+        const naPapel = cf.fundo.tipo === 'faixa' || cf.fundo.tipo === 'furo';
+        const bloco = montaBloco(cf.linhas, cf.larg || 1500);
         bloco.forEach((b, k) => {
           b.t = pals[k] ? pals[k].t : pals[pals.length - 1].t;
           if (b.tipo === 'grande') {
@@ -164,7 +173,8 @@
           ox = M.lerp(prev.lx, cur.lx, e) * 0.22; oy = M.lerp(prev.ly, cur.ly, e) * 0.22;
         }
         const dur = (cenas[i + 1] ? cenas[i + 1].t0 : DUR) - S.t0, f = M.clamp(tl / dur);
-        const o = aplica([ox, oy, 380 - 260 * M.E.suave(f)], g[3], g[4], g[5]);
+        const dz = 380 - 260 * M.E.suave(f), esc = P / (P + dz), [sx0, sy0] = S.cf.desloc || [0, 0];
+        const o = aplica([ox - sx0 / esc, oy - sy0 / esc, dz], g[3], g[4], g[5]);
         const sy = M.lerp(S.cf.sway[0], S.cf.sway[0] * 0.35, M.E.suave(f)), sx = M.lerp(S.cf.sway[1], S.cf.sway[1] * 0.3, M.E.suave(f));
         return { x: g[0] + o[0], y: g[1] + o[1], z: g[2] + o[2], ry: g[3] + sy, rx: g[4] + sx, rz: g[5] };
       };
@@ -181,9 +191,24 @@
       const cs = camStr(cam);
       // fundo da cena ativa (corte seco no meio do chicote)
       const S = cenas[ci], f = S.cf.fundo, tl = Math.max(0, t - S.t0), fim = t >= TFIM - 0.1;
-      papel.style.display = f.tipo === 'cheio' ? 'none' : '';
+      const usaCheio = f.tipo === 'cheio' || f.tipo === 'furo' || f.tipo === 'cortes';
+      papel.style.display = usaCheio ? 'none' : '';
+      furoL.raiz.style.display = f.tipo === 'furo' ? '' : 'none';
+      if (f.tipo === 'furo') {
+        const ab = M.spring(t - S.t0, 2.6, 0.62), [fx, fy] = S.furoC, pts = S.furoPts.map(([x, y]) => [fx + (x - fx) * (0.15 + 0.85 * ab), fy + (y - fy) * (0.15 + 0.85 * ab)]);
+        const fora = (q) => `path(evenodd, "M-200 -200 H${W + 200} V${H + 200} H-200 Z ${CG.pathD(q)}")`;
+        furoL.papel.style.clipPath = fora(CG.cresce(pts, fx, fy, 12)); furoL.fibra.style.clipPath = fora(pts); furoL.sombra.style.clipPath = fora(CG.cresce(pts, fx, fy, -14));
+        ML.poeVideo(vCheio, f.uso, tl, espera);
+        if (S.L.vInv) ML.poeVideo(S.L.vInv, f.uso, tl, espera);
+        S.L.normal.style.clipPath = fora(pts); S.L.inv.style.clipPath = `path("${CG.pathD(pts)}")`;
+      }
+      if (f.tipo === 'cortes') {
+        const bs = BATIDAS.filter((b) => b >= S.t0 && b < TFIM); let j = 0; bs.forEach((b, k) => { if (t >= b) j = k; });
+        ML.poeVideo(vCheio, f.usos[j % f.usos.length], t - (bs[j] ?? S.t0), espera);
+      }
       papel.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) rotate(${(cam.rz * 0.3).toFixed(2)}deg)`;
-      vCheio.caixa.style.display = f.tipo === 'cheio' ? '' : 'none';
+      vCheio.caixa.style.display = usaCheio ? '' : 'none';
+      if (usaCheio && f.tipo !== 'cheio') vCheio.caixa.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 2).toFixed(1)}px) scale(1.04)`;
       if (f.tipo === 'cheio') { ML.poeVideo(vCheio, { ...f.uso, deriva: 0.05 }, tl, espera); vCheio.caixa.style.transform = `translate(${(-cam.ry * 4).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) scale(1.06)`; }
       faixa.raiz.style.display = f.tipo === 'faixa' ? '' : 'none';
       if (f.tipo === 'faixa') {
@@ -201,8 +226,9 @@
       // mundo: colagem e palavras de todas as cenas (as anteriores ficam no espaço)
       cenas.forEach((C2, i) => {
         const g = C2.cf.g, gs = grpStr(g), ativa = i === ci;
-        if (C2.L.inv) C2.L.inv.style.display = ativa && f.tipo === 'faixa' ? '' : 'none';
-        if (!(ativa && f.tipo === 'faixa')) C2.L.normal.style.clipPath = 'none';
+        const temNeg = ativa && (f.tipo === 'faixa' || f.tipo === 'furo');
+        if (C2.L.inv) C2.L.inv.style.display = temNeg ? '' : 'none';
+        if (!temNeg) C2.L.normal.style.clipPath = 'none';
         C2.L.normal.style.filter = blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : 'none';
         const visCena = i <= ci + 1 && i >= ci - 2 && !fim;
         C2.itens.forEach((it) => {
