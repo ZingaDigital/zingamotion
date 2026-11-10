@@ -32,7 +32,7 @@
     { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-12, 6], desloc: [-330, 200], larg: 980,
       fundo: { tipo: 'moldura', furo: [960, 540, 1830, 1000, 0.6], uso: { clip: 'bateria-1317', rosto: 300, cx: 1250, cy: 330, deriva: 0.02 }, picos: [341, 356, 378, 393, 404, 432, 446, 468, 528, 539, 571, 591] },
       linhas: [[['Onde', 'as'], 'memórias'], [['não'], 'morrem']] },
-    { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], desloc: [0, 280], larg: 1150,
+    { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], desloc: [0, 190], larg: 1100,
       fundo: { tipo: 'cheio', uso: { clip: 'baixo-1252', ini: 150, rosto: 340, cx: 980, cy: 330 } },
       linhas: [[['Onde', 'o'], 'tempo', ['não', 'vence']], [['o'], 'amor']] },
     { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], desloc: [-320, -15], larg: 900,
@@ -95,10 +95,10 @@
       img(papel, 'tex/reticula-disco.png', { left: '-150px', top: '380px', width: '1100px', opacity: '.35', filter: 'invert(1)', mixBlendMode: 'multiply' });
       vCheio = ML.Video(cena);
       imgL = img(cena, 'magnific/lugar.jpg', { left: '-60px', top: '-40px', width: W + 120 + 'px', height: H + 80 + 'px', objectFit: 'cover', transformOrigin: '50% 50%' });
-      identL = div(cena, { inset: '0px' });
-      img(identL, 'tex/reticula-disco.png', { left: '560px', top: '-120px', width: '1300px', opacity: '.5', filter: 'invert(1)', mixBlendMode: 'multiply' });
-      identL.cav = img(identL, 'rec/caveira.png', { left: '0px', top: '0px', width: '980px', filter: 'invert(1) contrast(1.4)', mixBlendMode: 'multiply', opacity: '.95', transformOrigin: '50% 50%' });
-      [[260, 180, 300, 90, -14, '#ffc21a'], [1580, 860, 380, 110, 9, '#e8261c'], [1650, 170, 160, 60, 24, '#ffc21a']].forEach(([x, y, w, h, r, c], k) => div(identL, { inset: '0px', background: c, opacity: '.9', mixBlendMode: 'multiply', clipPath: CG.poly(CG.rasgado(x, y, w, h, r, 90 + k, 14, 10)) }));
+      identL = div(cena, { inset: '0px', background: '#0b0a09' });
+      img(identL, 'tex/reticula-disco.png', { left: '560px', top: '-120px', width: '1300px', opacity: '.18' });
+      identL.cav = img(identL, 'rec/caveira.png', { left: '0px', top: '0px', width: '980px', mixBlendMode: 'screen', opacity: '.55', transformOrigin: '50% 50%' });
+      [[260, 180, 300, 90, -14, '#ffc21a'], [1580, 860, 380, 110, 9, '#e8261c'], [1650, 170, 160, 60, 24, '#ffc21a']].forEach(([x, y, w, h, r, c], k) => div(identL, { inset: '0px', background: c, opacity: '.85', clipPath: CG.poly(CG.rasgado(x, y, w, h, r, 90 + k, 14, 10)) }));
       recL = img(cena, 'footage/recorte/vocal2-bit.png', { left: '0px', top: '0px', transformOrigin: '50% 50%', filter: 'drop-shadow(14px 18px 8px rgba(0,0,0,.4))' });
       furoL = { raiz: div(cena, { inset: '0px' }) };
       furoL.sombra = div(furoL.raiz, { inset: '0px', background: 'rgba(0,0,0,.5)', filter: 'blur(12px)' });
@@ -146,7 +146,7 @@
         S.L.normal.style.perspective = P + 'px'; S.L.normal.style.perspectiveOrigin = '50% 50%';
         S.clip = S.L.normal.style.clipPath;
         if (S.L.inv) { const silEl = S.L.inv.lastChild; silEl.style.perspective = P + 'px'; silEl.style.perspectiveOrigin = '50% 50%'; }
-        const naPapel = ['faixa', 'furo', 'recorte', 'ident'].includes(cf.fundo.tipo);
+        const naPapel = ['faixa', 'furo', 'recorte'].includes(cf.fundo.tipo);
         const bloco = montaBloco(cf.linhas, cf.larg || 1500);
         bloco.forEach((b, k) => {
           b.t = pals[k] ? pals[k].t : pals[pals.length - 1].t;
@@ -204,7 +204,7 @@
       const S = cenas[ci], f = S.cf.fundo, tl = Math.max(0, t - S.t0), fim = t >= TFIM - 0.1;
       const ft = t >= TFIM - 0.1 ? 'ident' : f.tipo;
       const usaCheio = ['cheio', 'furo', 'cortes', 'moldura'].includes(ft);
-      papel.style.display = usaCheio || ft === 'imagem' ? 'none' : '';
+      papel.style.display = usaCheio || ft === 'imagem' || ft === 'ident' ? 'none' : '';
       furoL.raiz.style.display = ft === 'furo' || ft === 'moldura' ? '' : 'none';
       imgL.style.display = ft === 'imagem' ? '' : 'none';
       if (ft === 'imagem') imgL.style.transform = `translate(${(-cam.ry * 4).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) scale(${(1.02 + 0.03 * tl).toFixed(4)})`;
