@@ -29,7 +29,7 @@
     { linha: 15, g: [600, 2300, -4300, 38, 0, -7], sway: [20, 10], desloc: [0, 300], larg: 1250,
       fundo: { tipo: 'cheio', uso: { clip: 'vocal-0342', ini: 63, rosto: 480, cx: 1060, cy: 300 } },
       linhas: [[['Ainda'], 'existe'], [['um'], 'lugar']] },
-    { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-24, 6], desloc: [-450, 250], larg: 950,
+    { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-12, 6], desloc: [-360, 230], larg: 1000,
       fundo: { tipo: 'furo', furo: [1330, 470, 900, 720, -3], uso: { clip: 'bateria-1317', ini: 243, rosto: 330, cx: 1330, cy: 420 } },
       linhas: [[['Onde', 'as'], 'memórias'], [['não'], 'morrem']] },
     { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], desloc: [0, 280], larg: 1150,
