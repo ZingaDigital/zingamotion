@@ -93,7 +93,7 @@
       fundo = Z.div(el, { inset: '0px', background: `linear-gradient(160deg, ${NAVY} 0%, #00152a 100%)` });
       blooms = [[-260, 80, 820, '#2478c9', 0.42], [560, 1250, 900, '#2478c9', 0.3]].map(([x, y, d, c, o]) =>
         Z.div(fundo, { left: x + 'px', top: y + 'px', width: d + 'px', height: d + 'px', borderRadius: '50%', background: c, filter: 'blur(140px)', opacity: o }));
-      cena = Z.div(el, { inset: '0px', transformOrigin: '50% 55%' });
+      cena = Z.div(Z.encaixe(el), { inset: '0px', transformOrigin: '50% 55%' });
 
       sombra = Z.div(cena, { left: '0px', top: '0px', width: '520px', height: '90px', borderRadius: '50%',
         background: 'radial-gradient(closest-side, rgba(0,4,10,.75), rgba(0,4,10,0))' });

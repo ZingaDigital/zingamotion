@@ -110,7 +110,7 @@
       chaoLuz = Z.div(el, { left: '-200px', top: '1180px', width: '1480px', height: '900px', borderRadius: '50%',
         background: 'radial-gradient(closest-side, rgba(255,255,255,.55), rgba(255,255,255,0))' });
       Z.div(el, { inset: '0px', background: 'radial-gradient(140% 95% at 50% 38%, rgba(0,0,0,0) 55%, rgba(18,26,40,.13) 100%)' });
-      cena = Z.div(el, { inset: '0px', transformOrigin: '50% 50%' });
+      cena = Z.div(Z.encaixe(el), { inset: '0px', transformOrigin: '50% 50%' });
       sombra = Z.div(cena, { left: '0px', top: '0px', width: '1000px', height: '120px', borderRadius: '50%',
         background: 'radial-gradient(closest-side, rgba(0,20,40,.28), rgba(0,20,40,0))' });
 

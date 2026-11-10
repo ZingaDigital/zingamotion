@@ -3,7 +3,7 @@
 // Nada guarda estado entre quadros: toda posição é função de t.
 (function () {
   const q = new URLSearchParams(location.search);
-  const FORMATOS = { '9x16': [1080, 1920], '1x1': [1080, 1080], '16x9': [1920, 1080] };
+  const FORMATOS = { '9x16': [1080, 1920], '4x5': [1080, 1350], '1x1': [1080, 1080], '16x9': [1920, 1080] };
   const [W, H] = FORMATOS[q.get('formato')] || FORMATOS['9x16'];
   const BPM = 120, BATIDA = 60 / BPM;                 // trocar se a música medida pedir outro andamento
   const Z = {
@@ -192,6 +192,17 @@
     });
     for (const m of viradas) for (let k = 1; k <= 4; k++) S.hat(m * B - k * SC, 0.05 + k * 0.02);
     S.chord((N - 1) * B, [220, 261.63, 329.63, 440], 0.9, 0.05);
+  };
+
+  // ---------- encaixe de formato ----------
+  // Os filmes são compostos numa grade lógica 1080x1920. Em 4:5 o conteúdo entra em escala 0,78 mostrando a faixa
+  // lógica y 140..1871 (títulos com respiro do topo, pé da cena inteiro); o fundo continua ocupando o quadro todo.
+  const ENCAIXES = { '4x5': { k: 0.78, topo: 140 } };
+  Z.encaixe = (pai) => {
+    const e = ENCAIXES[Z.formato];
+    const d = Z.div(pai, { left: '0px', top: '0px', width: '1080px', height: '1920px', transformOrigin: '0 0' });
+    if (e) d.style.transform = `translate(${((W - 1080 * e.k) / 2).toFixed(2)}px, ${(-e.topo * e.k).toFixed(2)}px) scale(${e.k})`;
+    return d;
   };
 
   window.Z = Z;
