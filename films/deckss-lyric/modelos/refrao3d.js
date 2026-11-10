@@ -24,7 +24,7 @@
       fundo: { tipo: 'recorte', nome: 'vocal2', cx: 1480, cy: 700, h: 1450, rot: 3 },
       linhas: [[['Talvez', 'a'], 'gente'], ['aprendesse'], [['a'], 'olhar']] },
     { linha: 14, g: [2700, 1500, -2900, -20, 55, 0], sway: [-20, -12], desloc: [300, 0], larg: 1150,
-      fundo: { tipo: 'faixa', lado: 'esq', uso: { clip: 'guit-0049', ini: 230, rosto: 190, cy: 210 } },
+      fundo: { tipo: 'faixa', lado: 'esq', uso: { clip: 'guit-0049', ini: 230, rosto: 175, cy: 290 } },
       linhas: [[['Mas', 'mesmo'], 'quando'], [['tudo', 'parece'], 'perdido']] },
     { linha: 15, g: [600, 2300, -4300, 38, 0, -7], sway: [20, 10], desloc: [0, 300], larg: 1250,
       fundo: { tipo: 'imagem', src: 'magnific/lugar.jpg' },
@@ -119,7 +119,7 @@
         if (cf.fundo.tipo === 'faixa') {
           const dir = cf.fundo.lado === 'dir', cx = dir ? 1520 : 400;
           S.faixaPts = CG.rasgado(cx, 540, 760, 1240, dir ? 2 : -2, 60 + ci, 16, 11);
-          S.faixaBox = dir ? [1120, 0, 1920, 1080] : [0, 0, 800, 1080];
+          S.faixaBox = dir ? [1120, -90, 1920, 1170] : [0, -90, 800, 1170];
           S.faixaCx = cx; formas = [S.faixaPts];
         }
         if (cf.fundo.tipo === 'moldura') {
@@ -232,7 +232,7 @@
         const bs = BATIDAS.filter((b) => b >= S.t0 && b < TFIM); let j = 0; bs.forEach((b, k) => { if (t >= b) j = k; });
         ML.poeVideo(vCheio, f.usos[j % f.usos.length], t - (bs[j] ?? S.t0), espera);
       }
-      papel.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) rotate(${(cam.rz * 0.3).toFixed(2)}deg)`;
+      papel.style.transform = `translate(${M.clamp(-cam.ry * 3, -60, 60).toFixed(1)}px, ${M.clamp(cam.rx * 3, -45, 45).toFixed(1)}px) rotate(${M.clamp(cam.rz * 0.3, -1, 1).toFixed(2)}deg)`;
       vCheio.caixa.style.display = usaCheio ? '' : 'none';
       if (ft === 'moldura') vCheio.caixa.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 2).toFixed(1)}px) scale(1.03)`;
       if (usaCheio && ft !== 'cheio' && ft !== 'moldura') vCheio.caixa.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 2).toFixed(1)}px) scale(1.04)`;
