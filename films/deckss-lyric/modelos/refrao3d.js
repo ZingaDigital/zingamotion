@@ -21,16 +21,16 @@
       fundo: { tipo: 'cheio', uso: { clip: 'vocal-0342', ini: 3, rosto: 520, cx: 1080, cy: 300 } },
       linhas: [[['Se', 'cada'], 'adeus'], [['fosse'], 'visível']] },
     { linha: 13, g: [2300, -300, -800, -55, 0, 0], sway: [24, -6], desloc: [-280, 0], larg: 1150,
-      fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'vocal-7498', ini: 60, rosto: 300 } },
+      fundo: { tipo: 'recorte', nome: 'vocal2', cx: 1480, cy: 700, h: 1450, rot: 3 },
       linhas: [[['Talvez', 'a'], 'gente'], ['aprendesse'], [['a'], 'olhar']] },
     { linha: 14, g: [2700, 1500, -2900, -20, 55, 0], sway: [-20, -12], desloc: [300, 0], larg: 1150,
       fundo: { tipo: 'faixa', lado: 'esq', uso: { clip: 'guit-0049', ini: 230, rosto: 280 } },
       linhas: [[['Mas', 'mesmo'], 'quando'], [['tudo', 'parece'], 'perdido']] },
     { linha: 15, g: [600, 2300, -4300, 38, 0, -7], sway: [20, 10], desloc: [0, 300], larg: 1250,
-      fundo: { tipo: 'cheio', uso: { clip: 'vocal-0342', ini: 63, rosto: 480, cx: 1060, cy: 300 } },
+      fundo: { tipo: 'imagem', src: 'magnific/lugar.jpg' },
       linhas: [[['Ainda'], 'existe'], [['um'], 'lugar']] },
-    { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-12, 6], desloc: [-360, 230], larg: 1000,
-      fundo: { tipo: 'furo', furo: [1330, 470, 900, 720, -3], uso: { clip: 'bateria-1317', ini: 243, rosto: 330, cx: 1330, cy: 420 } },
+    { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-12, 6], desloc: [-330, 200], larg: 980,
+      fundo: { tipo: 'moldura', furo: [960, 540, 1830, 1000, 0.6], uso: { clip: 'bateria-1317', rosto: 300, cx: 1250, cy: 330, deriva: 0.02 }, picos: [341, 356, 378, 393, 404, 432, 446, 468, 528, 539, 571, 591] },
       linhas: [[['Onde', 'as'], 'memórias'], [['não'], 'morrem']] },
     { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], desloc: [0, 280], larg: 1150,
       fundo: { tipo: 'cheio', uso: { clip: 'baixo-1252', ini: 150, rosto: 340, cx: 980, cy: 330 } },
@@ -38,8 +38,8 @@
     { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], desloc: [-280, 0], larg: 1150,
       fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'guit2-1606', ini: 100, rosto: 300 } },
       linhas: [[['E', 'um'], 'dia'], [['tudo', 'que'], 'hoje'], [['é'], 'pergunta']] },
-    { linha: 19, g: [1800, -1200, -10500, 0, 18, 0], sway: [16, 6], desloc: [0, 290], larg: 1300,
-      fundo: { tipo: 'cortes', usos: [{ clip: 'vocal-7498', ini: 60, rosto: 420, cy: 280 }, { clip: 'vocal-7522', ini: 4, rosto: 420, cy: 280 }, { clip: 'bateria-1317', ini: 300, rosto: 360, cy: 280 }, { clip: 'guit-0046', ini: 160, rosto: 380, cy: 280 }, { clip: 'baixo-1252', ini: 230, rosto: 400, cy: 280 }, { clip: 'vocal-0342', ini: 90, rosto: 420, cy: 280 }] },
+    { linha: 19, g: [1800, -1200, -10500, 0, 18, 0], sway: [16, 6], desloc: [0, 250], larg: 1350,
+      fundo: { tipo: 'ident' },
       linhas: [[['Vai', 'fazer'], 'sentido']] },
   ];
   // ---------- matemática da câmera (convenções do CSS: y para baixo) ----------
@@ -84,7 +84,7 @@
     return out;
   };
 
-  let cenas = [], titulo, grg, papel, vCheio, faixa, furoL, mundo, letrasHost;
+  let cenas = [], titulo, grg, papel, vCheio, faixa, furoL, imgL, identL, recL, mundo, letrasHost;
 
   window.MODELO = {
     async montar(cena) {
@@ -94,6 +94,12 @@
       papel = div(cena, { left: '-120px', top: '-80px', width: W + 240 + 'px', height: H + 160 + 'px', background: 'url(tex/papel-creme.jpg) center / cover' });
       img(papel, 'tex/reticula-disco.png', { left: '-150px', top: '380px', width: '1100px', opacity: '.35', filter: 'invert(1)', mixBlendMode: 'multiply' });
       vCheio = ML.Video(cena);
+      imgL = img(cena, 'magnific/lugar.jpg', { left: '-60px', top: '-40px', width: W + 120 + 'px', height: H + 80 + 'px', objectFit: 'cover', transformOrigin: '50% 50%' });
+      identL = div(cena, { inset: '0px' });
+      img(identL, 'tex/reticula-disco.png', { left: '560px', top: '-120px', width: '1300px', opacity: '.5', filter: 'invert(1)', mixBlendMode: 'multiply' });
+      identL.cav = img(identL, 'rec/caveira.png', { left: '0px', top: '0px', width: '980px', filter: 'invert(1) contrast(1.4)', mixBlendMode: 'multiply', opacity: '.95', transformOrigin: '50% 50%' });
+      [[260, 180, 300, 90, -14, '#ffc21a'], [1580, 860, 380, 110, 9, '#e8261c'], [1650, 170, 160, 60, 24, '#ffc21a']].forEach(([x, y, w, h, r, c], k) => div(identL, { inset: '0px', background: c, opacity: '.9', mixBlendMode: 'multiply', clipPath: CG.poly(CG.rasgado(x, y, w, h, r, 90 + k, 14, 10)) }));
+      recL = img(cena, 'footage/recorte/vocal2-bit.png', { left: '0px', top: '0px', transformOrigin: '50% 50%', filter: 'drop-shadow(14px 18px 8px rgba(0,0,0,.4))' });
       furoL = { raiz: div(cena, { inset: '0px' }) };
       furoL.sombra = div(furoL.raiz, { inset: '0px', background: 'rgba(0,0,0,.5)', filter: 'blur(12px)' });
       furoL.fibra = div(furoL.raiz, { inset: '0px', background: '#f6f1e6' });
@@ -116,6 +122,11 @@
           S.faixaBox = dir ? [1120, 0, 1920, 1080] : [0, 0, 800, 1080];
           S.faixaCx = cx; formas = [S.faixaPts];
         }
+        if (cf.fundo.tipo === 'moldura') {
+          const [fx, fy, fw, fh, fr] = cf.fundo.furo; S.furoPts = CG.rasgado(fx, fy, fw, fh, fr, 80 + ci, 14, 11); S.furoC = [fx, fy];
+          const bs = BATIDAS.filter((b) => b >= S.t0 - 0.05 && b < S.t0 + 4), pk = cf.fundo.picos;
+          S.mapa = [[0, pk[0] - (bs[0] - S.t0) * 30], ...bs.slice(0, pk.length).map((b, k) => [b - S.t0, pk[k]])];
+        }
         if (cf.fundo.tipo === 'furo') { const [fx, fy, fw, fh, fr] = cf.fundo.furo; S.furoPts = CG.rasgado(fx, fy, fw, fh, fr, 80 + ci, 22, 12); S.furoC = [fx, fy]; formas = [S.furoPts]; }
         // colagem do mundo (recortes e sucata)
         for (const it of (cf.itens || [])) {
@@ -135,7 +146,7 @@
         S.L.normal.style.perspective = P + 'px'; S.L.normal.style.perspectiveOrigin = '50% 50%';
         S.clip = S.L.normal.style.clipPath;
         if (S.L.inv) { const silEl = S.L.inv.lastChild; silEl.style.perspective = P + 'px'; silEl.style.perspectiveOrigin = '50% 50%'; }
-        const naPapel = cf.fundo.tipo === 'faixa' || cf.fundo.tipo === 'furo';
+        const naPapel = ['faixa', 'furo', 'recorte', 'ident'].includes(cf.fundo.tipo);
         const bloco = montaBloco(cf.linhas, cf.larg || 1500);
         bloco.forEach((b, k) => {
           b.t = pals[k] ? pals[k].t : pals[pals.length - 1].t;
@@ -191,10 +202,26 @@
       const cs = camStr(cam);
       // fundo da cena ativa (corte seco no meio do chicote)
       const S = cenas[ci], f = S.cf.fundo, tl = Math.max(0, t - S.t0), fim = t >= TFIM - 0.1;
-      const usaCheio = f.tipo === 'cheio' || f.tipo === 'furo' || f.tipo === 'cortes';
-      papel.style.display = usaCheio ? 'none' : '';
-      furoL.raiz.style.display = f.tipo === 'furo' ? '' : 'none';
-      if (f.tipo === 'furo') {
+      const ft = t >= TFIM - 0.1 ? 'ident' : f.tipo;
+      const usaCheio = ['cheio', 'furo', 'cortes', 'moldura'].includes(ft);
+      papel.style.display = usaCheio || ft === 'imagem' ? 'none' : '';
+      furoL.raiz.style.display = ft === 'furo' || ft === 'moldura' ? '' : 'none';
+      imgL.style.display = ft === 'imagem' ? '' : 'none';
+      if (ft === 'imagem') imgL.style.transform = `translate(${(-cam.ry * 4).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) scale(${(1.02 + 0.03 * tl).toFixed(4)})`;
+      identL.style.display = ft === 'ident' ? '' : 'none';
+      if (ft === 'ident') { const k2 = BATIDAS.filter((b) => b <= t).pop() ?? 0; const kk = M.kick(t, k2, 0.025, 5, 0.4); identL.cav.style.transform = `translate(${960 - 490 + 80}px, ${540 - 490 - 20}px) rotate(${(-6 + 2 * Math.sin(t * 0.8)).toFixed(2)}deg) scale(${(1 + kk).toFixed(4)})`; }
+      recL.style.display = ft === 'recorte' ? '' : 'none';
+      if (ft === 'recorte') { const e = M.spring(t - S.t0, 3.2, 0.62), w = recL.naturalWidth * f.h / recL.naturalHeight;
+        Object.assign(recL.style, { height: f.h + 'px', width: w + 'px' });
+        recL.style.transform = `translate(${(f.cx - w / 2 + (1 - e) * 700 - cam.ry * 7).toFixed(1)}px, ${(f.cy - f.h / 2 + cam.rx * 4).toFixed(1)}px) rotate(${f.rot}deg) scale(${(1 + 0.02 * tl).toFixed(4)})`; }
+      if (ft === 'moldura') {
+        const [fx, fy] = S.furoC, pts = S.furoPts, fora = (q) => `path(evenodd, "M-200 -200 H${W + 200} V${H + 200} H-200 Z ${CG.pathD(q)}")`;
+        furoL.papel.style.clipPath = fora(CG.cresce(pts, fx, fy, 10)); furoL.fibra.style.clipPath = fora(pts); furoL.sombra.style.clipPath = fora(CG.cresce(pts, fx, fy, -12));
+        const m = S.mapa; let fr = m[m.length - 1][1] + (tl - m[m.length - 1][0]) * 30;
+        for (let k = 0; k < m.length - 1; k++) if (tl < m[k + 1][0]) { fr = M.lerp(m[k][1], m[k + 1][1], (tl - m[k][0]) / (m[k + 1][0] - m[k][0])); break; }
+        ML.poeVideo(vCheio, { ...f.uso, ini: Math.round(fr) }, 0, espera);
+      }
+      if (ft === 'furo') {
         const ab = M.spring(t - S.t0, 2.6, 0.62), [fx, fy] = S.furoC, pts = S.furoPts.map(([x, y]) => [fx + (x - fx) * (0.15 + 0.85 * ab), fy + (y - fy) * (0.15 + 0.85 * ab)]);
         const fora = (q) => `path(evenodd, "M-200 -200 H${W + 200} V${H + 200} H-200 Z ${CG.pathD(q)}")`;
         furoL.papel.style.clipPath = fora(CG.cresce(pts, fx, fy, 12)); furoL.fibra.style.clipPath = fora(pts); furoL.sombra.style.clipPath = fora(CG.cresce(pts, fx, fy, -14));
@@ -202,13 +229,14 @@
         if (S.L.vInv) ML.poeVideo(S.L.vInv, f.uso, tl, espera);
         S.L.normal.style.clipPath = fora(pts); S.L.inv.style.clipPath = `path("${CG.pathD(pts)}")`;
       }
-      if (f.tipo === 'cortes') {
+      if (ft === 'cortes') {
         const bs = BATIDAS.filter((b) => b >= S.t0 && b < TFIM); let j = 0; bs.forEach((b, k) => { if (t >= b) j = k; });
         ML.poeVideo(vCheio, f.usos[j % f.usos.length], t - (bs[j] ?? S.t0), espera);
       }
       papel.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) rotate(${(cam.rz * 0.3).toFixed(2)}deg)`;
       vCheio.caixa.style.display = usaCheio ? '' : 'none';
-      if (usaCheio && f.tipo !== 'cheio') vCheio.caixa.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 2).toFixed(1)}px) scale(1.04)`;
+      if (ft === 'moldura') vCheio.caixa.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 2).toFixed(1)}px) scale(1.03)`;
+      if (usaCheio && ft !== 'cheio' && ft !== 'moldura') vCheio.caixa.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 2).toFixed(1)}px) scale(1.04)`;
       if (f.tipo === 'cheio') { ML.poeVideo(vCheio, { ...f.uso, deriva: 0.05 }, tl, espera); vCheio.caixa.style.transform = `translate(${(-cam.ry * 4).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) scale(1.06)`; }
       faixa.raiz.style.display = f.tipo === 'faixa' ? '' : 'none';
       if (f.tipo === 'faixa') {
