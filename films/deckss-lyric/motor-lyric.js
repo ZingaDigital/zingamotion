@@ -15,12 +15,14 @@
   const Video = (pai, css = {}) => {
     const caixa = div(pai, { left: '0px', top: '0px', width: W + 'px', height: H + 'px', overflow: 'hidden', background: '#0b0a09', ...css });
     const im = img(caixa, 'footage/pb/vocal-0342/f0001.jpg', { left: '0px', top: '0px', transformOrigin: '0 0' });
-    div(caixa, { inset: '0px', background: '#f3e6cc', mixBlendMode: 'multiply', opacity: '.16' });
+    div(caixa, { inset: '0px', background: '#f3e6cc', mixBlendMode: 'multiply', opacity: String(window.VIDEO_TOM ?? .16) });
     return { caixa, im };
   };
   const poeVideo = (v, uso, tl, espera) => {
     const R0 = ROSTOS[uso.clip], man = MANUAL[uso.clip] || [R0.w / 2, R0.h * 0.3, Math.min(R0.w, R0.h) * 0.3];
-    const n = R0.n, i = Math.max(1, Math.min(n, (uso.ini || 1) + Math.floor(tl * FPS)));
+    const n = R0.n; let f = (uso.ini || 1) + Math.floor(tl * FPS);
+    if (uso.vaivem && f > n) { const per = 2 * (n - 1); const m = (f - 1) % per; f = 1 + (m < n ? m : per - m); }
+    const i = Math.max(1, Math.min(n, f));
     troca(v.im, `footage/pb/${uso.clip}/f${String(i).padStart(4, '0')}.jpg`, espera);
     const [fx, fy, fs] = man;
     const alvo = uso.rosto || 420; let sc = (alvo / fs) * (1 + (uso.deriva ?? 0.04) * tl);
@@ -115,7 +117,7 @@
 
   // ---------- camada grunge: sujeira, riscos, tremor de película ----------
   const Grunge = (pai) => {
-    const suj = img(pai, 'tex/sujeira.png', { left: '0px', top: '0px', width: W * 1.3 + 'px', height: H * 1.3 + 'px', mixBlendMode: 'screen', opacity: '.55', zIndex: 40 });
+    const suj = img(pai, 'tex/sujeira.png', { left: '0px', top: '0px', width: W * 1.3 + 'px', height: H * 1.3 + 'px', mixBlendMode: 'screen', opacity: String(window.GRUNGE_SUJ ?? .55), zIndex: 40 });
     const riscos = [0, 1, 2].map(() => div(pai, { left: '0px', top: '0px', width: '2px', height: H + 'px', background: 'rgba(243,230,204,.35)', zIndex: 41 }));
     const mancha = div(pai, { inset: '0px', zIndex: 39, background: 'radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,.45) 100%)' });
     return { suj, riscos, mancha };

@@ -52,3 +52,11 @@ sempre com rosto, borda rasgada de verdade (nada de estrela), negativo onde a le
   camada clipada no vídeo com cópia do vídeo + letras em grayscale/difference; mix-blend precisa do vídeo no mesmo contexto).
 - ML.poeVideo aceita uso.box (caixa que o vídeo cobre). Fonte de apoio: Anton (etiquetas).
 - 3 telas estáticas: films/lyric-telas (modelos/telas.js), shot-telas.mjs -> out/tela-N.png. Aguardando aprovação.
+
+Sessão 6: refrão 1 aprovado na linguagem de colagem; cliente pediu câmera 3D seguindo as palavras (refs Punk Goes Pop),
+horizontais em tela cheia como a v3 com menos textura (+ recortes nas laterais), verticais em faixa rasgada dividindo a tela.
+- modelos/refrao3d.js (films/lyric-3d): mundo 3D com projeção à mão (camera × grupo × local, pai só com perspective, sem
+  preserve-3d), um grupo por verso (montaBloco: pilhas em Anton na altura da palavra grande), câmera segue a palavra (22%),
+  aproxima, olha de lado (sway) e chicoteia entre grupos com borrão pela velocidade. --verify acusa diferença de ~500 px
+  (máx 42/765) por rasterização 3D: invisível, sem estado entre quadros.
+- poeVideo: uso.vaivem (ida e volta para clipes curtos). window.GRUNGE_SUJ / VIDEO_TOM controlam textura.
