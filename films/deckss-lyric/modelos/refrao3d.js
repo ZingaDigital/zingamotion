@@ -24,7 +24,7 @@
       fundo: { tipo: 'recorte', nome: 'vocal2', cx: 1480, cy: 700, h: 1450, rot: 3 },
       linhas: [[['Talvez', 'a'], 'gente'], ['aprendesse'], [['a'], 'olhar']] },
     { linha: 14, g: [2700, 1500, -2900, -20, 55, 0], sway: [-20, -12], desloc: [300, 0], larg: 1150,
-      fundo: { tipo: 'faixa', lado: 'esq', uso: { clip: 'guit-0049', ini: 230, rosto: 280 } },
+      fundo: { tipo: 'faixa', lado: 'esq', uso: { clip: 'guit-0049', ini: 230, rosto: 190, cy: 210 } },
       linhas: [[['Mas', 'mesmo'], 'quando'], [['tudo', 'parece'], 'perdido']] },
     { linha: 15, g: [600, 2300, -4300, 38, 0, -7], sway: [20, 10], desloc: [0, 300], larg: 1250,
       fundo: { tipo: 'imagem', src: 'magnific/lugar.jpg' },
@@ -36,7 +36,7 @@
       fundo: { tipo: 'cheio', uso: { clip: 'baixo-1252', ini: 150, rosto: 340, cx: 980, cy: 330 } },
       linhas: [[['Onde', 'o'], 'tempo', ['não', 'vence']], [['o'], 'amor']] },
     { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], desloc: [-280, 0], larg: 1150,
-      fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'guit2-1606', ini: 100, rosto: 300 } },
+      fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'guit2-1606', ini: 100, rosto: 220, cy: 260 } },
       linhas: [[['E', 'um'], 'dia'], [['tudo', 'que'], 'hoje'], [['é'], 'pergunta']] },
     { linha: 19, g: [1800, -1200, -10500, 0, 18, 0], sway: [16, 6], desloc: [0, 250], larg: 1350,
       fundo: { tipo: 'ident' },
@@ -125,7 +125,7 @@
         if (cf.fundo.tipo === 'moldura') {
           const [fx, fy, fw, fh, fr] = cf.fundo.furo; S.furoPts = CG.rasgado(fx, fy, fw, fh, fr, 80 + ci, 14, 11); S.furoC = [fx, fy];
           const bs = BATIDAS.filter((b) => b >= S.t0 - 0.05 && b < S.t0 + 4), pk = cf.fundo.picos;
-          S.mapa = [[0, pk[0] - (bs[0] - S.t0) * 30], ...bs.slice(0, pk.length).map((b, k) => [b - S.t0, pk[k]])];
+          S.ancora = [bs[1] - S.t0, pk[0]];   // velocidade natural; só um golpe da caixa cai em cima de uma batida
         }
         if (cf.fundo.tipo === 'furo') { const [fx, fy, fw, fh, fr] = cf.fundo.furo; S.furoPts = CG.rasgado(fx, fy, fw, fh, fr, 80 + ci, 22, 12); S.furoC = [fx, fy]; formas = [S.furoPts]; }
         // colagem do mundo (recortes e sucata)
@@ -217,8 +217,7 @@
       if (ft === 'moldura') {
         const [fx, fy] = S.furoC, pts = S.furoPts, fora = (q) => `path(evenodd, "M-200 -200 H${W + 200} V${H + 200} H-200 Z ${CG.pathD(q)}")`;
         furoL.papel.style.clipPath = fora(CG.cresce(pts, fx, fy, 10)); furoL.fibra.style.clipPath = fora(pts); furoL.sombra.style.clipPath = fora(CG.cresce(pts, fx, fy, -12));
-        const m = S.mapa; let fr = m[m.length - 1][1] + (tl - m[m.length - 1][0]) * 30;
-        for (let k = 0; k < m.length - 1; k++) if (tl < m[k + 1][0]) { fr = M.lerp(m[k][1], m[k + 1][1], (tl - m[k][0]) / (m[k + 1][0] - m[k][0])); break; }
+        const fr = S.ancora[1] + (tl - S.ancora[0]) * 30;
         ML.poeVideo(vCheio, { ...f.uso, ini: Math.round(fr) }, 0, espera);
       }
       if (ft === 'furo') {
@@ -246,8 +245,8 @@
         faixa.fibra.style.clipPath = CG.poly(CG.cresce(pts, S.faixaCx + dx, 540, 9));
         faixa.sombra.style.clipPath = CG.poly(CG.cresce(pts, S.faixaCx + dx, 540, 9).map(([x, y]) => [x + (f.lado === 'dir' ? -14 : 14), y + 12]));
         const [x0, y0, x1, y1] = S.faixaBox, cx = (x0 + x1) / 2;
-        ML.poeVideo(faixa.v, { ...f.uso, cx: cx + dx, cy: 380, box: [x0 + dx, y0, x1 + dx, y1] }, tl, espera);
-        if (S.L.vInv) ML.poeVideo(S.L.vInv, { ...f.uso, cx: cx + dx, cy: 380, box: [x0 + dx, y0, x1 + dx, y1] }, tl, espera);
+        ML.poeVideo(faixa.v, { ...f.uso, cx: cx + dx, cy: f.uso.cy ?? 380, box: [x0 + dx, y0, x1 + dx, y1] }, tl, espera);
+        if (S.L.vInv) ML.poeVideo(S.L.vInv, { ...f.uso, cx: cx + dx, cy: f.uso.cy ?? 380, box: [x0 + dx, y0, x1 + dx, y1] }, tl, espera);
         S.L.normal.style.clipPath = `path(evenodd, "M-200 -200 H${W + 200} V${H + 200} H-200 Z ${CG.pathD(pts)}")`;
         S.L.inv.style.clipPath = `path("${CG.pathD(pts)}")`;
       }
