@@ -30,10 +30,10 @@
       fundo: { tipo: 'imagem', src: 'magnific/lugar.jpg' },
       linhas: [[['Ainda'], 'existe'], [['um'], 'lugar']] },
     { linha: 16, g: [-1800, 1500, -5800, 72, 0, 0], sway: [-12, 6], desloc: [-330, 200], larg: 980,
-      fundo: { tipo: 'moldura', furo: [960, 540, 1830, 1000, 0.6], uso: { clip: 'bateria-1317', rosto: 300, cx: 1250, cy: 330, deriva: 0.02 }, picos: [341, 356, 378, 393, 404, 432, 446, 468, 528, 539, 571, 591] },
+      fundo: { tipo: 'moldura', furo: [960, 540, 1830, 1000, 0.6], uso: { clip: 'bateria-1317', rosto: 300, cx: 1250, cy: 330, deriva: 0.02 }, picos: [85] },
       linhas: [[['Onde', 'as'], 'memórias'], [['não'], 'morrem']] },
     { linha: 17, g: [-2500, -600, -7400, 25, -48, 0], sway: [24, 8], desloc: [0, 190], larg: 1100,
-      fundo: { tipo: 'cheio', uso: { clip: 'baixo-1252', ini: 150, rosto: 340, cx: 980, cy: 330 } },
+      fundo: { tipo: 'cheio', uso: { clip: 'baixo-1252', ini: 150, rosto: 340, cx: 960, cy: 330 } },
       linhas: [[['Onde', 'o'], 'tempo', ['não', 'vence']], [['o'], 'amor']] },
     { linha: 18, g: [-300, -1900, -8900, -35, 0, 6], sway: [-20, -8], desloc: [-320, -15], larg: 900,
       fundo: { tipo: 'faixa', lado: 'dir', uso: { clip: 'guit2-1606', ini: 100, rosto: 220, cy: 260 } },
@@ -99,6 +99,7 @@
       img(identL, 'tex/reticula-disco.png', { left: '560px', top: '-120px', width: '1300px', opacity: '.18' });
       identL.cav = img(identL, 'rec/caveira.png', { left: '0px', top: '0px', width: '980px', mixBlendMode: 'screen', opacity: '.55', transformOrigin: '50% 50%' });
       [[260, 180, 300, 90, -14, '#ffc21a'], [1580, 860, 380, 110, 9, '#e8261c'], [1650, 170, 160, 60, 24, '#ffc21a']].forEach(([x, y, w, h, r, c], k) => div(identL, { inset: '0px', background: c, opacity: '.85', clipPath: CG.poly(CG.rasgado(x, y, w, h, r, 90 + k, 14, 10)) }));
+      identL.borr = C.svg(identL, W, H, `<defs><filter id="bor" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="40" xChannelSelector="R" yChannelSelector="G"/></filter></defs><path d="M-150 120 L2070 40 L-150 330 L2070 260 L-150 560 L2070 480 L-150 790 L2070 710 L-150 1020 L2070 960" fill="none" stroke="#0b0a09" stroke-width="300" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" filter="url(#bor)"/>`, { left: '0px', top: '0px' });
       recL = img(cena, 'footage/recorte/vocal2-bit.png', { left: '0px', top: '0px', transformOrigin: '50% 50%', filter: 'drop-shadow(14px 18px 8px rgba(0,0,0,.4))' });
       furoL = { raiz: div(cena, { inset: '0px' }) };
       furoL.sombra = div(furoL.raiz, { inset: '0px', background: 'rgba(0,0,0,.5)', filter: 'blur(12px)' });
@@ -210,6 +211,7 @@
       if (ft === 'imagem') imgL.style.transform = `translate(${(-cam.ry * 4).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) scale(${(1.02 + 0.03 * tl).toFixed(4)})`;
       identL.style.display = ft === 'ident' ? '' : 'none';
       if (ft === 'ident') { const k2 = BATIDAS.filter((b) => b <= t).pop() ?? 0; const kk = M.kick(t, k2, 0.025, 5, 0.4); identL.cav.style.transform = `translate(${960 - 490 + 80}px, ${540 - 490 - 20}px) rotate(${(-6 + 2 * Math.sin(t * 0.8)).toFixed(2)}deg) scale(${(1 + kk).toFixed(4)})`; }
+      if (ft === 'ident') identL.borr.querySelector('path').setAttribute('stroke-dashoffset', (1 - M.E.cruza(M.prog(t, TFIM - 0.05, TFIM + 0.75))).toFixed(4));
       recL.style.display = ft === 'recorte' ? '' : 'none';
       if (ft === 'recorte') { const e = M.spring(t - S.t0, 3.2, 0.62), w = recL.naturalWidth * f.h / recL.naturalHeight;
         Object.assign(recL.style, { height: f.h + 'px', width: w + 'px' });
@@ -236,7 +238,7 @@
       vCheio.caixa.style.display = usaCheio ? '' : 'none';
       if (ft === 'moldura') vCheio.caixa.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 2).toFixed(1)}px) scale(1.03)`;
       if (usaCheio && ft !== 'cheio' && ft !== 'moldura') vCheio.caixa.style.transform = `translate(${(-cam.ry * 3).toFixed(1)}px, ${(cam.rx * 2).toFixed(1)}px) scale(1.04)`;
-      if (f.tipo === 'cheio') { ML.poeVideo(vCheio, { ...f.uso, deriva: 0.05 }, tl, espera); vCheio.caixa.style.transform = `translate(${(-cam.ry * 4).toFixed(1)}px, ${(cam.rx * 3).toFixed(1)}px) scale(1.06)`; }
+      if (ft === 'cheio') { ML.poeVideo(vCheio, { ...f.uso, deriva: 0.05 }, tl, espera); vCheio.caixa.style.transform = `translate(${M.clamp(-cam.ry * 4, -45, 45).toFixed(1)}px, ${M.clamp(cam.rx * 3, -25, 25).toFixed(1)}px) scale(1.1)`; }
       faixa.raiz.style.display = f.tipo === 'faixa' ? '' : 'none';
       if (f.tipo === 'faixa') {
         const ent = M.spring(t - S.t0, 3.2, 0.62), dx = (1 - ent) * (f.lado === 'dir' ? 900 : -900);
