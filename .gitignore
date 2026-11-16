@@ -4,3 +4,5 @@ resultados/
 .tmp-*
 *.mp4
 *.wav
+refs/
+films/*/__pycache__/

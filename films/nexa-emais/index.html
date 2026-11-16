@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Nexa e mais</title>
+<!-- A imagem deste filme é composta em compor.py (fundo original reamostrado + título novo).
+     Esta página só gera o som: window.renderAudio, chamada pelo sfx.mjs. Tudo agendado em tempo absoluto. -->
+<script src="lib/motion.js"></script>
+<script src="lib/audio.js"></script>
+</head>
+<body>
+<script>
+const DURACAO = 15;
+const B = 60 / 90, C = B / 2, SC = B / 4;            // 90 BPM: batida, colcheia, semicolcheia
+window.FILM = { width: 1080, height: 1350, fps: 30, duration: DURACAO };
+window.ready = Promise.resolve();
+window.seek = () => {};
+
+// Momentos do vídeo (tempo de saída, já cravados na grade em compor.py)
+const QUEDA = 4 * B;                                  // 2.667 celular entra
+const ROLAGENS = [4.0, 5.0, 6.0, 6 + 2 / 3, 7 + 1 / 3, 8.0, 8 + 2 / 3, 9 + 1 / 3, 10.0, 10 + 2 / 3, 11 + 1 / 3];
+const CHIPS = [4.5, 5 + 1 / 6, 5.5];                  // Design sob medida · Mobile first · Conversão no WhatsApp
+const PALAVRAS = [8 + 1 / 3, 8.5, 8 + 2 / 3];         // Clareza. Confiança. Conversão.
+const CORTE = 12 + 1 / 3;                             // celular sai, entra o card final
+const ASSINA = 12 + 5 / 6;                            // "Zinga Digital"
+
+// Fá menor: Fm - Db - Ab - Eb (um acorde por compasso)
+const hz = (n) => 440 * Math.pow(2, (n - 69) / 12);
+const ACORDES = [[53, 56, 60, 63], [49, 53, 56, 60], [56, 60, 63, 67], [51, 55, 58, 62]].map((a) => a.map(hz));
+const BAIXO = [29, 25, 32, 27].map(hz);
+
+window.renderAudio = async function ({ trilha = true, foley = true } = {}) {
+  const SR = 48000;
+  const ctx = new OfflineAudioContext(2, Math.round(SR * DURACAO), SR);
+  const S = makeSynth(ctx, 0x90a1);
+  const rand = M.mulberry32(0x5eed);
+
+  // reverb curto com resposta ao impulso semeada
+  const rev = ctx.createConvolver();
+  const ir = ctx.createBuffer(2, SR * 1.8, SR);
+  for (let c = 0; c < 2; c++) {
+    const d = ir.getChannelData(c);
+    for (let i = 0; i < d.length; i++) d[i] = (rand() * 2 - 1) * Math.pow(1 - i / d.length, 3.2);
+  }
+  rev.buffer = ir;
+  const revG = ctx.createGain(); revG.gain.value = 0.32;
+  rev.connect(revG).connect(S.master);
+  const envio = ctx.createGain(); envio.connect(rev);
+
+  const pad = (t, notas, dur, k = 0.035, abre = 2600) => notas.forEach((f, i) => {
+    for (const det of [-7, 7]) {
+      const o = ctx.createOscillator(), fl = ctx.createBiquadFilter(), g = ctx.createGain(), p = ctx.createStereoPanner();
+      o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = det + i;
+      fl.type = 'lowpass'; fl.frequency.setValueAtTime(500, t); fl.frequency.linearRampToValueAtTime(abre, t + dur * 0.5);
+      fl.frequency.linearRampToValueAtTime(700, t + dur);
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(k, t + 0.35);
+      g.gain.setValueAtTime(k, t + dur - 0.3); g.gain.linearRampToValueAtTime(0.0001, t + dur);
+      p.pan.value = det > 0 ? 0.5 : -0.5;
+      o.connect(fl).connect(g).connect(p); p.connect(S.musica); p.connect(envio);
+      o.start(t); o.stop(t + dur + 0.05);
+    }
+  });
+  const sino = (t, f, k = 0.09, p = 0) => {   // pluck de sino (FM simples) com reverb
+    const o = ctx.createOscillator(), mo = ctx.createOscillator(), mg = ctx.createGain(), g = ctx.createGain(), pn = ctx.createStereoPanner();
+    o.frequency.value = f; mo.frequency.value = f * 3.5; mg.gain.setValueAtTime(f * 1.4, t);
+    mg.gain.exponentialRampToValueAtTime(1, t + 0.4);
+    mo.connect(mg).connect(o.frequency);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(k, t + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
+    pn.pan.value = p; o.connect(g).connect(pn); pn.connect(S.foley); pn.connect(envio);
+    o.start(t); mo.start(t); o.stop(t + 1); mo.stop(t + 1);
+  };
+
+  if (trilha) {
+    // Intro (compasso 0): pad abrindo, sem bateria
+    pad(0, ACORDES[0], QUEDA + 0.1, 0.03, 1800);
+    S.riser(QUEDA - 1.6, QUEDA, 0.22);
+    for (let i = 0; i < 8; i++) S.hat(QUEDA - 8 * SC + i * SC, 0.03 + i * 0.012);   // rufo de hat pra queda
+    // Corpo: compassos 1 a 3 cheios, 4 até o corte
+    for (let bar = 1; bar < 5; bar++) {
+      const t0 = bar * 4 * B, ac = bar % 4;
+      const fim = Math.min(t0 + 4 * B, CORTE);
+      if (t0 >= CORTE) break;
+      pad(t0, ACORDES[ac], fim - t0 + 0.05, 0.022, 3000);
+      for (let b = 0; b < 4; b++) {
+        const t = t0 + b * B;
+        if (t >= CORTE - 0.01) break;
+        if (b === 0) S.kick(t, 1);
+        if (b === 1 || b === 3) S.clap(t, 0.42);
+        if (b === 1 && t + C < CORTE) S.kick(t + C, 0.7);
+        if (b === 2 && t + SC * 3 < CORTE) S.kick(t + SC * 3, 0.55);
+        for (let s = 0; s < 4; s++) {
+          const th = t + s * SC;
+          if (th < CORTE - 0.01) S.hat(th, s % 2 ? 0.05 : 0.09, b === 3 && s === 2);
+        }
+        if (t < CORTE - 0.05) S.bass(t, BAIXO[ac], C * 0.95, 0.36);
+        if (t + C * 1.5 < CORTE - 0.05) S.bass(t + C * 1.5, BAIXO[ac] * 2, C * 0.45, 0.18);
+        // arpejo discreto em semicolcheias alternadas
+        if (bar >= 2) S.pluck(t + C, ACORDES[ac][(b + bar) % 4] * 2, 0.045, b % 2 ? 0.4 : -0.4);
+      }
+    }
+    // Card final: acorde de repouso em Fm, longo
+    pad(CORTE, ACORDES[0].map((f) => f), DURACAO - CORTE, 0.03, 2200);
+    S.bass(CORTE, BAIXO[0], 1.6, 0.32);
+  }
+
+  if (foley) {
+    // "e" · "mais" · três pontos subindo em Fá menor
+    S.tick(1 / 6, 0.05, 2600); sino(1 / 6, hz(77), 0.05, -0.2);
+    S.tick(1 / 3, 0.05, 2900); sino(1 / 3, hz(80), 0.05, 0.2);
+    [[2 / 3, 84], [2 / 3 + 1 / 6, 87], [1.0, 89]].forEach(([t, n], i) => { S.pop(t, 700 + i * 160, 0.16, -0.3 + i * 0.3); sino(t, hz(n), 0.06, -0.3 + i * 0.3); });
+    // palavras saindo para cima: sopro que acelera até a queda
+    S.swoosh(2.3, QUEDA - 2.3, 0.22, true);
+    // celular entra
+    S.impact(QUEDA, 0.75);
+    S.swoosh(QUEDA - 0.05, 0.5, 0.3, false);
+    // rolagens da tela
+    ROLAGENS.forEach((t, i) => { S.swoosh(t, 0.26, 0.2, i % 2 === 0); S.tick(t, 0.035, 2200 + (i % 3) * 300); });
+    // chips de interface
+    CHIPS.forEach((t, i) => S.pop(t, 1000 + i * 180, 0.17, [-0.5, 0.5, -0.5][i]));
+    // Clareza. Confiança. Conversão.
+    PALAVRAS.forEach((t, i) => S.tick(t, 0.06, 3000 + i * 250));
+    sino(PALAVRAS[0], hz(72), 0.045); sino(PALAVRAS[1], hz(75), 0.045); sino(PALAVRAS[2], hz(80), 0.07);
+    // celular sai: riser + sopro, corte no card final
+    S.riser(CORTE - 0.9, CORTE, 0.2);
+    S.swoosh(CORTE - 0.45, 0.42, 0.34, true);
+    S.impact(CORTE, 0.6);
+    S.kick(CORTE, 0.9);
+    // endereço e assinatura
+    sino(CORTE + 0.02, hz(84), 0.05);
+    S.ding(ASSINA, hz(89), 0.08); sino(ASSINA, hz(77), 0.07);
+    S.tick(ASSINA, 0.04, 3400);
+  }
+  return S.exportar(0.6);
+};
+</script>
+</body>
+</html>
