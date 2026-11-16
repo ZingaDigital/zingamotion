@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="azul">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Zinga Team Training</title>
+<!-- Nexa: kit "Zinga Design System - Nexa" (liberado para zinga.digital, claude.ai, *.claudeusercontent.com e localhost) -->
+<link rel="stylesheet" href="https://use.typekit.net/sru2uac.css">
+<style>
+/* ===== tokens.css (design-system-zinga) ===== */
+/* Nexa: Adobe Fonts, kit "Zinga Design System - Nexa". Pesos: 400 Book, 500 Regular (texto), 600 Bold, 900 Black. */
+
+:root, [data-theme="azul"] {
+  --brand-navy: #002140;
+  --brand-pink: #f50953;
+  --surface: #002140;
+  --surface-deep: #00152a;
+  --surface-card: #052b4f;
+  --ink: #ffffff;
+  --ink-muted: #a8bcd2;
+  --accent: #f50953;
+  --glow-tint: #2478c9;
+  --on-accent: #ffffff;
+  --hairline: #ffffff2e;
+  --edge-light: #ffffffa6;
+  --glass: #ffffff0f;
+  --navy-core: #0a3663;
+  --navy-sheen: #0c365c;
+  --navy-night: #001932;
+  --plum: #39163b;
+  --plum-light: #514681;
+  --magenta-deep: #b50f4e;
+  --blush: #fdc9dc;
+  --blush-deep: #e4b1c6;
+  --lavender-edge: #c4bad6;
+  --paper-warm: #f5f3f0;
+  --pink-hot: #ff1275;
+  --violet-halo: #4b3bb0;
+  --glow-accent: 0 0 56px 0 #f5095378;
+  --glow-soft: 0 0 140px 0 #f5095340;
+  --card-lift: 0 24px 60px -20px #00060dcc;
+  --rim-glow: 0 0 0 1px #2478c980;
+  --rim-light: inset 0 1px 0 0 #ffffff40;
+  --halo-navy: 0 0 34px 4px #4b3bb059, 0 12px 24px -10px #000a1ab3;
+  --halo-pink: 0 0 40px 8px #ff2a8a8c;
+  --lift-soft: 0 10px 20px -8px #00214047;
+  --lift-deep: 0 14px 26px -10px #2a0521b3;
+  --glyph-drop: 1px 2px 1.5px #000c2361;
+  --glyph-drop-soft: 1px 2px 1.5px #00214026;
+}
+
+[data-theme="rosa"] {
+  --brand-navy: #002140;
+  --brand-pink: #f50953;
+  --surface: #f50953;
+  --surface-deep: #c2073f;
+  --surface-card: #002140;
+  --ink: #ffffff;
+  --ink-muted: #ffe3ec;
+  --accent: #002140;
+  --glow-tint: #ffffff;
+  --on-accent: #ffffff;
+  --hairline: #ffffff5c;
+  --edge-light: #ffffffc2;
+  --glass: #ffffff1f;
+  --navy-core: #0a3663;
+  --navy-sheen: #0c365c;
+  --navy-night: #001932;
+  --plum: #39163b;
+  --plum-light: #514681;
+  --magenta-deep: #b50f4e;
+  --blush: #fdc9dc;
+  --blush-deep: #e4b1c6;
+  --lavender-edge: #c4bad6;
+  --paper-warm: #f5f3f0;
+  --pink-hot: #ff1275;
+  --violet-halo: #4b3bb0;
+  --glow-accent: 0 0 56px 0 #ffffff5c;
+  --glow-soft: 0 0 140px 0 #ffffff3d;
+  --card-lift: 0 24px 60px -20px #7a0429a6;
+  --rim-glow: 0 0 0 1px #ffffff73;
+  --rim-light: inset 0 1px 0 0 #ffffff66;
+  --halo-navy: 0 0 34px 4px #4b3bb059, 0 12px 24px -10px #000a1ab3;
+  --halo-pink: 0 0 40px 8px #ff2a8a8c;
+  --lift-soft: 0 10px 20px -8px #00214047;
+  --lift-deep: 0 14px 26px -10px #2a0521b3;
+  --glyph-drop: 1px 2px 1.5px #000c2361;
+  --glyph-drop-soft: 1px 2px 1.5px #00214026;
+}
+
+[data-theme="claro"] {
+  --brand-navy: #002140;
+  --brand-pink: #f50953;
+  --surface: #ffffff;
+  --surface-deep: #f2f4f7;
+  --surface-card: #ffffff;
+  --ink: #002140;
+  --ink-muted: #516274;
+  --accent: #f50953;
+  --glow-tint: #ff8fb0;
+  --on-accent: #ffffff;
+  --hairline: #00214014;
+  --edge-light: #00214026;
+  --glass: #ffffffcc;
+  --navy-core: #0a3663;
+  --navy-sheen: #0c365c;
+  --navy-night: #001932;
+  --plum: #39163b;
+  --plum-light: #514681;
+  --magenta-deep: #b50f4e;
+  --blush: #fdc9dc;
+  --blush-deep: #e4b1c6;
+  --lavender-edge: #c4bad6;
+  --paper-warm: #f5f3f0;
+  --pink-hot: #ff1275;
+  --violet-halo: #4b3bb0;
+  --glow-accent: 0 0 56px 0 #f5095333;
+  --glow-soft: 0 0 140px 0 #f5095326;
+  --card-lift: 0 24px 60px -20px #00214026;
+  --rim-glow: 0 0 0 1px #f5095333;
+  --rim-light: inset 0 0 0 1px #0021400f;
+  --halo-navy: 0 0 34px 4px #4b3bb059, 0 12px 24px -10px #000a1ab3;
+  --halo-pink: 0 0 40px 8px #ff2a8a8c;
+  --lift-soft: 0 10px 20px -8px #00214047;
+  --lift-deep: 0 14px 26px -10px #2a0521b3;
+  --glyph-drop: 1px 2px 1.5px #000c2361;
+  --glyph-drop-soft: 1px 2px 1.5px #00214026;
+}
+
+:root {
+  --font-sans: "nexa", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 9999px;
+}
+
+.display { font-family: var(--font-sans); font-size: 72px; line-height: 68px; font-weight: 900; letter-spacing: -0.02em; }
+
+.display-sm { font-family: var(--font-sans); font-size: 48px; line-height: 50px; font-weight: 900; letter-spacing: -0.01em; }
+
+.stat { font-family: var(--font-sans); font-size: 56px; line-height: 56px; font-weight: 900; letter-spacing: -0.02em; }
+
+.h1 { font-family: var(--font-sans); font-size: 40px; line-height: 46px; font-weight: 600; }
+
+.h2 { font-family: var(--font-sans); font-size: 24px; line-height: 30px; font-weight: 600; }
+
+.h3 { font-family: var(--font-sans); font-size: 18px; line-height: 24px; font-weight: 600; }
+
+.body { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 500; }
+
+.body-sm { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 500; }
+
+.strong { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 600; }
+
+.caption { font-family: var(--font-sans); font-size: 13px; line-height: 18px; font-weight: 500; }
+
+.overline { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* ===== bundle.css (design-system-zinga) ===== */
+/* Zinga · receitas de tile de ícone, card, marcador e ícone em traço.
+   Cada peça tem uma versão PADRÃO que segue o tema (azul, rosa, claro) e
+   variações fixas, pensadas para um fundo específico. Tudo em token. */
+
+/* ---------- Tile de ícone ---------- */
+.zg-tile {
+  --s: 56px;
+  --_fill: radial-gradient(circle at 50% 38%, var(--navy-core) 0%, var(--brand-navy) 74%);
+  --_edge: linear-gradient(45deg, var(--brand-navy) 0%, var(--brand-pink) 50%, var(--brand-navy) 100%);
+  --_glyph: #FFFFFF;
+  --_gdrop: var(--glyph-drop);
+  --_halo: var(--halo-navy);
+  width: var(--s); height: var(--s); flex: none; box-sizing: border-box;
+  border-radius: calc(var(--s) * 0.22);
+  border: max(1.5px, calc(var(--s) * 0.02)) solid transparent;
+  background: var(--_fill) padding-box, var(--_edge) border-box;
+  box-shadow: var(--_halo);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.zg-tile svg { width: 52%; height: 52%; fill: var(--_glyph); filter: drop-shadow(var(--_gdrop)); overflow: visible; }
+
+/* Padrão por tema: só vale para o tile sem variação escolhida. */
+:root[data-theme="rosa"] .zg-tile:not([class*="zg-tile--"]) {
+  --_fill: linear-gradient(215deg, var(--plum-light) 0%, #432E5E 55%, #3A214C 100%);
+  --_halo: var(--lift-deep);
+}
+:root[data-theme="claro"] .zg-tile:not([class*="zg-tile--"]) {
+  --_fill: linear-gradient(180deg, #FFFFFF 0%, #F7F8FA 100%);
+  --_glyph: var(--brand-pink); --_gdrop: var(--glyph-drop-soft); --_halo: var(--lift-soft);
+}
+
+/* Fundo claro */
+.zg-tile--branco-rosa { --_fill: linear-gradient(180deg, #FFFFFF 0%, #F7F8FA 100%); --_glyph: var(--brand-pink); --_gdrop: var(--glyph-drop-soft); --_halo: var(--lift-soft); }
+.zg-tile--branco-azul { --_fill: linear-gradient(180deg, #FFFFFF 0%, #F7F8FA 100%); --_glyph: var(--brand-navy); --_gdrop: var(--glyph-drop-soft); --_halo: var(--lift-soft); }
+.zg-tile--rosa        { --_fill: radial-gradient(circle at 50% 40%, #F81A66 0%, var(--brand-pink) 70%); --_halo: var(--lift-soft); }
+.zg-tile--azul        { --_halo: var(--lift-soft); }
+/* Fundo azul */
+.zg-tile--azul-rosa   { --_fill: radial-gradient(circle at 8% 100%, #D4155C 0%, #9E1655 30%, #3A2358 62%, #1B2A57 100%);
+                        --_edge: linear-gradient(45deg, var(--brand-pink) 0%, var(--brand-pink) 30%, #1B2A57 62%, var(--brand-pink) 100%); }
+.zg-tile--azul-halo   { }
+.zg-tile--azul-lavanda{ --_edge: linear-gradient(135deg, var(--brand-pink) 0%, var(--brand-pink) 28%, var(--lavender-edge) 100%); }
+/* Fundo rosa */
+.zg-tile--plum        { --_fill: linear-gradient(215deg, var(--plum-light) 0%, #432E5E 55%, #3A214C 100%); --_halo: var(--lift-deep); }
+.zg-tile--blush       { --_fill: linear-gradient(180deg, var(--blush-deep) 0%, var(--blush) 100%);
+                        --_edge: linear-gradient(180deg, var(--blush-deep) 0%, var(--blush) 100%);
+                        --_glyph: var(--brand-navy); --_gdrop: var(--glyph-drop-soft); --_halo: var(--halo-pink); }
+.zg-tile--rosa-lavanda{ --_fill: radial-gradient(circle at 50% 40%, #F81A66 0%, var(--brand-pink) 70%);
+                        --_edge: linear-gradient(135deg, var(--brand-pink) 0%, #FF5A8C 35%, var(--lavender-edge) 100%);
+                        --_halo: var(--halo-pink); }
+
+/* ---------- Card ---------- */
+.zg-card {
+  --_fill: linear-gradient(215deg, #134372 0%, var(--navy-sheen) 14%, #001C38 52%, var(--navy-night) 100%);
+  --_edge: linear-gradient(165deg, var(--navy-sheen) 0%, #0C2A4D 55%, var(--brand-pink) 100%);
+  --_halo: var(--halo-navy);
+  position: relative; box-sizing: border-box; overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background: var(--_fill) padding-box, var(--_edge) border-box;
+  box-shadow: var(--_halo);
+}
+:root[data-theme="rosa"] .zg-card:not([class*="zg-card--"]) {
+  --_fill: linear-gradient(215deg, #4E4076 0%, var(--plum) 55%, #391436 100%);
+  --_edge: linear-gradient(135deg, #FFFFFF 0%, #FFFFFF99 30%, #FFFFFF26 62%, var(--brand-pink) 100%);
+  --_halo: var(--halo-pink), var(--lift-deep);
+}
+:root[data-theme="claro"] .zg-card:not([class*="zg-card--"]) {
+  --_fill: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 40%, var(--paper-warm) 100%);
+  --_edge: linear-gradient(45deg, var(--brand-navy) 0%, var(--brand-pink) 50%, var(--brand-navy) 100%);
+  --_halo: var(--lift-soft);
+}
+/* Fundo claro */
+.zg-card--branco  { --_fill: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 40%, var(--paper-warm) 100%);
+                    --_edge: linear-gradient(45deg, var(--brand-navy) 0%, var(--brand-pink) 50%, var(--brand-navy) 100%);
+                    --_halo: var(--lift-soft); }
+.zg-card--rosa    { --_fill: radial-gradient(circle at 22% 18%, #F81A66 0%, var(--brand-pink) 55%);
+                    --_edge: linear-gradient(45deg, var(--brand-navy) 0%, var(--brand-pink) 45%, var(--brand-pink) 70%, var(--brand-navy) 100%);
+                    --_halo: var(--lift-soft); }
+/* Fundo azul */
+.zg-card--degrade { --_fill: linear-gradient(160deg, #1A1F42 0%, #581947 52%, var(--magenta-deep) 100%);
+                    --_edge: linear-gradient(135deg, var(--brand-pink) 0%, #F5095340 40%, #B50F4E00 70%, var(--magenta-deep) 100%);
+                    --_halo: var(--lift-deep); }
+.zg-card--azul    { }
+/* Fundo rosa */
+.zg-card--plum    { --_fill: linear-gradient(215deg, #4E4076 0%, var(--plum) 55%, #391436 100%);
+                    --_edge: linear-gradient(135deg, #FFFFFF 0%, #FFFFFF99 30%, #FFFFFF26 62%, var(--brand-pink) 100%);
+                    --_halo: var(--halo-pink), var(--lift-deep); }
+.zg-card--blush   { --_fill: linear-gradient(180deg, var(--blush-deep) 0%, #FCC5D7 45%, var(--blush) 100%);
+                    --_edge: linear-gradient(180deg, var(--blush-deep) 0%, #E4B1C699 45%, var(--brand-navy) 100%);
+                    --_halo: var(--lift-deep); }
+
+/* ---------- Marcador numérico ---------- */
+.zg-marker { font-family: var(--font-sans); font-weight: 900; font-size: 40px; line-height: 1; letter-spacing: -0.02em; color: var(--brand-pink); }
+.zg-marker--branco { color: #FFFFFF; }
+
+/* ---------- Ícone solto dentro de card ---------- */
+/* Traço: o mesmo desenho do glifo, só contorno. */
+.zg-stroke { --s: 40px; width: var(--s); height: var(--s); display: inline-flex; flex: none; }
+.zg-stroke svg { width: 100%; height: 100%; fill: none; stroke: var(--brand-pink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; filter: drop-shadow(var(--glyph-drop-soft)); overflow: visible; }
+/* Sólido branco com brilho: só sobre card rosa. */
+.zg-glyph { --s: 40px; width: var(--s); height: var(--s); display: inline-flex; flex: none; }
+.zg-glyph svg { width: 100%; height: 100%; fill: #FFFFFF; filter: drop-shadow(0 0 9px #FFFFFF8C) drop-shadow(var(--glyph-drop)); overflow: visible; }
+
+
+/* ===== Página: manual de treinamento. Cada seção escolhe seu tema (azul, rosa, claro) e segue as receitas do sistema. ===== */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--brand-navy)}
+body{margin:0;font-family:var(--font-sans);font-weight:500;font-size:16px;line-height:24px;-webkit-font-smoothing:antialiased;overflow-x:hidden;background:var(--brand-navy)}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brand-pink);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+
+/* fundo de peça: degradê + no máximo dois blooms em glow-tint sangrando pela borda */
+.sec{position:relative;overflow:hidden;color:var(--ink);background:linear-gradient(160deg,var(--surface) 0%,var(--surface-deep) 100%);padding:clamp(80px,10vw,128px) 0}
+.bloom{position:absolute;width:460px;height:360px;border-radius:9999px;background:var(--glow-tint);filter:blur(130px);opacity:.32;pointer-events:none}
+.sec > .wrap{position:relative}
+
+.overline{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.display{font-size:clamp(44px,6.4vw,72px);line-height:1;font-weight:900;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.h1{font-size:clamp(30px,3.6vw,40px);line-height:1.15;font-weight:600;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.h2{font-size:24px;line-height:30px;font-weight:600;letter-spacing:-.01em;margin:0}
+.h3{font-size:18px;line-height:24px;font-weight:600;margin:0}
+.acc{color:var(--accent)}
+.muted{color:var(--ink-muted)}
+.body-sm{font-size:14px;line-height:21px}
+b,strong{font-weight:600}
+
+/* rosa: texto abaixo de 24px entra em bloco surface-card */
+[data-theme="rosa"] .blk{display:inline-block;background:var(--surface-card);color:#fff;padding:7px 14px;border-radius:9999px}
+[data-theme="rosa"] .blk-p{display:inline-block;background:var(--surface-card);color:#fff;padding:14px 18px;border-radius:16px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:#002140e6;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid #ffffff1f}
+.nav .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.zg-logo{display:block;height:24px;width:auto}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:14px}
+.nav ul a{text-decoration:none;color:#a8bcd2}
+.nav ul a:hover{color:#fff}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:9999px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;text-decoration:none;box-shadow:var(--glow-accent);border:0;cursor:pointer;font-family:inherit}
+.pill.sm{padding:9px 18px;font-size:13px}
+.pill.ghost{background:transparent;box-shadow:none;border:1px solid var(--hairline);color:var(--ink)}
+
+/* capa (estrutura do SlideCapa) */
+.capa{min-height:min(760px,92vh);display:flex;align-items:center;padding:96px 0}
+.capa-visual{position:absolute;inset:0}
+.capa-visual img{position:absolute;right:0;top:0;width:min(1180px,64vw);height:100%;object-fit:cover;object-position:right center;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 42%);mask-image:linear-gradient(90deg,transparent 0%,#000 42%)}
+.capa > .wrap{width:100%}
+.capa-txt{max-width:520px}
+.capa-txt .display{margin-top:16px}
+.capa-txt .sup{margin-top:22px;font-size:17px;line-height:27px;color:var(--ink-muted);max-width:470px}
+.capa-foot{margin-top:40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.capa-foot span{font-size:13px;color:var(--ink-muted)}
+.capa-src{margin-top:28px;font-size:13px;line-height:20px;color:var(--ink-muted);max-width:470px}
+
+/* cabeçalho de seção */
+.shead{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px 56px;align-items:end;margin-bottom:clamp(40px,5vw,64px)}
+.shead .h1,.shead .display{margin-top:14px}
+.shead p.lead{color:var(--ink-muted);font-size:17px;line-height:27px}
+.rule{height:1px;background:var(--hairline);margin-bottom:clamp(40px,5vw,56px)}
+
+/* grid de cards */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.zg-card{padding:28px}
+.zg-card .zg-tile,.zg-card .zg-stroke,.zg-card .zg-marker{margin-bottom:20px}
+.zg-card .h2{margin-bottom:10px}
+.zg-card p{font-size:15px;line-height:23px}
+.card-ink{color:#fff}
+.card-ink .muted{color:#a8bcd2}
+.zg-card--branco{color:var(--brand-navy)}
+.zg-card--branco .muted{color:#516274}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.tags span{font-size:12px;font-weight:600;padding:6px 12px;border-radius:9999px;border:1px solid var(--hairline)}
+.card-ink .tags span{border-color:#ffffff38}
+
+/* números (rosa) */
+.stat-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(40px,5vw,56px)}
+.stat{border-radius:16px;border:1px solid var(--hairline);background:var(--surface-card);padding:20px 22px;box-shadow:var(--rim-light);color:#fff;display:flex;align-items:center;gap:16px}
+.stat b{font-size:56px;line-height:56px;font-weight:900;letter-spacing:-.02em;color:var(--brand-pink)}
+.stat span{font-size:14px;line-height:20px;font-weight:600}
+
+/* módulos */
+.mod{display:grid;grid-template-columns:72px minmax(0,1fr);gap:28px;padding:clamp(40px,5vw,56px) 0;border-top:1px solid var(--hairline)}
+.mod:first-of-type{border-top:0;padding-top:0}
+.mbody{display:grid;gap:22px;min-width:0}
+.mtop{display:grid;gap:10px}
+.mtop .row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.chip{font-size:12px;font-weight:600;padding:5px 12px;border-radius:9999px;border:1px solid var(--hairline);text-decoration:none;color:var(--ink);white-space:nowrap}
+a.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.mbody > p{color:var(--ink-muted);font-size:16px;line-height:26px;max-width:46em}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.how .overline{margin-bottom:12px}
+.how ol,.how ul{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px;line-height:23px}
+.how li::marker{color:var(--accent);font-weight:900}
+.note{font-size:14px;line-height:21px;color:var(--ink-muted);max-width:52em;padding-left:16px;border-left:2px solid var(--accent)}
+.note b{color:var(--ink)}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;padding:1px 6px;border-radius:6px;background:var(--glass);border:1px solid var(--hairline)}
+
+.tree{border-radius:16px;background:linear-gradient(160deg,#002140,#00152a);color:#dbe6f2;padding:22px 24px;overflow-x:auto;box-shadow:var(--lift-soft)}
+.tree pre{margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.8}
+.tree .c{color:#a8bcd2}.tree .k{color:var(--brand-pink)}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.steps .zg-card{padding:22px}
+.steps .zg-marker{font-size:32px;margin-bottom:14px}
+.steps .h3{margin-bottom:6px}
+.steps p{font-size:13.5px;line-height:20px}
+.terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.term{border-radius:16px;border:1px solid var(--hairline);padding:16px 18px;background:var(--glass)}
+.term dt{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:var(--accent);margin-bottom:4px}
+.term dd{margin:0;font-size:14px;line-height:20px;color:var(--ink-muted)}
+
+/* tabela (tema claro) */
+.tbox{overflow-x:auto;border-radius:16px;border:1px solid var(--hairline);background:#fff;box-shadow:var(--lift-soft)}
+table{width:100%;border-collapse:collapse;font-size:15px;line-height:22px;min-width:680px}
+th,td{text-align:left;padding:14px 20px;border-bottom:1px solid var(--hairline);vertical-align:top}
+thead th{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+tr.grp th{background:linear-gradient(90deg,#002140,#052b4f);color:#fff;font-size:18px;font-weight:600;letter-spacing:-.01em}
+td:first-child{white-space:nowrap;font-weight:900;color:var(--brand-pink)}
+td:last-child{color:var(--ink-muted)}
+tbody tr:last-child td{border-bottom:0}
+
+/* prompts */
+.prompts{display:grid;gap:20px}
+.prompt .ph{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px}
+.prompt pre{margin:0;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.65;color:#dbe6f2}
+
+/* checklist */
+.check{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.check li{display:flex;gap:14px;align-items:flex-start;font-weight:600;font-size:16px;line-height:24px}
+
+/* rodapé */
+.foot{padding:56px 0 64px}
+.foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.foot span{font-size:13px;color:var(--ink-muted)}
+
+@media (max-width:960px){
+  .nav ul{display:none}
+  .shead,.grid2,.grid3,.cols,.terms,.check,.stat-row{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .capa{display:block;min-height:0;padding:0 0 72px}
+  .capa-visual{position:relative;inset:auto;height:62vw;max-height:520px}
+  .capa-visual img{width:100%;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
+}
+@media (max-width:600px){
+  .mod{grid-template-columns:1fr;gap:16px}
+  .steps{grid-template-columns:1fr}
+  .nav .pill{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* ===== v3: prints explicados, ilustrações e GitHub do zero ===== */
+.part-head{display:grid;gap:14px;margin-bottom:clamp(40px,5vw,64px);max-width:820px}
+.part-head .num{font-size:clamp(56px,8vw,96px);line-height:.9;font-weight:900;letter-spacing:-.03em;color:var(--accent)}
+.part-head p.lead{color:var(--ink-muted);font-size:18px;line-height:28px}
+.topic{display:grid;gap:22px;padding:clamp(44px,5vw,64px) 0;border-top:1px solid var(--hairline)}
+.topic:first-of-type{border-top:0;padding-top:0}
+.topic > header{display:flex;gap:18px;align-items:flex-start}
+.topic > header .zg-tile{flex:none}
+.topic > header .overline{margin-bottom:6px}
+.topic > p, .topic .prose p{color:var(--ink-muted);font-size:16.5px;line-height:27px;max-width:48em}
+.topic .prose{display:grid;gap:12px}
+.topic b, .topic strong{color:var(--ink)}
+.shot{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start;margin:0}
+.shot.narrow{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.shot.full{grid-template-columns:1fr}
+.frame{border-radius:16px;overflow:hidden;border:1px solid var(--hairline);box-shadow:var(--card-lift);background:#1a1a1a}
+.frame img{display:block;width:100%;height:auto}
+.frame.cap-max img{max-height:640px;width:auto;max-width:100%;margin:0 auto}
+.shot figcaption{display:grid;gap:14px;align-content:start}
+.shot figcaption .overline{display:flex;gap:10px;align-items:center}
+.shot figcaption .overline i{font-style:normal;padding:3px 9px;border-radius:9999px;border:1px solid var(--hairline);color:var(--ink-muted);letter-spacing:.08em}
+.explain{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:e}
+.explain li{counter-increment:e;display:grid;grid-template-columns:30px 1fr;gap:10px;font-size:15px;line-height:23px;color:var(--ink-muted)}
+.explain li::before{content:counter(e) ".";font-weight:900;color:var(--brand-pink);font-size:17px;line-height:23px}
+.explain li b{color:var(--ink)}
+.tip{border-radius:16px;padding:16px 20px;background:var(--glass);border:1px solid var(--hairline);font-size:14.5px;line-height:22px;color:var(--ink-muted)}
+.tip b{color:var(--accent)}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+
+/* ilustração */
+.ilu{position:relative;border-radius:16px;border:1.5px dashed var(--hairline);padding:30px 22px 22px;background:var(--glass)}
+.ilu-tag{position:absolute;top:-11px;left:18px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:9999px;background:var(--accent);color:var(--on-accent)}
+.mock{border-radius:12px;background:#1f1f1f;color:#e8e8e8;padding:18px;font-size:14px;line-height:21px;border:1px solid #ffffff1a}
+.mock .row{display:grid;grid-template-columns:110px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid #ffffff12}
+.mock .row:last-child{border-bottom:0}
+.mock .k{color:#9a9a9a}
+.mock .btn{display:inline-block;margin-top:12px;padding:8px 16px;border-radius:9999px;background:#e8e8e8;color:#1f1f1f;font-weight:600;font-size:13px}
+.files{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.75;margin:0;color:#e8e8e8}
+.files .d{color:#f2c94c}.files .m{color:#9a9a9a}.files .ok{color:#7bd88f}
+.diff{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.7;margin:0;border-radius:10px;overflow:hidden}
+.diff span{display:block;padding:0 12px;white-space:pre-wrap}
+.diff .rm{background:#5a1d24;color:#ffd7dc}.diff .ad{background:#1d4a2b;color:#d3f5dc}.diff .eq{color:#bdbdbd}
+.diff .hd{background:#2b2b2b;color:#9a9a9a;padding:6px 12px}
+.branchsvg{width:100%;height:auto;display:block}
+
+/* glossário */
+.gloss{width:100%;border-collapse:collapse;min-width:640px;font-size:15px;line-height:22px}
+.gloss th,.gloss td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--hairline);vertical-align:top}
+.gloss thead th{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.gloss td:first-child{font-weight:900;color:var(--ink);white-space:nowrap}
+.gloss td:nth-child(2){color:var(--brand-pink);font-weight:600;white-space:nowrap}
+.gloss td:last-child{color:var(--ink-muted)}
+.gbox{overflow-x:auto;border-radius:16px;border:1px solid var(--hairline);background:var(--glass)}
+
+@media (max-width:960px){
+  .shot,.shot.narrow,.duo,.trio{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+</head>
+<body>
+
+<!-- glifos: os oito oficiais do sistema + novos desenhados na mesma grade de 24px, sólidos -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="g-crescimento" viewBox="0 0 24 24"><rect x="3.6" y="13" width="3.6" height="7.4" rx="1.2"/><rect x="10.2" y="8.6" width="3.6" height="11.8" rx="1.2"/><rect x="16.8" y="4.4" width="3.6" height="16" rx="1.2"/></symbol>
+  <symbol id="g-objetivo" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.8a9.2 9.2 0 1 0 0 18.4 9.2 9.2 0 0 0 0-18.4zm0 3.3a5.9 5.9 0 1 1 0 11.8 5.9 5.9 0 0 1 0-11.8z"/><circle cx="12" cy="12" r="2.7"/></symbol>
+  <symbol id="g-performance" viewBox="0 0 24 24"><path d="M13.7 2 5.3 13.6h5.1l-1.1 8.7 8.5-11.9h-5.2z"/></symbol>
+  <symbol id="g-audiencia" viewBox="0 0 24 24"><circle cx="9.1" cy="7.5" r="3.5"/><path d="M3 19.7c0-3.4 2.7-6.1 6.1-6.1s6.1 2.7 6.1 6.1v1.1H3z"/><circle cx="17.6" cy="8.5" r="2.7"/><path d="M16.2 13.8c2.7.2 4.8 2.4 4.8 5.1v1.9h-3.3v-1.9c0-1.9-.6-3.7-1.5-5.1z"/></symbol>
+  <symbol id="g-estrategia" viewBox="0 0 24 24"><path d="M12 2.3a6.7 6.7 0 0 0-4 12.1c.6.5 1.1 1.2 1.2 2h5.6c.1-.8.6-1.5 1.2-2A6.7 6.7 0 0 0 12 2.3z"/><rect x="9.3" y="18.2" width="5.4" height="1.8" rx="0.9"/><rect x="10.4" y="20.8" width="3.2" height="1.8" rx="0.9"/></symbol>
+  <symbol id="g-social" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4.2 4.1h15.6a2 2 0 0 1 2 2v8.8a2 2 0 0 1-2 2H9.5l-5.3 4.1V6.1a2 2 0 0 1 2-2zm3.4 4.6h8.8v1.9H7.6zm0 3.9h5.5v1.9H7.6z"/></symbol>
+  <symbol id="g-resultado" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19zm4.7 6.6-5.8 6.3-3.6-3.5 1.7-1.7 1.9 1.8 4.1-4.5z"/></symbol>
+  <!-- novos -->
+  <symbol id="g-pasta" viewBox="0 0 24 24"><path d="M2.8 6.4a2 2 0 0 1 2-2h4.6c.5 0 1 .2 1.4.6l1.6 1.6h6.8a2 2 0 0 1 2 2v9.6a2 2 0 0 1-2 2H4.8a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="g-documento" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M6.3 2.4h7.4l5.6 5.6v11.6a2 2 0 0 1-2 2H6.3a2 2 0 0 1-2-2V4.4a2 2 0 0 1 2-2zm1.9 9.9h7.6v1.8H8.2zm0 3.6h5.2v1.8H8.2zM13 3.9V8.7h4.8z"/></symbol>
+  <symbol id="g-branch" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 2.6a3 3 0 0 1 1 5.83v2.15A6 6 0 0 1 11.5 9.5h1.6a2.3 2.3 0 0 0 2.1-1.4A3 3 0 1 1 17.3 8.6a4.4 4.4 0 0 1-4.2 3h-1.6A3.5 3.5 0 0 0 8 15.1v.47a3 3 0 1 1-2 0V8.43A3 3 0 0 1 7 2.6zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm11 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM7 17.4a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></symbol>
+  <symbol id="g-escudo" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.3 19.6 5.2v6.1c0 4.7-3.2 8.9-7.6 10.4-4.4-1.5-7.6-5.7-7.6-10.4V5.2zm3.5 6.5-4.4 4.8-2.6-2.5-1.4 1.4 4.1 3.9 5.8-6.2z"/></symbol>
+  <symbol id="g-terminal" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4.4 3.8h15.2a2 2 0 0 1 2 2v12.4a2 2 0 0 1-2 2H4.4a2 2 0 0 1-2-2V5.8a2 2 0 0 1 2-2zm2.4 4.4-1.3 1.3 2.6 2.5-2.6 2.5 1.3 1.3 3.9-3.8zm5.3 6.1v1.9h5.6v-1.9z"/></symbol>
+  <symbol id="g-camadas" viewBox="0 0 24 24"><path d="M12 2.8 21.2 7.4 12 12 2.8 7.4z"/><path d="M5.3 10.7 12 14.1l6.7-3.4 2.5 1.3L12 16.6 2.8 12z"/><path d="M5.3 15.3 12 18.7l6.7-3.4 2.5 1.3L12 21.2 2.8 16.6z"/></symbol>
+  <symbol id="g-paralelo" viewBox="0 0 24 24"><rect x="2.8" y="3.6" width="8" height="4.6" rx="1.4"/><rect x="2.8" y="9.7" width="18.4" height="4.6" rx="1.4"/><rect x="2.8" y="15.8" width="12.6" height="4.6" rx="1.4"/></symbol>
+  <symbol id="g-coroa" viewBox="0 0 24 24"><path d="M3 7.6 8 11.4 12 4.4l4 7 5-3.8-1.9 9.8H4.9z"/><rect x="4.9" y="18.6" width="14.2" height="2.2" rx="1.1"/></symbol>
+  <symbol id="g-plug" viewBox="0 0 24 24"><path d="M8 2.4h2v4.2h4V2.4h2v4.2h1.6a1 1 0 0 1 1 1v3.6a6.6 6.6 0 0 1-5.6 6.5v4.9h-2v-4.9a6.6 6.6 0 0 1-5.6-6.5V7.6a1 1 0 0 1 1-1H8z"/></symbol>
+  <symbol id="g-artefato" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4.4 3.4h15.2a2 2 0 0 1 2 2v13.2a2 2 0 0 1-2 2H4.4a2 2 0 0 1-2-2V5.4a2 2 0 0 1 2-2zm.6 5.1v9.5h6.6V8.5zm8.6 0v4.1H19V8.5zm0 6.1V18H19v-3.4z"/></symbol>
+  <symbol id="g-mod" viewBox="0 0 24 24"><path d="M5 6.2h3.2a2.5 2.5 0 1 1 4.9 0h3.1a1 1 0 0 1 1 1v3.1a2.5 2.5 0 1 1 0 4.9v3.2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7.2a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="g-dividida" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3.4 4.2h17.2a1.2 1.2 0 0 1 1.2 1.2v13.2a1.2 1.2 0 0 1-1.2 1.2H3.4a1.2 1.2 0 0 1-1.2-1.2V5.4a1.2 1.2 0 0 1 1.2-1.2zm1.2 2.2v11.2h6.4V6.4zm8.4 0v11.2h6.4V6.4z"/></symbol>
+  <!-- traço (só dentro de card) -->
+  <symbol id="s-objetivo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.8"/><circle cx="12" cy="12" r="5.2"/><circle cx="12" cy="12" r="1.6"/></symbol>
+  <symbol id="s-estrategia" viewBox="0 0 24 24"><path d="M12 2.6a6.4 6.4 0 0 0-3.8 11.6c.6.5 1 1.2 1.1 1.9h5.4c.1-.7.5-1.4 1.1-1.9A6.4 6.4 0 0 0 12 2.6z"/><path d="M9.6 18.9h4.8M10.6 21.4h2.8"/></symbol>
+  <symbol id="s-resultado" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.2l2.9 2.8 5.5-6"/></symbol>
+</defs></svg>
+
+<nav class="nav" aria-label="Navegação">
+  <div class="wrap">
+    <svg class="zg-logo" viewBox="143.6 342.9 712.9 314.2" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zinga"><path fill="var(--ink)" d="M252.29,446.95h-73.11c-10.5,0-19.25-8.4-19.25-19.25v-19.25h129c10.3,0,19.72,6.46,22.8,16.29,3.5,11.17.64,22.04-7.64,28.86-25.55,22.05-97.64,83.64-97.64,83.64h87.49c10.5,0,19.25,8.75,19.25,19.6v19.25h-144.95c-12.53,0-22.68-10.15-22.68-22.68v-2.87c0-7.7,3.15-14.7,9.1-19.6,25.55-22.05,97.64-83.99,97.64-83.99Z"></path><path fill="var(--ink)" d="M854.45,491.78v83.99h-19.86c-10.62,0-18.63-9.92-18.63-13.3-13.3,8.4-28.7,13.3-45.15,13.3-23.45,0-44.1-9.45-59.49-24.5-15.05-15.4-24.5-36.04-24.5-59.49,0-45.84,37.8-83.64,83.64-83.64,23.45,0,44.45,9.45,59.49,24.5,13.65,13.65,22.75,32.2,24.15,52.84.35,2.1.35,4.2.35,6.3ZM815.96,492.83c0-12.95-4.9-24.5-13.3-32.9-8.4-8.05-19.6-13.3-31.85-13.3s-23.8,5.25-32.2,13.3c-8.05,8.4-12.95,19.6-12.95,31.85s4.9,23.8,12.95,32.2c8.4,8.4,19.95,13.3,32.9,12.95,24.15-.35,43.74-19.95,44.45-44.1Z"></path><path fill="var(--ink)" d="M345.27,408.14h19.25v148.38c0,10.5-8.75,19.25-19.25,19.25h-19.6v-148.38c0-10.5,8.75-19.25,19.6-19.25Z"></path><path fill="var(--ink)" d="M673.73,571.25c0,1.52-.04,3.02-.12,4.51-2.34,44.2-38.93,79.32-83.69,79.32-24.65,0-46.79-10.63-62.14-27.56l17.11-14.97c6.29-5.5,15.31-6.11,22.56-1.95,6.63,3.8,14.32,5.98,22.52,5.98,22.78,0,41.64-16.81,44.84-38.72,1.29-.66,2.57-1.38,3.82-2.09,12.52-7.31,23.25-17.32,31.38-29.26,2.44,7.82,3.73,16.13,3.73,24.75Z"></path><path fill="var(--ink)" d="M673.8,491.96c0,2.58-.46,8.73-.49,9.03-3.27,30.82-21.79,51.31-38.79,62-12.89,8.11-28.16,12.78-44.53,12.78-1.01,0-2.01-.02-3-.06-34.29-1.43-54.63-21.98-61.56-30.29-5.11-6.12-7.99-11.4-9.32-13.87-6.34-11.78-9.93-25.26-9.93-39.59,0-10.3-3.43-19.78-9.21-27.4-8.27-10.9-21.36-17.94-36.1-17.94-24.77,0-44.9,19.89-45.31,44.55,0,.31,0,65.33,0,65.34,0,6.27-5.24,19.25-19.25,19.25h-19.27v-83.81c0-16.7,4.88-32.28,13.32-45.33,6.48-10.1,15.1-18.7,25.2-25.18,13.05-8.41,28.61-13.3,45.31-13.3,44.21,0,66.06,31.56,70.51,38.48,14.58,22.64,10.89,40.96,14.06,53.58,1.75,6.98,4.25,13.56,8.43,19.06,8.13,10.68,21.16,17.94,36.12,17.94,29.47,0,45.31-24.68,45.31-45.31,0-24.52-19.45-44.47-43.75-45.27-.64-.02-23-1.53-37.7,17.94-1.85-6.26-4.31-12.27-7.33-17.94-3.32-6.28-7.35-12.17-11.94-17.55,14.78-13.03,34.17-20.93,55.41-20.93,29.59,0,55.59,15.33,70.51,38.48,8.41,13.05,13.3,28.63,13.3,45.33Z"></path><path fill="var(--accent)" d="M371.27,369.66c0,13.9-11.19,25.08-24.74,25.08s-25.08-11.18-25.08-25.08,11.19-24.74,25.08-24.74,24.74,11.19,24.74,24.74Z"></path></svg>
+    <ul>
+      <li><a href="#p1">App</a></li>
+      <li><a href="#p2">Pastas</a></li>
+      <li><a href="#p3">Skills e conectores</a></li>
+      <li><a href="#p4">Paralelo</a></li>
+      <li><a href="#p5">GitHub</a></li>
+      <li><a href="#p6">Modo Pro</a></li>
+      <li><a href="#prompts">Prompts</a></li>
+    </ul>
+    <a class="pill sm" href="#guia">Começar</a>
+  </div>
+</nav>
+
+<!-- CAPA · tema azul -->
+<header class="sec capa" data-theme="azul">
+  <div class="capa-visual"><img src="capa-trajetoria.jpg" alt="Escada de vidro subindo até um patamar aceso em rosa"></div>
+  <div class="bloom" style="left:-160px;bottom:-160px"></div>
+  <div class="wrap">
+    <div class="capa-txt">
+      <p class="overline">Zinga Team Training · Modo Pro</p>
+      <h1 class="display">Inteligência artificial, <span class="acc">com método.</span></h1>
+      <p class="sup">Como a equipe da Zinga trabalha com Claude e Claude Code: pasta organizada, projeto com memória, tarefas em paralelo, versionamento no GitHub e entrega na identidade da marca.</p>
+      <div class="capa-foot">
+        <a class="pill" href="#guia">Começar o guia</a>
+        <span>Caxias do Sul · RS · novembro/2026</span>
+      </div>
+      <p class="capa-src">Baseado nos vídeos de Eli Rigobeli (<a href="https://www.youtube.com/watch?v=gNC3Tyhr0P8">novo Claude</a>) e Bruno Camargo (<a href="https://youtu.be/wl1ejtdV-O8">segundo cérebro</a>), no Manual Operacional do Notion e em prints reais do app da Zinga.</p>
+    </div>
+  </div>
+</header>
+
+
+
+<!-- glifos novos desta versão, mesma grade de 24px, sólidos -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="g-relogio" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19zm-1 4.3h2v5l3.6 2.1-1 1.7-4.6-2.7z"/></symbol>
+  <symbol id="g-globo" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19zM4.6 11a7.5 7.5 0 0 1 5-6.1A14 14 0 0 0 8.2 11zm0 2h3.6a14 14 0 0 0 1.4 6.1 7.5 7.5 0 0 1-5-6.1zm5.6 0h3.6c-.2 2.6-.9 4.8-1.8 6.3-.9-1.5-1.6-3.7-1.8-6.3zm0-2c.2-2.6.9-4.8 1.8-6.3.9 1.5 1.6 3.7 1.8 6.3zm5.6 0a14 14 0 0 0-1.4-6.1 7.5 7.5 0 0 1 5 6.1zm0 2h3.6a7.5 7.5 0 0 1-5 6.1 14 14 0 0 0 1.4-6.1z"/></symbol>
+  <symbol id="g-paleta" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.6c-5.3 0-9.5 4-9.5 9.1 0 4.9 4 8.7 8.9 8.7 1.4 0 2.2-.8 2.2-1.9 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8h2.1c2.9 0 5-2.2 5-5C21.5 5.9 17.3 2.6 12 2.6zM7.3 12.6a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm2.9-4.1a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm4.4 0a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm2.8 3.2a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2z"/></symbol>
+  <symbol id="g-cerebro" viewBox="0 0 24 24"><path d="M9 3a3.2 3.2 0 0 0-3.1 2.5A3.3 3.3 0 0 0 3.5 9a3.4 3.4 0 0 0 .8 2.2 3.4 3.4 0 0 0 .6 4.3A3.5 3.5 0 0 0 8.4 21c.9 0 1.7-.3 2.3-.9V4.1A3.2 3.2 0 0 0 9 3z"/><path d="M15 3c-.6 0-1.2.2-1.7.5V20c.6.6 1.4 1 2.3 1a3.5 3.5 0 0 0 3.5-5.5 3.4 3.4 0 0 0 .6-4.3 3.4 3.4 0 0 0 .8-2.2 3.3 3.3 0 0 0-2.4-3.5A3.2 3.2 0 0 0 15 3z"/></symbol>
+  <symbol id="g-mais" viewBox="0 0 24 24"><path d="M10.6 3.5h2.8v7.1h7.1v2.8h-7.1v7.1h-2.8v-7.1H3.5v-2.8h7.1z"/></symbol>
+  <symbol id="g-medidor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 4a10 10 0 0 0-10 10c0 2 .6 3.9 1.6 5.4l.3.6h16.2l.3-.6A10 10 0 0 0 12 4zm4.2 4.4 1.4 1.4-4.2 4.6a1.9 1.9 0 1 1-1.5-1.3z"/></symbol>
+</defs></svg>
+
+<!-- ABERTURA DO GUIA · azul -->
+<section class="sec" id="guia" data-theme="azul" style="padding-top:clamp(56px,6vw,80px)">
+  <div class="bloom" style="right:-180px;top:-140px"></div>
+  <div class="wrap">
+    <div class="shead">
+      <div><p class="overline">Como ler este guia</p><h2 class="h1">Seis partes, <span class="acc">do primeiro clique ao site no ar.</span></h2></div>
+      <p class="lead">Cada tela vem com um print real do app da Zinga e a explicação de cada botão. Onde não há print, uma ilustração marcada como tal mostra a ideia. Nomes de menu podem mudar com atualizações do app.</p>
+    </div>
+    <div class="grid3">
+      <a class="zg-card zg-card--azul card-ink" href="#p1" style="text-decoration:none"><div class="zg-marker">1.</div><h3 class="h3" style="margin-bottom:6px">Conhecendo o app</h3><p class="muted">Tela inicial, barra lateral, modelos, modos e limite de uso.</p></a>
+      <a class="zg-card zg-card--azul card-ink" href="#p2" style="text-decoration:none"><div class="zg-marker">2.</div><h3 class="h3" style="margin-bottom:6px">Onde o Claude trabalha</h3><p class="muted">Projetos, pastas, ambientes, saídas e a estrutura de pastas da Zinga.</p></a>
+      <a class="zg-card zg-card--azul card-ink" href="#p3" style="text-decoration:none"><div class="zg-marker">3.</div><h3 class="h3" style="margin-bottom:6px">Turbinando o Claude</h3><p class="muted">Skills, conectores, navegador, design system e rotinas.</p></a>
+      <a class="zg-card zg-card--azul card-ink" href="#p4" style="text-decoration:none"><div class="zg-marker">4.</div><h3 class="h3" style="margin-bottom:6px">Trabalho em paralelo</h3><p class="muted">Conversa lateral, tarefas em segundo plano, projetos com threads.</p></a>
+      <a class="zg-card zg-card--azul card-ink" href="#p5" style="text-decoration:none"><div class="zg-marker">5.</div><h3 class="h3" style="margin-bottom:6px">GitHub do zero</h3><p class="muted">Commit, branch, push e pull request explicados com o dia a dia da agência.</p></a>
+      <a class="zg-card zg-card--degrade card-ink" href="#p6" style="text-decoration:none"><div class="zg-marker zg-marker--branco">6.</div><h3 class="h3" style="margin-bottom:6px">Modo Pro</h3><p style="color:#ffffffd9">Do repositório ao site no ar: GitHub, prévia, Netlify e domínio, com o site da Zinga como exemplo.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTE 1 · claro ===================== -->
+<section class="sec" id="p1" data-theme="claro">
+  <div class="bloom" style="right:-200px;top:-180px;opacity:.22"></div>
+  <div class="wrap">
+    <div class="part-head"><span class="num">1.</span><p class="overline">Parte 1</p><h2 class="h1">Conhecendo <span class="acc">o app.</span></h2><p class="lead">Antes de pedir qualquer coisa, saber onde fica cada botão. Esta parte é a visita guiada.</p></div>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-social"/></svg></div><div><p class="overline">1.1 · Tela inicial</p><h3 class="h2">A casa do Claude</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/01-tela-inicial-barra-lateral.jpg" alt="Tela inicial do app Claude com barra lateral e caixa de mensagem" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 01</p>
+          <ol class="explain">
+            <li><span><b>Criar:</b> começa uma conversa nova.</span></li>
+            <li><span><b>Procurar:</b> busca em todas as conversas antigas.</span></li>
+            <li><span><b>Projetos:</b> espaços com arquivos e instruções fixas (ver 2.1).</span></li>
+            <li><span><b>Artefatos:</b> tudo que o Claude entregou em página: sites, apresentações, documentos.</span></li>
+            <li><span><b>Agendados:</b> as rotinas, tarefas que rodam sozinhas (ver 3.6).</span></li>
+            <li><span><b>Design:</b> peças visuais e design systems.</span></li>
+            <li><span><b>Personalização:</b> skills, conectores e preferências.</span></li>
+            <li><span><b>Fixados e Recentes:</b> conversas. Fixe as que você volta sempre.</span></li>
+            <li><span><b>Os dois ícones no topo da barra</b> alternam entre o modo conversa e o modo Code.</span></li>
+          </ol>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-terminal"/></svg></div><div><p class="overline">1.2 · Barra lateral no modo Code</p><h3 class="h2">Conversas organizadas por lugar</h3></div></header>
+      <figure class="shot narrow">
+        <div class="frame cap-max"><img src="img/02b-barra-lateral-code.jpg" alt="Barra lateral do modo Code com grupos por projeto e ambiente" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 02b</p>
+          <p class="muted" style="font-size:15px;line-height:23px">No modo Code, as conversas se agrupam pelo lugar onde o Claude trabalhou. Isso mostra de cara se uma tarefa mexeu no seu computador ou na nuvem.</p>
+          <ol class="explain">
+            <li><span><b>Fixados:</b> conversas e artefatos que você marcou.</span></li>
+            <li><span><b>Projects:</b> um grupo por repositório do GitHub (zinga-site, zingamotion). A nuvem ao lado do nome indica que roda nos servidores do Claude.</span></li>
+            <li><span><b>Este computador:</b> tarefas que mexeram em pastas da sua máquina.</span></li>
+            <li><span><b>Nuvem:</b> tarefas que rodaram fora do seu computador.</span></li>
+            <li><span><b>Remote Control:</b> sessões controladas pelo celular ou por outro computador.</span></li>
+            <li><span><b>Zinga · Pro</b> no rodapé: a conta e o plano.</span></li>
+          </ol>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-estrategia"/></svg></div><div><p class="overline">1.3 · Modelos</p><h3 class="h2">Qual cérebro usar em cada tarefa</h3></div></header>
+      <figure class="shot narrow">
+        <div class="frame"><img src="img/31-seletor-modelo.jpg" alt="Seletor de modelo com Opus, Sonnet, Fable, Haiku, esforço e modo rápido" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 31 · fica embaixo da caixa de mensagem</p>
+          <ol class="explain">
+            <li><span><b>Opus:</b> o mais capaz no dia a dia. Use em estratégia, textos importantes, código e tarefas longas.</span></li>
+            <li><span><b>Sonnet:</b> rápido e mais econômico. Bom para revisões, resumos e tarefas repetitivas. Gasta menos limite.</span></li>
+            <li><span><b>Fable:</b> o mais avançado, e só funciona com créditos de uso, que são pagos à parte. Use só quando o Opus não der conta.</span></li>
+            <li><span><b>Haiku:</b> o mais leve. Tarefas simples e em volume, como classificar ou renomear.</span></li>
+            <li><span><b>Esforço:</b> quanto o modelo pensa antes de responder. Médio é o padrão. Alto pensa mais, demora mais e gasta mais limite.</span></li>
+            <li><span><b>Modo rápido:</b> resposta mais veloz no mesmo modelo, consumindo o limite mais depressa. Deixe desligado.</span></li>
+          </ol>
+          <p class="tip"><b>Regra prática:</b> comece com Sonnet. Se a resposta ficar rasa, refaça com Opus.</p>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-escudo"/></svg></div><div><p class="overline">1.4 · Modos de permissão</p><h3 class="h2">Quanta liberdade o Claude tem</h3></div></header>
+      <figure class="shot narrow">
+        <div class="frame"><img src="img/09-modo-plano.jpg" alt="Menu de modo com Automático, Aceitar edições e Plano" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 09 · botão ao lado do modelo</p>
+          <p class="muted" style="font-size:15px;line-height:23px">Quando o Claude trabalha numa pasta, ele lê, cria e altera arquivos. O modo decide quando ele pergunta antes.</p>
+          <ol class="explain">
+            <li><span><b>Automático:</b> o Claude decide sozinho o que é seguro fazer e só pergunta no que é arriscado. É o padrão.</span></li>
+            <li><span><b>Aceitar edições:</b> edita arquivos sem perguntar. Use só em pasta com GitHub, onde tudo pode ser desfeito.</span></li>
+            <li><span><b>Plano:</b> não mexe em nada. Pesquisa, monta um plano e espera você aprovar. Use em toda tarefa grande ou nova.</span></li>
+          </ol>
+          <p class="tip"><b>Atalho:</b> as teclas 1, 2 e 3 trocam o modo com o menu aberto.</p>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-medidor"/></svg></div><div><p class="overline">1.5 · Uso e limite</p><h3 class="h2">O plano tem cota, e ela acaba</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/32-uso-e-limite.jpg" alt="Tela de uso com limite semanal e créditos de uso" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 32 · Configurações → Uso</p>
+          <ol class="explain">
+            <li><span><b>Sessão atual:</b> uma cota curta, que renova algumas horas depois da primeira mensagem.</span></li>
+            <li><span><b>Esta semana:</b> a cota da semana. A barra fica vermelha perto do fim e mostra quando reinicia.</span></li>
+            <li><span><b>Créditos de uso:</b> saldo em reais para continuar depois que a cota acaba. Com a chave ligada, o Claude passa a gastar esse saldo sozinho.</span></li>
+            <li><span><b>Subir de plano:</b> troca para um plano com cota maior.</span></li>
+          </ol>
+          <p class="tip"><b>O que mais consome:</b> modelo Opus, esforço alto, conversas muito longas e anexos pesados. Para economizar, use Sonnet no simples, comece conversa nova a cada tarefa e não reenvie o mesmo arquivo.</p>
+        </figcaption>
+      </figure>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== PARTE 2 · azul ===================== -->
+<section class="sec" id="p2" data-theme="azul">
+  <div class="bloom" style="left:-200px;top:-160px"></div>
+  <div class="bloom" style="right:-220px;bottom:-200px"></div>
+  <div class="wrap">
+    <div class="part-head"><span class="num">2.</span><p class="overline">Parte 2</p><h2 class="h1">Onde o Claude <span class="acc">trabalha.</span></h2><p class="lead">O Claude só enxerga o que você dá a ele: um projeto, uma pasta do computador ou um repositório. Escolher bem esse lugar é metade do resultado.</p></div>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-pasta"/></svg></div><div><p class="overline">2.1 · Projeto ou pasta</p><h3 class="h2">Diga ao Claude em que cliente você está</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/03-projeto-ou-pasta.jpg" alt="Menu Projeto ou pasta com projetos padrão e fixados" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 03 · embaixo da caixa de mensagem</p>
+          <ol class="explain">
+            <li><span><b>Projeto:</b> um espaço no Claude com instruções e arquivos fixos. Tudo que você conversa dentro dele já sabe quem é o cliente.</span></li>
+            <li><span><b>Padrão (estrela):</b> o projeto que abre sempre. Na Zinga, hoje é o Posts Zinga.</span></li>
+            <li><span><b>Fixados:</b> os projetos mais usados (Lacca, IAPC, Terra y Fuego).</span></li>
+            <li><span><b>Novo projeto:</b> cria um espaço para um cliente novo.</span></li>
+            <li><span><b>Adicionar pasta:</b> conecta uma pasta do computador. O Claude passa a ler e salvar arquivos nela.</span></li>
+          </ol>
+          <p class="tip"><b>Regra da casa:</b> um cliente, um projeto, uma pasta. Nunca conecte a Área de Trabalho inteira.</p>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-globo"/></svg></div><div><p class="overline">2.2 · Ambientes do Code</p><h3 class="h2">No seu computador ou na nuvem</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/03b-escolher-ambiente.jpg" alt="Escolha de ambiente local ou nuvem no Claude Code" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 03b · modo Code, antes de começar uma tarefa</p>
+          <ol class="explain">
+            <li><span><b>Local · Este computador:</b> o Claude trabalha nos seus arquivos. Rápido, mas para se o computador desligar.</span></li>
+            <li><span><b>Local · Maria Vitória, Motion:</b> pastas específicas cadastradas como ambiente.</span></li>
+            <li><span><b>Nuvem · Zinga Digital:</b> o Claude trabalha num computador da Anthropic, em cima de um repositório do GitHub. Continua mesmo com o seu notebook fechado.</span></li>
+            <li><span><b>Barra de baixo:</b> mostra o ambiente, o repositório (ZingaDigital/zinga-site) e o branch (main) da tarefa.</span></li>
+            <li><span><b>Novo ambiente:</b> cadastra outra pasta ou outra configuração de nuvem.</span></li>
+          </ol>
+          <p class="tip"><b>Quando usar a nuvem:</b> tarefa longa, projeto que já está no GitHub ou trabalho que você quer acompanhar pelo celular.</p>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-crescimento"/></svg></div><div><p class="overline">2.3 · Barra de sessões e saídas</p><h3 class="h2">O painel de cada tarefa e onde ficam os arquivos</h3></div></header>
+      <figure class="shot narrow">
+        <div class="frame cap-max"><img src="img/04-barra-de-sessoes.jpg" alt="Barra de sessões com ambiente, contexto, conectores e saídas" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 04 · ícone no topo da conversa</p>
+          <ol class="explain">
+            <li><span><b>Ambiente:</b> onde a tarefa roda e quais repositórios e branch estão ligados. Neste print, a nuvem Zinga Digital com três repositórios da agência.</span></li>
+            <li><span><b>Contexto:</b> quanto da memória da conversa já foi usado (aqui, 50%). Perto de 100%, o Claude resume a conversa para continuar e alguns detalhes se perdem.</span></li>
+            <li><span><b>Conectores:</b> os apps que esta conversa pode usar.</span></li>
+            <li><span><b>Saídas:</b> os arquivos que o Claude criou nesta conversa. Clique para abrir ou baixar.</span></li>
+          </ol>
+          <p class="tip"><b>Onde o arquivo vai parar:</b> numa pasta conectada, ele é salvo direto nela (na Zinga, em <code>output/</code>). Numa conversa sem pasta, ele fica em Saídas e você baixa. Peça sempre: “salve em output com o nome cliente-peça-data”.</p>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic" id="pastas">
+      <header><div class="zg-tile zg-tile--azul-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-pasta"/></svg></div><div><p class="overline">2.4 · Estrutura de pastas da Zinga</p><h3 class="h2">Como montamos a pasta de cada cliente</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/02-pasta-cliente-real.jpg" alt="Pasta do cliente Sodertecno com context, fontes, output, referencias, tipografia e arquivos AGENTS e CONTEXTO" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 02 · pasta real do cliente Sodertecno</p>
+          <ol class="explain">
+            <li><span><b>context/:</b> briefing, atas, decisões e histórico. É a memória do cliente.</span></li>
+            <li><span><b>fontes/:</b> arquivos de fonte da marca do cliente.</span></li>
+            <li><span><b>output/:</b> tudo que o Claude entrega. Nada de entrega solta pela pasta.</span></li>
+            <li><span><b>referencias/:</b> referências visuais, concorrentes e moodboard.</span></li>
+            <li><span><b>tipografia/:</b> regras e testes de tipografia.</span></li>
+            <li><span><b>AGENTS.md:</b> o manual da pasta, que a IA lê antes de qualquer coisa.</span></li>
+            <li><span><b>CONTEXTO-CLIENTE.md:</b> o resumo de quem é o cliente.</span></li>
+          </ol>
+        </figcaption>
+      </figure>
+      <div class="duo">
+        <div class="tree"><pre>clientes/
+└── nome-do-cliente/
+    ├── <span class="k">CLAUDE.md</span>             <span class="c"># uma linha: @AGENTS.md</span>
+    ├── <span class="k">AGENTS.md</span>             <span class="c"># manual da pasta (seções A a G)</span>
+    ├── <span class="k">CONTEXTO-CLIENTE.md</span>   <span class="c"># quem é o cliente, em 1 página</span>
+    ├── context/
+    │   ├── briefing.md         <span class="c"># original, não se edita</span>
+    │   ├── estrategia-atual.md <span class="c"># muda a cada mês</span>
+    │   ├── decisoes.md         <span class="c"># o que já foi decidido e por quê</span>
+    │   ├── proximas-acoes.md
+    │   └── sessoes/            <span class="c"># resumo datado de cada conversa</span>
+    ├── referencias/
+    ├── fontes/
+    ├── tipografia/
+    └── output/
+        └── 2026-11-04-post-lancamento.png</pre></div>
+        <div class="prose">
+          <p><b>As pastas são o padrão que a Zinga já usa.</b> O que esta versão acrescenta é o conteúdo do <code>context/</code>, tirado do Manual Operacional do Notion: briefing congelado, estratégia atual, decisões, próximas ações e resumos de sessão.</p>
+          <p><b>Por que existe um CLAUDE.md com uma linha só.</b> O Claude Code lê automaticamente o arquivo <code>CLAUDE.md</code>. O <code>AGENTS.md</code> é o padrão de outras IAs, como Codex e Cursor. Um CLAUDE.md com a linha <code>@AGENTS.md</code> faz o Claude ler o manual sem duplicar texto.</p>
+          <p><b>Nomes:</b> minúsculas, sem acento, palavras com hífen e datas em <code>AAAA-MM-DD</code>, que ordenam sozinhas.</p>
+          <p class="tip"><b>Proposta, não regra ainda:</b> o conteúdo de <code>context/</code> e o CLAUDE.md de uma linha precisam da aprovação da equipe.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-documento"/></svg></div><div><p class="overline">2.5 · O manual da pasta</p><h3 class="h2">As sete seções do AGENTS.md</h3></div></header>
+      <p>O Manual Operacional do Notion define o que todo manual de pasta precisa responder. Mantenha abaixo de 200 linhas, atualize a data sempre que editar e escreva TBD no que ainda não souber.</p>
+      <div class="trio">
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">A.</div><h4 class="h3">O que é esta pasta</h4><p class="muted">Função da pasta em um parágrafo e em que etapa o projeto está.</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">B.</div><h4 class="h3">O objetivo</h4><p class="muted">Por que existe, como saber que está pronto e o que fica fora.</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">C.</div><h4 class="h3">Stack</h4><p class="muted">Ferramentas usadas: Claude, Canva, Premiere, Magnific, Drive.</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">D.</div><h4 class="h3">Decisões</h4><p class="muted">Uma linha por decisão: data, o que e por quê. Evita rediscutir.</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">E.</div><h4 class="h3">Mapa de memória</h4><p class="muted">O que existe em cada arquivo de context/. Sem esse mapa, o Claude não abre a memória.</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">F.</div><h4 class="h3">Referências</h4><p class="muted">Onde mais o projeto existe: Drive, Notion, repositório, site.</p></div>
+      </div>
+      <p class="note"><b>G, opcional:</b> regras só deste cliente, como paleta própria, dados sensíveis ou tom diferente do padrão da Zinga.</p>
+    </article>
+
+    <article class="topic" id="cerebro">
+      <header><div class="zg-tile zg-tile--azul-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-cerebro"/></svg></div><div><p class="overline">2.6 · Segundo cérebro</p><h3 class="h2">Uma memória que nenhuma IA leva embora</h3></div></header>
+      <p>Segundo cérebro é só uma pasta de arquivos de texto que guarda o que a agência sabe. Como são arquivos comuns, qualquer IA consegue ler: se amanhã surgir outra ferramenta, o conhecimento continua com a Zinga. A ideia vem do Manual do Notion e do vídeo do Bruno Camargo, <a href="https://youtu.be/wl1ejtdV-O8">“Como construir um segundo cérebro”</a>.</p>
+      <div class="trio">
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">1.</div><h4 class="h3">Pessoal</h4><p class="muted"><code>~/.claude/CLAUDE.md</code> no computador de cada um. Quem você é, como escreve, seu tom. Vale para todas as pastas.</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">2.</div><h4 class="h3">Agência</h4><p class="muted">Um repositório da Zinga com um <code>mapa.md</code> (o índice que a IA lê primeiro), a marca, os processos, as skills e a lista de clientes. Os repositórios design-system-zinga e zinga-site já são pedaços dele.</p></div>
+        <div class="zg-card zg-card--degrade card-ink"><div class="zg-marker zg-marker--branco">3.</div><h4 class="h3">Cliente</h4><p style="color:#ffffffd9">A pasta de cada cliente da seção 2.4, com AGENTS.md e <code>context/</code>.</p></div>
+      </div>
+      <div class="cols">
+        <div class="how"><p class="overline">Como manter vivo</p><ul>
+          <li>No fim de cada conversa importante, peça: “salve um resumo desta sessão em context/sessoes”.</li>
+          <li>Decisão tomada vira uma linha em <code>decisoes.md</code>.</li>
+          <li>Uma vez por semana, peça para atualizar <code>estrategia-atual.md</code> e <code>proximas-acoes.md</code>.</li>
+        </ul></div>
+        <div class="how"><p class="overline">Próximos degraus (não agora)</p><ul>
+          <li><b>Degrau 2:</b> um servidor alugado (cerca de R$ 30 a 50 por mês) com uma ferramenta de busca nos arquivos, como o GBrain.</li>
+          <li><b>Degrau 3:</b> memória automática de preferências, como o Honcho, e coleta de WhatsApp e e-mail.</li>
+          <li>O degrau 3 mexe com dado de cliente e de terceiros. Só com política de LGPD antes.</li>
+        </ul></div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-camadas"/></svg></div><div><p class="overline">2.7 · Cowork organiza o computador</p><h3 class="h2">Pasta bagunçada vira pasta no padrão</h3></div></header>
+      <p>Com uma pasta conectada, o Claude consegue renomear, mover e separar arquivos. É o jeito mais rápido de colocar clientes antigos no padrão da seção 2.4. Ele sempre mostra o plano antes de mexer, e você aprova.</p>
+      <div class="duo">
+        <div class="ilu"><span class="ilu-tag">Ilustração · antes</span><div class="mock"><pre class="files"><span class="d">Downloads/</span>
+  IMG_4471.png
+  logo final FINAL v3.ai
+  briefing cliente (1).pdf
+  post lacca novembro.psd
+  Captura de tela 2026-10-02.png
+  fonte-marca.otf
+  orçamento lacca.xlsx
+  post lacca novembro (2).psd</pre></div></div>
+        <div class="ilu"><span class="ilu-tag">Ilustração · depois</span><div class="mock"><pre class="files"><span class="d">clientes/lacca/</span>
+  <span class="ok">AGENTS.md</span>
+  <span class="d">context/</span>   briefing.pdf · orcamento.xlsx
+  <span class="d">fontes/</span>    fonte-marca.otf
+  <span class="d">referencias/</span> captura-2026-10-02.png
+  <span class="d">output/</span>    2026-11-post-novembro.psd
+  <span class="m"># duplicado “(2)” movido para revisar/</span>
+  <span class="m"># logo enviado para revisar/ (de qual cliente?)</span></pre></div></div>
+      </div>
+      <p class="tip"><b>Peça assim:</b> “Organize a pasta Downloads. Mova o que for da Lacca para clientes/lacca no padrão da Zinga, renomeie sem acento e com data, e mande para revisar/ o que você não souber de quem é. Mostre o plano antes de mover qualquer arquivo.”</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== PARTE 3 · claro ===================== -->
+<section class="sec" id="p3" data-theme="claro">
+  <div class="bloom" style="left:-220px;top:-180px;opacity:.2"></div>
+  <div class="wrap">
+    <div class="part-head"><span class="num">3.</span><p class="overline">Parte 3</p><h2 class="h1">Turbinando <span class="acc">o Claude.</span></h2><p class="lead">Sozinho, o Claude conversa. Com skills ele trabalha do jeito da casa, e com conectores ele mexe nas ferramentas da agência.</p></div>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-mais"/></svg></div><div><p class="overline">3.1 · O botão +</p><h3 class="h2">Tudo que dá para colocar numa conversa</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/13-menu-mais-conectores.jpg" alt="Menu do botão mais com conectores abertos" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 13 · o + no canto da caixa de mensagem</p>
+          <ol class="explain">
+            <li><span><b>Fazer upload:</b> anexa arquivos (<kbd>Ctrl</kbd> + <kbd>U</kbd>).</span></li>
+            <li><span><b>Adicionar pasta:</b> conecta uma pasta do computador.</span></li>
+            <li><span><b>Gravar uma Skill:</b> você grava a tela fazendo uma tarefa e o Claude transforma em skill.</span></li>
+            <li><span><b>Skills:</b> escolhe uma skill para esta conversa (3.2).</span></li>
+            <li><span><b>Conectores:</b> liga e desliga apps nesta conversa. O triângulo com “1” avisa que um conector precisa de atenção.</span></li>
+            <li><span><b>Sistema de design:</b> aplica a identidade da Zinga ao que for criado (3.5).</span></li>
+            <li><span><b>Plugins:</b> pacotes prontos que juntam skills, conectores e comandos.</span></li>
+            <li><span><b>Pesquisa:</b> modo de pesquisa profunda, que consulta várias fontes e entrega um relatório.</span></li>
+            <li><span><b>Memória:</b> com o check, o Claude lembra de conversas anteriores.</span></li>
+          </ol>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-estrategia"/></svg></div><div><p class="overline">3.2 · Skills</p><h3 class="h2">O jeito Zinga, guardado e reutilizável</h3></div></header>
+      <p>Skill é um pacote de instruções que ensina o Claude a fazer uma tarefa do jeito da casa. Em vez de colar o mesmo prompt gigante toda vez, você chama a skill. O Claude também chama sozinho quando percebe que o pedido combina com ela.</p>
+      <div class="duo">
+        <figure class="shot full">
+          <div class="frame"><img src="img/10-digite-barra-skills.jpg" alt="Caixa de mensagem com a dica Digite barra para ver as Skills" loading="lazy"></div>
+          <figcaption><p class="overline">Print 10 · chamar pelo teclado</p><p class="muted" style="font-size:15px;line-height:23px">Digite <code>/</code> na caixa de mensagem e a lista de skills aparece. Escolha uma e escreva o pedido na frente.</p></figcaption>
+        </figure>
+        <figure class="shot full">
+          <div class="frame"><img src="img/11b-menu-skills.jpg" alt="Menu do botão mais com a lista de skills" loading="lazy"></div>
+          <figcaption><p class="overline">Print 11b · chamar pelo menu</p><p class="muted" style="font-size:15px;line-height:23px">No + → Skills aparecem as da Zinga, como brabo-motion, metodo-olivetto e opta-design, mais “Gerenciar Skills” e “Explorar Skills”.</p></figcaption>
+        </figure>
+      </div>
+      <figure class="shot">
+        <div class="frame"><img src="img/11-skills-configuracoes.jpg" alt="Configurações de Skills com as criadas pela Zinga e o menu Adicionar" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 11 · Configurações → Skills</p>
+          <ol class="explain">
+            <li><span><b>Criado por você:</b> as sete skills da Zinga. zinga-motion e brabo-motion fazem motion, metodo-olivetto faz campanhas, opta-design atende a Opta, skill-shot faz direção de foto, zinga-visual-identity guarda a identidade e remotion-best-practices é referência técnica de vídeo.</span></li>
+            <li><span><b>Da Anthropic e parceiros:</b> skills prontas, como skill-creator (cria e melhora skills) e frontend-design.</span></li>
+            <li><span><b>Adicionar:</b> fazer upload de uma skill pronta, criar escrevendo, criar conversando com o Claude ou gravar a tela.</span></li>
+            <li><span><b>Três pontinhos em cada skill:</b> editar, desativar ou apagar.</span></li>
+          </ol>
+          <p class="tip"><b>Jeito mais fácil de criar:</b> “Criar com o Claude”. Explique a tarefa como explicaria para um estagiário novo, mostre um exemplo bom e um ruim, e ele monta a skill.</p>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-plug"/></svg></div><div><p class="overline">3.3 · Conectores e MCP</p><h3 class="h2">Ligar o Claude às ferramentas da agência</h3></div></header>
+      <p>Conector é a ponte entre o Claude e outro app. Com o Google Drive ligado, ele lê um briefing direto da pasta. Com o Gmail, ele resume e-mails. Com o Magnific, ele gera imagens. MCP é o nome técnico do padrão que faz essas pontes funcionarem.</p>
+      <figure class="shot">
+        <div class="frame"><img src="img/12-conectores-lista.jpg" alt="Configurações de conectores com lista e status" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 12 · Configurações → Conectores</p>
+          <ol class="explain">
+            <li><span><b>Meus e Descobrir:</b> os que você já tem e o catálogo para adicionar.</span></li>
+            <li><span><b>Tipo Web:</b> roda na nuvem e funciona em qualquer computador.</span></li>
+            <li><span><b>Tipo Desktop:</b> roda no seu computador, como o Claude in Chrome (3.4).</span></li>
+            <li><span><b>Personalizado:</b> adicionado por endereço (URL), quando a ferramenta não está no catálogo. Magnific e Firecrawl entraram assim.</span></li>
+            <li><span><b>Status ✓:</b> funcionando. <b>Reconectar:</b> o login expirou, como no Canva. Clique e entre de novo. <b>Vincular:</b> ainda não conectado.</span></li>
+          </ol>
+        </figcaption>
+      </figure>
+      <div class="cols">
+        <div class="how"><p class="overline">Como adicionar um conector novo</p><ol>
+          <li>Configurações → Conectores → Adicionar.</li>
+          <li>Se a ferramenta está no catálogo (Descobrir), clique em conectar e faça login.</li>
+          <li>Se não está, procure no site da ferramenta a opção “MCP”, copie o endereço e cole em “Adicionar conector personalizado”.</li>
+          <li>Na primeira vez que o Claude usar, ele pede permissão. Escolha “sempre permitir” só para o que for de leitura.</li>
+        </ol></div>
+        <div class="how"><p class="overline">Cuidados</p><ul>
+          <li>Conector dá acesso ao que estiver na conta. Drive conectado é Drive inteiro visível para o Claude.</li>
+          <li>Conector personalizado de site desconhecido pode ler seus dados. Só adicione de empresa que vocês conhecem.</li>
+          <li>Quando aparecer o triângulo de aviso no +, abra Conectores e reconecte o que estiver pedindo.</li>
+        </ul></div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-globo"/></svg></div><div><p class="overline">3.4 · Navegadores</p><h3 class="h2">Quando o Claude precisa usar um site</h3></div></header>
+      <div class="duo">
+        <div class="prose">
+          <p><b>Claude in Chrome</b> é uma extensão do Google Chrome que deixa o Claude navegar por você: abrir páginas, clicar, preencher campos e ler o que aparece, usando os logins que você já tem no navegador. Aparece em Configurações (item “Claude in Chrome”) e na lista de conectores como “Desktop · Incluído”.</p>
+          <p><b>Para que serve na agência:</b> conferir um post publicado, puxar dados de um painel que não tem conector, comparar preços de fornecedores, testar um site de cliente no ar.</p>
+          <p><b>Navegador do app:</b> no aplicativo de computador, o Claude também abre páginas num painel ao lado da conversa, sem sair do app. A disponibilidade varia por plano e versão.</p>
+          <p class="tip"><b>Cuidado:</b> no Chrome ele age com os seus logins. Não peça para entrar em banco, pagamento ou conta de cliente sem você acompanhando a tela.</p>
+        </div>
+        <div class="ilu"><span class="ilu-tag">Ilustração</span><div class="mock">
+          <div class="row"><span class="k">Você</span><span>Abra o Instagram da Lacca e me diga quais foram os 3 posts com mais comentários este mês.</span></div>
+          <div class="row"><span class="k">Claude</span><span>Abrindo instagram.com/lacca no Chrome… rolando o perfil… lendo comentários de 12 posts.</span></div>
+          <div class="row"><span class="k">Resultado</span><span>1. Reels lançamento (84) · 2. Carrossel bastidores (51) · 3. Post promoção (37)</span></div>
+        </div></div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-paleta"/></svg></div><div><p class="overline">3.5 · Sistema de design</p><h3 class="h2">Tudo que o Claude cria já sai na marca</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/26-sistema-de-design-menu.jpg" alt="Menu sistema de design com Zinga Cowork" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 26 · + → Sistema de design</p>
+          <ol class="explain">
+            <li><span><b>Zinga Cowork:</b> o design system da agência. Marque antes de pedir apresentação, post ou página, e o Claude usa cores, fontes, logo, cards e ícones oficiais.</span></li>
+            <li><span><b>Gerenciar sistemas de design:</b> abre a lista em Configurações para editar.</span></li>
+            <li><span><b>Novo design system:</b> cria um para um cliente, a partir do logo e das cores ou de um site.</span></li>
+          </ol>
+          <p class="tip"><b>No Claude Code</b> o mesmo design system está no repositório design-system-zinga. Este manual foi montado com ele.</p>
+        </figcaption>
+      </figure>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-relogio"/></svg></div><div><p class="overline">3.6 · Rotinas</p><h3 class="h2">Tarefas que rodam sozinhas, no horário</h3></div></header>
+      <p>Rotina é uma tarefa agendada: você escreve a instrução uma vez, escolhe quando ela roda, e o Claude executa sozinho e deixa o resultado numa conversa. Fica em <b>Agendados</b>, na barra lateral (print 01).</p>
+      <div class="duo">
+        <div class="ilu"><span class="ilu-tag">Ilustração</span><div class="mock">
+          <div class="row"><span class="k">Nome</span><span>Pendências da semana</span></div>
+          <div class="row"><span class="k">Quando</span><span>Toda segunda, 8h40</span></div>
+          <div class="row"><span class="k">Instrução</span><span>Leia meus e-mails e minha agenda da semana. Liste o que cada cliente está esperando de nós, com prazo, e o que está atrasado.</span></div>
+          <div class="row"><span class="k">Conectores</span><span>Gmail · Google Calendar</span></div>
+          <span class="btn">Criar rotina</span>
+        </div></div>
+        <div class="how"><p class="overline">Ideias para a agência</p><ul>
+          <li><b>Segunda de manhã:</b> pendências e prazos da semana por cliente.</li>
+          <li><b>Toda sexta:</b> resumo do que foi entregue, para o relatório do cliente.</li>
+          <li><b>Todo dia 1º:</b> lembrete de planejamento mensal de cada conta.</li>
+          <li><b>Diário:</b> organizar a pasta Downloads no padrão da seção 2.7.</li>
+        </ul>
+        <p class="tip" style="margin-top:14px"><b>Atenção:</b> rotina que usa pasta do computador só roda com o computador ligado e o app aberto. Cada execução gasta limite como uma conversa normal.</p></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== PARTE 4 · azul ===================== -->
+<section class="sec" id="p4" data-theme="azul">
+  <div class="bloom" style="right:-200px;top:-160px"></div>
+  <div class="wrap">
+    <div class="part-head"><span class="num">4.</span><p class="overline">Parte 4</p><h2 class="h1">Trabalho <span class="acc">em paralelo.</span></h2><p class="lead">Recursos do vídeo “Novo Claude: projetos, threads e sessões aninhadas na prática”, de Eli Rigobeli. O selo com horário leva ao trecho.</p></div>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-social"/></svg></div><div><p class="overline">4.1 · Menu da conversa</p><h3 class="h2">Conversa lateral, tarefas em segundo plano e plano</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/24-menu-conversa-lateral.jpg" alt="Menu com Artefatos, Conversa lateral, Tarefas em segundo plano e Plano" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 24 · três pontinhos no topo da conversa</p>
+          <ol class="explain">
+            <li><span><b>Artefatos:</b> abre ao lado o que o Claude criou (página, apresentação, documento).</span></li>
+            <li><span><b>Conversa lateral</b> (<kbd>Ctrl</kbd> + <kbd>;</kbd>): uma cópia da conversa para perguntar algo sem atrapalhar o trabalho principal. O que você pergunta ali não entra na conversa original. <a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=948s">▶ 15:48</a></span></li>
+            <li><span><b>Tarefas em segundo plano:</b> mostra os subagentes, ajudantes que o Claude cria para fazer partes do trabalho ao mesmo tempo, e o que cada um está fazendo.</span></li>
+            <li><span><b>Plano:</b> mostra o passo a passo que o Claude montou e o que já foi feito.</span></li>
+          </ol>
+        </figcaption>
+      </figure>
+    </article>
+
+    <div class="grid2">
+      <div class="zg-card zg-card--azul card-ink"><div class="zg-tile" style="--s:48px"><svg viewBox="0 0 24 24"><use href="#g-paralelo"/></svg></div><p class="overline" style="margin-bottom:8px">4.2 · Sessões aninhadas <a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=290s">▶ 4:50</a></p><p>Você pede várias tarefas de uma vez e o Claude abre uma conversa para cada uma, embaixo da principal. Cada uma faz sua parte sem lotar a memória da principal, e você pode entrar em qualquer uma para corrigir o rumo. Está sendo liberado aos poucos.</p></div>
+      <div class="zg-card zg-card--azul card-ink"><div class="zg-tile" style="--s:48px"><svg viewBox="0 0 24 24"><use href="#g-coroa"/></svg></div><p class="overline" style="margin-bottom:8px">4.3 · Sessão mestre <a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=464s">▶ 7:44</a></p><p>Uma conversa fixada que olha as outras e avisa o que está esperando decisão sua: “Você é minha sessão mestre. Quais conversas estão esperando uma decisão minha?”. Enxerga as 20 mais recentes, e não as da nuvem.</p></div>
+      <div class="zg-card zg-card--degrade card-ink"><div class="zg-tile zg-tile--azul-rosa" style="--s:48px"><svg viewBox="0 0 24 24"><use href="#g-estrategia"/></svg></div><p class="overline" style="margin-bottom:8px;color:#fff">4.4 · Projetos com threads <a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=509s" style="border-color:#ffffff59">▶ 8:29</a></p><p style="color:#ffffffd9">No modo Code, um projeto vira uma conversa contínua que abre uma thread para cada frente: site, conteúdo, lançamento. As threads trocam informação entre si e continuam na nuvem com o notebook fechado, desde que o projeto esteja no GitHub (parte 5). Em beta.</p></div>
+      <div class="zg-card zg-card--azul card-ink"><div class="zg-tile" style="--s:48px"><svg viewBox="0 0 24 24"><use href="#g-dividida"/></svg></div><p class="overline" style="margin-bottom:8px">4.5 · Tela dividida e mods <a class="chip" href="https://www.youtube.com/watch?v=gNC3Tyhr0P8&amp;t=1270s">▶ 21:10</a></p><p>Arraste conversas para os lados para ver várias frentes ao mesmo tempo. Mods mudam a aparência do Claude Code, como um painel de progresso. Mod é código que roda no computador: nada de instalar mod baixado da internet sem revisão.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PARTE 5 · claro ===================== -->
+<section class="sec" id="p5" data-theme="claro">
+  <div class="bloom" style="right:-200px;top:-180px;opacity:.22"></div>
+  <div class="wrap">
+    <div class="part-head"><span class="num">5.</span><p class="overline">Parte 5</p><h2 class="h1">GitHub <span class="acc">do zero.</span></h2><p class="lead">GitHub parece coisa de programador, mas a ideia é a mesma que a agência já usa com arte: guardar versões, trabalhar numa cópia sem estragar a original e pedir aprovação antes de publicar.</p></div>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-branch"/></svg></div><div><p class="overline">5.1 · A analogia</p><h3 class="h2">Cinco palavras, explicadas com um post</h3></div></header>
+      <div class="gbox"><table class="gloss">
+        <thead><tr><th>Termo</th><th>Com tradução do navegador</th><th>O que é, no dia a dia da agência</th></tr></thead>
+        <tbody>
+          <tr><td>Repositório</td><td>Repositório</td><td>A pasta do projeto guardada no GitHub, com o histórico inteiro. Um por cliente ou projeto.</td></tr>
+          <tr><td>Commit</td><td>Comprometa-se</td><td>Salvar uma versão com um bilhete: “troquei o título do post para a versão aprovada”. Dá para voltar a qualquer commit, como o histórico de versões do Drive, só que você escolhe quando salvar e escreve o porquê.</td></tr>
+          <tr><td>Branch</td><td>Filial</td><td>Duplicar a prancheta para testar uma ideia sem mexer na arte aprovada. A versão oficial se chama <b>main</b> (“principal” na tradução).</td></tr>
+          <tr><td>Push</td><td>Empurrar</td><td>Enviar os commits do seu computador para o GitHub, como subir o arquivo para o Drive. Antes do push, só você vê.</td></tr>
+          <tr><td>Pull request</td><td>Solicitação de pull</td><td>Pedir aprovação: “olha o que mudei nesta cópia, posso juntar na versão oficial?”. Alguém revisa, comenta e aprova.</td></tr>
+          <tr><td>Merge</td><td>Mesclar</td><td>Juntar a cópia aprovada na versão oficial. No site da Zinga, o merge no main publica no ar.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="tip"><b>Desligue a tradução automática</b> do navegador no GitHub (ícone de tradução na barra de endereço → mostrar original). Os termos traduzidos confundem e não batem com o que o Claude escreve.</p>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-paralelo"/></svg></div><div><p class="overline">5.2 · O caminho de uma alteração</p><h3 class="h2">Do arquivo até a versão oficial</h3></div></header>
+      <div class="ilu"><span class="ilu-tag">Ilustração</span>
+        <svg class="branchsvg" viewBox="0 0 960 230" role="img" aria-label="Linha principal main com uma branch saindo, recebendo commits e voltando por pull request">
+          <line x1="40" y1="70" x2="920" y2="70" stroke="var(--brand-navy)" stroke-width="4" stroke-linecap="round"/>
+          <path d="M200 70 C 260 70, 260 170, 320 170 L 640 170 C 700 170, 700 70, 760 70" fill="none" stroke="var(--brand-pink)" stroke-width="4" stroke-linecap="round"/>
+          <g fill="var(--brand-navy)"><circle cx="80" cy="70" r="11"/><circle cx="200" cy="70" r="11"/><circle cx="760" cy="70" r="14"/><circle cx="880" cy="70" r="11"/></g>
+          <g fill="var(--brand-pink)"><circle cx="360" cy="170" r="11"/><circle cx="480" cy="170" r="11"/><circle cx="600" cy="170" r="11"/></g>
+          <g font-family="nexa, system-ui, sans-serif" font-size="15" font-weight="600" fill="var(--ink)">
+            <text x="40" y="40">main · versão oficial</text>
+            <text x="230" y="215" fill="var(--brand-pink)">branch “post-novembro”</text>
+            <text x="330" y="140">commit 1</text><text x="450" y="140">commit 2</text><text x="570" y="140">commit 3</text>
+            <text x="700" y="40" fill="var(--brand-pink)">pull request + merge</text>
+          </g>
+          <g font-family="nexa, system-ui, sans-serif" font-size="13" fill="var(--ink-muted)">
+            <text x="330" y="200">push ↑ envia para o GitHub</text>
+          </g>
+        </svg>
+      </div>
+      <div class="steps">
+        <div class="zg-card zg-card--branco"><div class="zg-marker">1.</div><h4 class="h3">Branch</h4><p class="muted">“Crie uma branch post-novembro.” Abre a cópia de trabalho.</p></div>
+        <div class="zg-card zg-card--branco"><div class="zg-marker">2.</div><h4 class="h3">Alterar</h4><p class="muted">Você e o Claude trabalham nos arquivos normalmente.</p></div>
+        <div class="zg-card zg-card--branco"><div class="zg-marker">3.</div><h4 class="h3">Commit</h4><p class="muted">“Faça commit com uma descrição clara.” Salva a versão.</p></div>
+        <div class="zg-card zg-card--branco"><div class="zg-marker">4.</div><h4 class="h3">Push</h4><p class="muted">“Envie para o GitHub.” A equipe passa a ver.</p></div>
+        <div class="zg-card zg-card--branco"><div class="zg-marker">5.</div><h4 class="h3">Pull request</h4><p class="muted">“Abra um pull request.” Alguém revisa e faz o merge.</p></div>
+      </div>
+      <p>Você não precisa digitar comando nenhum. Todas essas frases são pedidos em português para o Claude, que executa e explica o que fez.</p>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-pasta"/></svg></div><div><p class="overline">5.3 · As telas do GitHub</p><h3 class="h2">Onde cada coisa fica</h3></div></header>
+      <figure class="shot">
+        <div class="frame"><img src="img/14b-github-repositorios.jpg" alt="Lista de repositórios da conta ZingaDigital no GitHub" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 14b · github.com/ZingaDigital → Repositories</p>
+          <ol class="explain">
+            <li><span><b>Cada linha é um repositório:</b> zingamotion (skills de motion), design-system-zinga (a identidade), zinga-site (o site novo).</span></li>
+            <li><span><b>Public e Private:</b> público qualquer pessoa vê. Privado, só quem foi convidado. Cliente é sempre privado.</span></li>
+            <li><span><b>Updated:</b> quando houve o último push.</span></li>
+            <li><span><b>New (verde):</b> cria um repositório novo.</span></li>
+          </ol>
+          <p class="tip"><b>Atenção:</b> a conta tem dois repositórios de design system (zinga-designsystem e design-system-zinga). O oficial é o design-system-zinga. O outro deve ser arquivado para ninguém usar o errado.</p>
+        </figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="frame"><img src="img/15-github-repo-zingamotion.jpg" alt="Página do repositório zingamotion no GitHub com seletor de branch e commits" loading="lazy"></div>
+        <figcaption>
+          <p class="overline">Print 15 · dentro de um repositório (com tradução ligada)</p>
+          <ol class="explain">
+            <li><span><b>Faixa amarela:</b> “ccr-… teve pushes recentes”. Uma branch recebeu alterações e o GitHub oferece o botão <b>Compare &amp; pull request</b> (traduzido como “Comparar e solicitar pull requests”).</span></li>
+            <li><span><b>Seletor “main”</b> (traduzido “principal”): troca a branch que você está vendo.</span></li>
+            <li><span><b>2 Branches</b> (“2 Filiais”): quantas cópias de trabalho existem.</span></li>
+            <li><span><b>4 Commits:</b> abre o histórico de versões. Clique num commit para ver em verde o que entrou e em vermelho o que saiu.</span></li>
+            <li><span><b>Lista de arquivos:</b> cada linha mostra a descrição do último commit que mexeu nele e quando.</span></li>
+            <li><span><b>LEIA-ME:</b> o README, a apresentação do repositório.</span></li>
+            <li><span><b>Abas do topo:</b> Code (arquivos), Pull requests (pedidos de aprovação), Settings (configurações e acesso).</span></li>
+          </ol>
+        </figcaption>
+      </figure>
+      <div class="ilu"><span class="ilu-tag">Ilustração · por dentro de um commit</span>
+        <div class="diff">
+          <span class="hd">Ajusta título do post de lançamento para a versão aprovada · Vinícius · 04/11</span>
+          <span class="eq">  ## Post 1 · Lançamento</span>
+          <span class="rm">- Título: A nova coleção chegou</span>
+          <span class="ad">+ Título: Feita para quem não para</span>
+          <span class="eq">  Legenda: Conheça a coleção de verão.</span>
+          <span class="ad">+ CTA: Link na bio</span>
+        </div>
+        <p class="muted" style="margin-top:12px;font-size:14px">Vermelho é o que saiu, verde é o que entrou. É assim que se vê, meses depois, quem mudou o quê e por quê.</p>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--branco-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-escudo"/></svg></div><div><p class="overline">5.4 · Regras da casa</p><h3 class="h2">O que nunca fazer</h3></div></header>
+      <dl class="terms">
+        <div class="term"><dt>senha e token</dt><dd>Nunca vão para o GitHub, nem em repositório privado. Se subiu por engano, troque a senha na hora: apagar o arquivo não apaga o histórico.</dd></div>
+        <div class="term"><dt>arquivo grande</dt><dd>O GitHub bloqueia arquivos acima de 100 MB. Vídeo bruto e PSD pesado ficam no Drive, com o link no AGENTS.md.</dd></div>
+        <div class="term"><dt>main</dt><dd>Ninguém trabalha direto nela. Toda mudança passa por branch e pull request.</dd></div>
+        <div class="term"><dt>repositório novo</dt><dd>Depois de criar, inclua na lista do app do Claude (claude.ai/connect-github), senão o Claude não enxerga.</dd></div>
+        <div class="term"><dt>.gitignore</dt><dd>Lista do que não sobe: senhas, arquivos .env, exportações pesadas. Peça ao Claude para criar.</dd></div>
+        <div class="term"><dt>dúvida</dt><dd>“O que mudou desde ontem?” e “Volte este arquivo para a versão de segunda” resolvem quase tudo.</dd></div>
+      </dl>
+    </article>
+  </div>
+</section>
+
+
+<!-- ===================== PARTE 6 · MODO PRO · azul ===================== -->
+<section class="sec" id="p6" data-theme="azul">
+  <div class="bloom" style="left:-200px;top:-160px"></div>
+  <div class="bloom" style="right:-220px;bottom:-200px"></div>
+  <div class="wrap">
+    <div class="part-head"><span class="num">6.</span><p class="overline">Parte 6 · Modo Pro</p><h2 class="h1">Do repositório <span class="acc">ao site no ar.</span></h2><p class="lead">A parte 5 explicou o GitHub. Esta mostra o fluxo completo de quem publica: o Claude trabalha no repositório, o GitHub guarda e revisa, o Netlify publica. O exemplo é o novo site da Zinga, o repositório zinga-site.</p></div>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--azul-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-globo"/></svg></div><div><p class="overline">6.1 · O mapa do fluxo</p><h3 class="h2">Quatro lugares, um caminho só</h3></div></header>
+      <div class="ilu"><span class="ilu-tag">Ilustração</span>
+        <svg class="branchsvg" viewBox="0 0 960 250" role="img" aria-label="Fluxo: Claude Code cria branch, GitHub recebe o push e o pull request, Netlify gera prévia, merge publica em zinga.digital">
+          <g font-family="nexa, system-ui, sans-serif">
+            <rect x="10" y="40" width="200" height="120" rx="18" fill="#052b4f" stroke="#f50953" stroke-width="2"/>
+            <text x="30" y="78" fill="#f50953" font-size="12" font-weight="600" letter-spacing="2">1 · CLAUDE CODE</text>
+            <text x="30" y="106" fill="#fff" font-size="16" font-weight="600">Trabalha numa</text>
+            <text x="30" y="128" fill="#fff" font-size="16" font-weight="600">branch na nuvem</text>
+            <rect x="255" y="40" width="200" height="120" rx="18" fill="#052b4f" stroke="#ffffff40" stroke-width="2"/>
+            <text x="275" y="78" fill="#f50953" font-size="12" font-weight="600" letter-spacing="2">2 · GITHUB</text>
+            <text x="275" y="106" fill="#fff" font-size="16" font-weight="600">Push + pull</text>
+            <text x="275" y="128" fill="#fff" font-size="16" font-weight="600">request</text>
+            <rect x="500" y="40" width="200" height="120" rx="18" fill="#052b4f" stroke="#ffffff40" stroke-width="2"/>
+            <text x="520" y="78" fill="#f50953" font-size="12" font-weight="600" letter-spacing="2">3 · NETLIFY</text>
+            <text x="520" y="106" fill="#fff" font-size="16" font-weight="600">Prévia com link</text>
+            <text x="520" y="128" fill="#fff" font-size="16" font-weight="600">para revisar</text>
+            <rect x="745" y="40" width="205" height="120" rx="18" fill="#f50953"/>
+            <text x="765" y="78" fill="#fff" font-size="12" font-weight="600" letter-spacing="2">4 · NO AR</text>
+            <text x="765" y="106" fill="#fff" font-size="16" font-weight="600">Merge no main</text>
+            <text x="765" y="128" fill="#fff" font-size="16" font-weight="600">www.zinga.digital</text>
+            <g stroke="#f50953" stroke-width="3" fill="none" stroke-linecap="round"><path d="M214 100h34"/><path d="M459 100h34"/><path d="M704 100h34"/></g>
+            <g fill="#f50953"><path d="M248 94l9 6-9 6z"/><path d="M493 94l9 6-9 6z"/><path d="M738 94l9 6-9 6z"/></g>
+            <path d="M600 165 C 600 225, 355 225, 355 165" stroke="#a8bcd2" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
+            <text x="380" y="235" fill="#a8bcd2" font-size="13">ajuste pedido na prévia volta como novo commit</text>
+          </g>
+        </svg>
+      </div>
+      <p>O ponto central: <b>ninguém edita o site no ar.</b> Toda mudança nasce numa branch, ganha uma prévia com link próprio, é aprovada e só então vai para o endereço oficial. Se algo sair errado, volta-se para a versão anterior em um clique.</p>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-pasta"/></svg></div><div><p class="overline">6.2 · Anatomia do repositório</p><h3 class="h2">O que existe dentro do zinga-site</h3></div></header>
+      <div class="duo">
+        <div class="tree"><pre>zinga-site/
+├── <span class="k">CLAUDE.md</span>          <span class="c"># o briefing do projeto</span>
+├── README.md          <span class="c"># como rodar e onde fica cada coisa</span>
+├── <span class="k">netlify.toml</span>       <span class="c"># receita de publicação</span>
+├── astro.config.mjs   <span class="c"># endereço www.zinga.digital, sitemap</span>
+├── package.json       <span class="c"># comandos dev, build e preview</span>
+├── .nvmrc             <span class="c"># versão do Node: 24</span>
+├── .gitignore         <span class="c"># node_modules, dist, .env fora</span>
+├── referencia/        <span class="c"># protótipo aprovado, não vai pro ar</span>
+├── public/            <span class="c"># vídeos, imagens de compartilhamento</span>
+└── src/
+    ├── pages/         <span class="c"># uma página por arquivo</span>
+    ├── components/    <span class="c"># Nav, Footer, Logo, CasePage</span>
+    ├── data/          <span class="c"># textos e listas editáveis</span>
+    ├── styles/        <span class="c"># o visual portado do protótipo</span>
+    └── assets/        <span class="c"># fotos reais, otimizadas no build</span></pre></div>
+        <div class="prose">
+          <p><b>CLAUDE.md é o chefe do projeto.</b> Diz que o protótipo em <code>referencia/</code> é a fonte da verdade, que só existem dois hex (#002140 e #F50953), quais endereços do Wix não podem mudar por causa do SEO e a ordem de trabalho. Toda sessão do Claude lê isso antes de mexer em qualquer arquivo.</p>
+          <p><b>netlify.toml é a receita.</b> Diz ao Netlify para rodar <code>npm run build</code> com Node 24 e publicar a pasta <code>dist</code>. Ninguém precisa configurar isso no painel.</p>
+          <p><b>src/data/ é onde o não programador mexe.</b> E-mail, telefone, lista de trabalhos e logos de clientes ficam em arquivos de texto. Trocar um case de lugar é editar uma lista.</p>
+          <p><b>O histórico conta a obra.</b> Os commits do site mostram a construção por etapas: “Etapa 1: projeto Astro com a home igual ao protótipo”, “Case Chá Prenda, modelo de case único”, “Castaldello entra nos trabalhos em destaque”. É o diário de bordo que a parte 5 prometeu.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-plug"/></svg></div><div><p class="overline">6.3 · Ligando o Claude ao GitHub</p><h3 class="h2">Configuração única, por pessoa</h3></div></header>
+      <div class="cols">
+        <div class="how"><p class="overline">Passo a passo</p><ol>
+          <li>Abrir <b>claude.ai/connect-github</b> e conectar a conta do GitHub.</li>
+          <li>Instalar o <b>Claude GitHub App</b> na conta ZingaDigital.</li>
+          <li>Em github.com → Settings → Applications → Claude → Configure, escolher os repositórios liberados. <b>Repositório novo não entra sozinho:</b> foi exatamente o que travou o design-system-zinga no início deste projeto.</li>
+          <li>No Claude Code, criar um ambiente de nuvem (na Zinga: “Zinga Digital”) e escolher o repositório e a branch antes de começar (print 03b).</li>
+          <li>Conferir em “Verificar status do repositório” se a sessão na nuvem tem acesso.</li>
+        </ol></div>
+        <div class="how"><p class="overline">O que o Claude pode e não pode</p><ul>
+          <li>Pode ler o repositório, criar branch, fazer commit, push e abrir pull request.</li>
+          <li>Cada sessão trabalha numa branch própria, com nome automático (como as “ccr-…” que aparecem no print 15).</li>
+          <li>Não aprova nem faz merge do próprio trabalho. Quem aprova é gente.</li>
+          <li>Não enxerga senha de serviço nenhum. Chave de API entra pelo cofre do ambiente, nunca colada no chat.</li>
+        </ul></div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile zg-tile--azul-rosa" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-branch"/></svg></div><div><p class="overline">6.4 · Uma alteração real, do pedido ao ar</p><h3 class="h2">Exemplo: trocar o telefone no site</h3></div></header>
+      <div class="steps">
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">1.</div><h4 class="h3">Pedir</h4><p class="muted">Ambiente Zinga Digital, repo zinga-site, branch main. “Troque o telefone fixo do site para (54) 0000-0000.”</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">2.</div><h4 class="h3">Claude faz</h4><p class="muted">Acha o número em <code>src/data/site.ts</code>, cria a branch, edita, roda o build para conferir e faz commit.</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">3.</div><h4 class="h3">Pull request</h4><p class="muted">Push e PR com a explicação em português. O Netlify comenta no PR com o link da prévia.</p></div>
+        <div class="zg-card zg-card--azul card-ink"><div class="zg-marker">4.</div><h4 class="h3">Revisar</h4><p class="muted">Abrir a prévia no celular e no computador. Pediu ajuste? Responda na mesma conversa e vira novo commit.</p></div>
+        <div class="zg-card zg-card--degrade card-ink"><div class="zg-marker zg-marker--branco">5.</div><h4 class="h3">Merge</h4><p style="color:#ffffffd9">Aprovou, clica em “Merge”. O Netlify publica no endereço oficial em poucos minutos.</p></div>
+      </div>
+      <div class="ilu"><span class="ilu-tag">Ilustração · como o pull request aparece</span>
+        <div class="mock">
+          <div class="row"><span class="k">Título</span><span>Atualiza telefone fixo no site</span></div>
+          <div class="row"><span class="k">De → para</span><span>claude/telefone-novo → main</span></div>
+          <div class="row"><span class="k">Arquivos</span><span>1 alterado · src/data/site.ts</span></div>
+          <div class="row"><span class="k">Netlify</span><span><span style="color:#7bd88f">✓ Deploy Preview ready</span> · deploy-preview-12--zinga-site.netlify.app</span></div>
+          <div class="row"><span class="k">Revisão</span><span>Aguardando aprovação do Vinícius</span></div>
+          <span class="btn">Merge pull request</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-crescimento"/></svg></div><div><p class="overline">6.5 · Netlify</p><h3 class="h2">O lugar onde o site mora</h3></div></header>
+      <div class="cols">
+        <div class="how"><p class="overline">Conectar uma vez</p><ol>
+          <li>app.netlify.com → Add new project → Import an existing project → GitHub.</li>
+          <li>Autorizar o Netlify no GitHub e escolher o repositório zinga-site.</li>
+          <li>Conferir que a branch de produção é <code>main</code>. Build e pasta de publicação vêm do netlify.toml.</li>
+          <li>Deploy. O site ganha um endereço provisório <code>algo.netlify.app</code> para testes.</li>
+        </ol></div>
+        <div class="how"><p class="overline">O que ele faz sozinho</p><ul>
+          <li><b>Deploy de produção</b> a cada merge no main.</li>
+          <li><b>Deploy Preview</b> a cada pull request, com link próprio.</li>
+          <li><b>HTTPS</b> automático e gratuito.</li>
+          <li><b>Formulários</b> (Netlify Forms) que mandam e-mail para Maurício, Vinícius e Diego, como pede o briefing.</li>
+          <li><b>Histórico de deploys</b>: qualquer versão antiga volta ao ar com “Publish deploy”.</li>
+        </ul></div>
+      </div>
+      <div class="ilu"><span class="ilu-tag">Ilustração · lista de deploys</span>
+        <div class="mock">
+          <div class="row"><span class="k"><span style="color:#7bd88f">Published</span></span><span>main@a1b2c3 · Atualiza telefone fixo no site · há 4 min</span></div>
+          <div class="row"><span class="k">Preview</span><span>Deploy Preview #13 · Novo case Twenty Seven · há 1 h</span></div>
+          <div class="row"><span class="k">Anterior</span><span>main@081ca77 · Chá Prenda: motion de lançamento · ontem <span style="color:#f50953">→ Publish deploy</span></span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-globo"/></svg></div><div><p class="overline">6.6 · Domínio</p><h3 class="h2">Trocar zinga.digital do Wix para o Netlify</h3></div></header>
+      <p>É o último passo do projeto, e o único que mexe no site que os clientes veem hoje. Faça num dia calmo, com o novo site já aprovado no endereço provisório.</p>
+      <div class="cols">
+        <div class="how"><p class="overline">Antes da troca</p><ul>
+          <li>Todos os endereços antigos do Wix existem no novo site, ou têm redirecionamento 301.</li>
+          <li>Verificação do Search Console, sitemap e robots.txt no lugar.</li>
+          <li>Formulário testado com envio real.</li>
+          <li>Teste no celular (390 px), sem rolagem lateral.</li>
+        </ul></div>
+        <div class="how"><p class="overline">A troca</p><ol>
+          <li>Netlify → Domain management → Add domain → www.zinga.digital.</li>
+          <li>No painel onde o domínio está registrado, apontar os registros DNS para o Netlify, seguindo exatamente o que o Netlify mostra.</li>
+          <li>Esperar a propagação (minutos a algumas horas) e o certificado HTTPS.</li>
+          <li>Só então desligar o site do Wix.</li>
+        </ol></div>
+      </div>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-escudo"/></svg></div><div><p class="overline">6.7 · Proteções do modo Pro</p><h3 class="h2">O que impede um erro de ir ao ar</h3></div></header>
+      <dl class="terms">
+        <div class="term"><dt>branch protegida</dt><dd>Regra no GitHub que obriga pull request e aprovação para mexer no main. Em repositório privado, esse recurso só existe nos planos pagos do GitHub (Pro ou Team). No plano gratuito, a regra vale por combinado.</dd></div>
+        <div class="term"><dt>prévia obrigatória</dt><dd>Nada vai para o main sem alguém abrir o link da prévia no celular. Se o build quebrar, o Netlify marca o PR com erro e não publica.</dd></div>
+        <div class="term"><dt>um aprovador</dt><dd>Defina quem aprova merge no site. Pelo briefing, é o Vinícius.</dd></div>
+        <div class="term"><dt>voltar atrás</dt><dd>Site quebrou depois do merge? Netlify → Deploys → versão anterior → Publish deploy. Depois peça ao Claude: “reverta o último merge no main”.</dd></div>
+        <div class="term"><dt>segredos</dt><dd>ID do Tag Manager não é segredo. Chave de API é. Chave vai nas variáveis de ambiente do Netlify, nunca no repositório.</dd></div>
+        <div class="term"><dt>custo</dt><dd>Netlify e GitHub têm plano gratuito, com cota de builds. Cada push numa PR gera um build: junte ajustes num commit só quando der.</dd></div>
+      </dl>
+    </article>
+
+    <article class="topic">
+      <header><div class="zg-tile" style="--s:56px"><svg viewBox="0 0 24 24"><use href="#g-terminal"/></svg></div><div><p class="overline">6.8 · Rodar no próprio computador</p><h3 class="h2">Para quem quer ver antes do push</h3></div></header>
+      <div class="duo">
+        <div class="tree"><pre><span class="c"># uma vez</span>
+git clone https://github.com/ZingaDigital/zinga-site
+cd zinga-site
+npm install
+
+<span class="c"># todo dia</span>
+npm run dev        <span class="c"># abre em http://localhost:4321</span>
+npm run build      <span class="c"># o mesmo build que o Netlify roda</span></pre></div>
+        <div class="prose">
+          <p>Precisa do Node 24 instalado (o arquivo <code>.nvmrc</code> avisa). Pelo GitHub Desktop: File → Clone repository → zinga-site, e depois peça ao Claude Code, com a pasta conectada, para rodar <code>npm install</code> e <code>npm run dev</code>.</p>
+          <p class="tip"><b>Quando vale a pena:</b> ajuste visual fino, como espaçamento e motion, em que esperar a prévia a cada tentativa atrasa. Para texto e dado, a nuvem com prévia basta.</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ROTEIRO · claro -->
+<section class="sec" id="aula" data-theme="claro">
+  <div class="bloom" style="left:-220px;bottom:-200px"></div>
+  <div class="wrap">
+    <div class="shead">
+      <div><p class="overline">Para quem conduz</p><h2 class="h1">Quatro encontros <span class="acc">de 90 minutos.</span></h2></div>
+      <p class="lead">Uma parte do guia por bloco, sempre com a tela do app aberta ao lado. Não passe tudo de uma vez.</p>
+    </div>
+    <div class="tbox"><table>
+      <thead><tr><th>Minutos</th><th>Conteúdo</th><th>Ao final, a pessoa sabe</th></tr></thead>
+      <tbody>
+        <tr class="grp"><th colspan="3">Encontro 1 · Conhecendo o app e organizando</th></tr>
+        <tr><td>00–25</td><td>Parte 1: tela inicial, barra lateral, modelos, modos e limite</td><td>Onde fica cada coisa e qual modelo usar</td></tr>
+        <tr><td>25–60</td><td>Parte 2: projetos, pastas, ambientes, saídas e estrutura de pastas</td><td>Montar a pasta de um cliente no padrão</td></tr>
+        <tr><td>60–90</td><td>2.5 a 2.7: AGENTS.md, segundo cérebro e organização pelo Cowork</td><td>Escrever o manual de uma pasta</td></tr>
+        <tr class="grp"><th colspan="3">Encontro 2 · Turbinando e trabalhando em paralelo</th></tr>
+        <tr><td>00–30</td><td>3.1 e 3.2: botão + e skills</td><td>Chamar e criar uma skill</td></tr>
+        <tr><td>30–60</td><td>3.3 a 3.6: conectores, navegador, design system e rotinas</td><td>Conectar uma ferramenta e criar uma rotina</td></tr>
+        <tr><td>60–90</td><td>Parte 4: conversa lateral, subagentes e projetos com threads</td><td>Rodar tarefas ao mesmo tempo</td></tr>
+        <tr class="grp"><th colspan="3">Encontro 3 · GitHub e entrega</th></tr>
+        <tr><td>00–40</td><td>Parte 5: os seis termos, o caminho de uma alteração e as telas</td><td>Ler um repositório e um commit</td></tr>
+        <tr><td>40–70</td><td>Ao vivo: branch, commit, push e pull request pedidos ao Claude</td><td>Fazer o ciclo completo sem digitar comando</td></tr>
+        <tr><td>70–90</td><td>Cuidados e dúvidas</td><td>O que pode e o que não pode</td></tr>
+      <tr class="grp"><th colspan="3">Encontro 4 · Modo Pro (para quem publica)</th></tr>
+        <tr><td>00–20</td><td>6.1 e 6.2: o fluxo e a anatomia do zinga-site</td><td>Ler um repositório de site</td></tr>
+        <tr><td>20–60</td><td>6.3 e 6.4 ao vivo: uma alteração do pedido à prévia</td><td>Abrir um PR com prévia sem digitar comando</td></tr>
+        <tr><td>60–80</td><td>6.5 a 6.7: Netlify, domínio e proteções</td><td>Publicar e voltar uma versão</td></tr>
+        <tr><td>80–90</td><td>Quem aprova o quê e dúvidas</td><td>Combinado de aprovação definido</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- PROMPTS · claro -->
+<section class="sec" id="prompts" data-theme="azul">
+  <div class="wrap">
+    <div class="shead">
+      <div><p class="overline">Copiar e colar</p><h2 class="h1">Prompts <span class="acc">prontos.</span></h2></div>
+      <p class="lead">Troque o que estiver entre colchetes. Funcionam no app e no Claude Code.</p>
+    </div>
+    <div class="prompts">
+      <div class="tree prompt"><div class="ph"><span class="overline">2.5 · Manual da pasta (AGENTS.md)</span><button class="pill sm copy" type="button">Copiar</button></div><pre># [Cliente] · AGENTS.md
+Última atualização: [AAAA-MM-DD] · Responsável: [nome]
+
+## A · O que é esta pasta
+[Um parágrafo: o que existe aqui, quem trabalha, etapa do projeto.]
+
+## B · O objetivo
+- Por que existe: [problema que resolve]
+- Como saber que está pronto: [estado de sucesso]
+- Fora do escopo: [o que não fazemos aqui]
+
+## C · Stack
+[Ferramentas: Claude, Canva, Premiere, Magnific, Drive...]
+
+## D · Decisões
+- [AAAA-MM-DD] · [decisão] porque [motivo]
+
+## E · Mapa de memória (context/)
+- briefing.md · briefing original, não editar
+- estrategia-atual.md · estado atual, atualizado todo mês
+- decisoes.md · o porquê de cada decisão da seção D
+- proximas-acoes.md · próximos passos
+- sessoes/ · resumo datado de cada conversa
+
+## F · Referências
+[Drive, Notion, repositório, site do cliente]
+
+## G · Regras deste cliente (opcional)
+[Paleta própria, dados sensíveis, tom diferente do padrão Zinga]</pre></div>
+
+      <div class="tree prompt"><div class="ph"><span class="overline">2.6 · Salvar a sessão no segundo cérebro</span><button class="pill sm copy" type="button">Copiar</button></div><pre>Salve um resumo desta conversa em context/sessoes/ com o nome AAAA-MM-DD-[assunto].md. Estrutura: título, um resumo de uma linha, e as seções O que discutimos, O que decidimos e Próximos passos. Se alguma decisão nova surgiu, acrescente uma linha em context/decisoes.md.</pre></div>
+
+      <div class="tree prompt"><div class="ph"><span class="overline">2.7 · Organizar uma pasta</span><button class="pill sm copy" type="button">Copiar</button></div><pre>Organize a pasta [nome]. Mova os arquivos de cada cliente para clientes/[cliente] no padrão da Zinga (context, referencias, fontes, tipografia, output). Renomeie em minúsculas, sem acento, com data AAAA-MM-DD. O que você não souber de quem é, mande para revisar/. Mostre o plano completo antes de mover qualquer arquivo.</pre></div>
+
+      <div class="tree prompt"><div class="ph"><span class="overline">3.6 · Rotina de segunda-feira</span><button class="pill sm copy" type="button">Copiar</button></div><pre>Toda segunda às 8h40: leia meus e-mails e minha agenda da semana. Liste, por cliente, o que estão esperando de nós com prazo, o que está atrasado e as reuniões da semana. Termine com as 3 prioridades do dia.</pre></div>
+
+      <div class="tree prompt"><div class="ph"><span class="overline">5.2 · Ciclo completo no GitHub</span><button class="pill sm copy" type="button">Copiar</button></div><pre>Crie uma branch chamada [assunto] para esta tarefa. Quando terminar, faça commit com uma descrição clara do que mudou, envie para o GitHub e abra um pull request explicando a alteração em português simples. Não mexa direto no main.</pre></div>
+      <div class="tree prompt"><div class="ph"><span class="overline">6.4 · Alteração no site com prévia</span><button class="pill sm copy" type="button">Copiar</button></div><pre>No repositório zinga-site, [descreva a alteração]. Siga o CLAUDE.md do projeto. Trabalhe numa branch nova, rode npm run build para conferir que nada quebrou, faça commit com uma descrição clara e abra um pull request explicando em português simples o que mudou e onde conferir na prévia do Netlify. Não faça merge.</pre></div>
+
+      <div class="tree prompt"><div class="ph"><span class="overline">6.7 · Checklist antes do merge</span><button class="pill sm copy" type="button">Copiar</button></div><pre>Revise o pull request [número] do zinga-site antes do merge: confira se seguiu o CLAUDE.md, se algum endereço antigo do Wix mudou sem redirecionamento 301, se todas as imagens têm texto alternativo, se não há rolagem lateral em 390 px e se nenhuma chave ou senha entrou no repositório. Liste o que precisa ser corrigido.</pre></div>
+    </div>
+  </div>
+</section>
+
+<!-- CUIDADOS · rosa -->
+<section class="sec" id="cuidados" data-theme="rosa">
+  <div class="bloom" style="right:-200px;bottom:-200px;opacity:.26"></div>
+  <div class="wrap">
+    <p class="overline blk">Governança</p>
+    <h2 class="display" style="margin-top:20px;max-width:12em">Antes de levar <span class="acc">pra equipe.</span></h2>
+    <div class="grid3" style="margin-top:clamp(40px,5vw,56px)">
+      <div class="zg-card zg-card--plum card-ink"><div class="zg-stroke" style="--s:40px"><svg viewBox="0 0 24 24"><use href="#s-estrategia"/></svg></div><p class="overline" style="margin-bottom:8px;color:var(--brand-pink)">Limite</p><h3 class="h3" style="margin-bottom:8px">A cota acaba</h3><p>O plano tem limite por sessão e por semana. Com os créditos de uso ligados, passar do limite gasta dinheiro sem novo aviso. Decidam quem pode ligar essa chave.</p></div>
+      <div class="zg-card zg-card--plum card-ink"><div class="zg-stroke" style="--s:40px"><svg viewBox="0 0 24 24"><use href="#s-estrategia"/></svg></div><p class="overline" style="margin-bottom:8px;color:var(--brand-pink)">LGPD</p><h3 class="h3" style="margin-bottom:8px">Dado de cliente em conector</h3><p>Conectar Drive, Gmail ou WhatsApp dá acesso a tudo que está lá. Definam quais pastas e contas podem ser usadas e evitem dado pessoal sem necessidade.</p></div>
+      <div class="zg-card zg-card--plum card-ink"><div class="zg-stroke" style="--s:40px"><svg viewBox="0 0 24 24"><use href="#s-estrategia"/></svg></div><p class="overline" style="margin-bottom:8px;color:var(--brand-pink)">Compartilhamento</p><h3 class="h3" style="margin-bottom:8px">Link aberto é público</h3><p>Artefato compartilhado “com qualquer pessoa com o link” pode circular. Material de cliente se compartilha só com quem precisa.</p></div>
+      <div class="zg-card zg-card--plum card-ink"><div class="zg-stroke" style="--s:40px"><svg viewBox="0 0 24 24"><use href="#s-estrategia"/></svg></div><p class="overline" style="margin-bottom:8px;color:var(--brand-pink)">Segurança</p><h3 class="h3" style="margin-bottom:8px">Senha fora do Git, mod revisado</h3><p>Token em repositório, mod baixado da internet e conector de site desconhecido são as portas de entrada mais comuns para problema.</p></div>
+      <div class="zg-card zg-card--plum card-ink"><div class="zg-stroke" style="--s:40px"><svg viewBox="0 0 24 24"><use href="#s-estrategia"/></svg></div><p class="overline" style="margin-bottom:8px;color:var(--brand-pink)">Disponibilidade</p><h3 class="h3" style="margin-bottom:8px">Recurso novo muda de lugar</h3><p>Sessões aninhadas, projetos com threads e navegador do app estão em liberação gradual e variam por plano. Se não aparecer, não é erro da pessoa.</p></div>
+      <div class="zg-card zg-card--plum card-ink"><div class="zg-stroke" style="--s:40px"><svg viewBox="0 0 24 24"><use href="#s-estrategia"/></svg></div><p class="overline" style="margin-bottom:8px;color:var(--brand-pink)">Qualidade</p><h3 class="h3" style="margin-bottom:8px">A IA erra, alguém revisa</h3><p>Toda entrega passa por revisão humana antes de ir pro cliente. Número, nome e resultado nunca são inventados.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST · claro -->
+<section class="sec" id="checklist" data-theme="claro">
+  <div class="wrap">
+    <div class="shead">
+      <div><p class="overline">Fim da trilha</p><h2 class="h1">A pessoa está pronta <span class="acc">quando consegue:</span></h2></div>
+    </div>
+    <ul class="check">
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Escolher modelo, modo e acompanhar o próprio limite de uso.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Abrir o projeto ou a pasta certa antes de pedir qualquer coisa.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Montar a pasta de um cliente no padrão, com AGENTS.md e context/.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Achar onde o Claude salvou um arquivo.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Chamar uma skill e conectar uma ferramenta.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Criar uma rotina que roda sozinha.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Explicar commit, branch, push e pull request com as próprias palavras.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Entregar uma peça no design system da Zinga com a permissão certa.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Modo Pro: levar uma alteração do pedido ao site no ar, com prévia e aprovação.</li>
+      <li><span class="zg-tile zg-tile--branco-rosa" style="--s:32px"><svg viewBox="0 0 24 24"><use href="#g-resultado"/></svg></span>Modo Pro: voltar o site para a versão anterior se algo quebrar.</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="sec foot" data-theme="azul">
+  <div class="wrap">
+    <svg class="zg-logo" viewBox="143.6 342.9 712.9 314.2" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zinga"><path fill="var(--ink)" d="M252.29,446.95h-73.11c-10.5,0-19.25-8.4-19.25-19.25v-19.25h129c10.3,0,19.72,6.46,22.8,16.29,3.5,11.17.64,22.04-7.64,28.86-25.55,22.05-97.64,83.64-97.64,83.64h87.49c10.5,0,19.25,8.75,19.25,19.6v19.25h-144.95c-12.53,0-22.68-10.15-22.68-22.68v-2.87c0-7.7,3.15-14.7,9.1-19.6,25.55-22.05,97.64-83.99,97.64-83.99Z"></path><path fill="var(--ink)" d="M854.45,491.78v83.99h-19.86c-10.62,0-18.63-9.92-18.63-13.3-13.3,8.4-28.7,13.3-45.15,13.3-23.45,0-44.1-9.45-59.49-24.5-15.05-15.4-24.5-36.04-24.5-59.49,0-45.84,37.8-83.64,83.64-83.64,23.45,0,44.45,9.45,59.49,24.5,13.65,13.65,22.75,32.2,24.15,52.84.35,2.1.35,4.2.35,6.3ZM815.96,492.83c0-12.95-4.9-24.5-13.3-32.9-8.4-8.05-19.6-13.3-31.85-13.3s-23.8,5.25-32.2,13.3c-8.05,8.4-12.95,19.6-12.95,31.85s4.9,23.8,12.95,32.2c8.4,8.4,19.95,13.3,32.9,12.95,24.15-.35,43.74-19.95,44.45-44.1Z"></path><path fill="var(--ink)" d="M345.27,408.14h19.25v148.38c0,10.5-8.75,19.25-19.25,19.25h-19.6v-148.38c0-10.5,8.75-19.25,19.6-19.25Z"></path><path fill="var(--ink)" d="M673.73,571.25c0,1.52-.04,3.02-.12,4.51-2.34,44.2-38.93,79.32-83.69,79.32-24.65,0-46.79-10.63-62.14-27.56l17.11-14.97c6.29-5.5,15.31-6.11,22.56-1.95,6.63,3.8,14.32,5.98,22.52,5.98,22.78,0,41.64-16.81,44.84-38.72,1.29-.66,2.57-1.38,3.82-2.09,12.52-7.31,23.25-17.32,31.38-29.26,2.44,7.82,3.73,16.13,3.73,24.75Z"></path><path fill="var(--ink)" d="M673.8,491.96c0,2.58-.46,8.73-.49,9.03-3.27,30.82-21.79,51.31-38.79,62-12.89,8.11-28.16,12.78-44.53,12.78-1.01,0-2.01-.02-3-.06-34.29-1.43-54.63-21.98-61.56-30.29-5.11-6.12-7.99-11.4-9.32-13.87-6.34-11.78-9.93-25.26-9.93-39.59,0-10.3-3.43-19.78-9.21-27.4-8.27-10.9-21.36-17.94-36.1-17.94-24.77,0-44.9,19.89-45.31,44.55,0,.31,0,65.33,0,65.34,0,6.27-5.24,19.25-19.25,19.25h-19.27v-83.81c0-16.7,4.88-32.28,13.32-45.33,6.48-10.1,15.1-18.7,25.2-25.18,13.05-8.41,28.61-13.3,45.31-13.3,44.21,0,66.06,31.56,70.51,38.48,14.58,22.64,10.89,40.96,14.06,53.58,1.75,6.98,4.25,13.56,8.43,19.06,8.13,10.68,21.16,17.94,36.12,17.94,29.47,0,45.31-24.68,45.31-45.31,0-24.52-19.45-44.47-43.75-45.27-.64-.02-23-1.53-37.7,17.94-1.85-6.26-4.31-12.27-7.33-17.94-3.32-6.28-7.35-12.17-11.94-17.55,14.78-13.03,34.17-20.93,55.41-20.93,29.59,0,55.59,15.33,70.51,38.48,8.41,13.05,13.3,28.63,13.3,45.33Z"></path><path fill="var(--accent)" d="M371.27,369.66c0,13.9-11.19,25.08-24.74,25.08s-25.08-11.18-25.08-25.08,11.19-24.74,25.08-24.74,24.74,11.19,24.74,24.74Z"></path></svg>
+    <span>Zinga Team Training · Recursos em beta podem mudar de nome ou de lugar.</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('button.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var text = btn.closest('.prompt').querySelector('pre').innerText;
+    var done = function (msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = 'Copiar'; }, 1600); };
+    try { navigator.clipboard.writeText(text).then(function () { done('Copiado'); }, function () { done('Selecione e copie'); }); }
+    catch (e) { done('Selecione e copie'); }
+  });
+});
+</script>
+</body>
+</html>
