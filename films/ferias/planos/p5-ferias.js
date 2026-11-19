@@ -21,7 +21,7 @@
   const LX = 640, LY = 1080;
   const FOLHAS = Array.from({ length: 7 }, (_, i) => {
     const r = M.mulberry32(500 + i);
-    return { vx: -760 + i * 220 + (r() - 0.5) * 120, vy: -(2500 + r() * 500), giro: (r() - 0.5) * 900, atraso: i * 0.025 };
+    return { vx: -1150 + i * 360 + (r() - 0.5) * 160, vy: -(2300 + r() * 700), giro: (r() - 0.5) * 1000, atraso: r() * 0.05, mao: i % 2 };   // leque, das duas mãos
   });
   let tampa, linhas = [], cab, est, fer, eco, letras = [], bat, polo, fill, raio, dia, sai1, d1, cap1, sai2, d2, cap2, H, lamp, folhas = [], logo, festas, rab;
 
@@ -131,15 +131,15 @@
         { x: 112 * vai, y: 114 * vai - pulo, s: M.lerp(1, 0.6, vai), r: M.wiggle(t, 0.8, 3, 12) }));
       const arma = G.E.outCubic(M.prog(t, JOGA - 0.3, JOGA - 0.05)), solta = G.E.outCubic(M.prog(t, JOGA - 0.05, JOGA + 0.08)), desce = G.E.outCubic(M.prog(t, JOGA + 0.35, JOGA + 0.8));
       const festa = Math.abs(M.kick(t, B(29), 1, 2, 0.35));
-      const braco = M.lerp(M.lerp(M.lerp(30, 70, arma), 172, solta), 30, desce) + 120 * festa;
+      const braco = M.lerp(M.lerp(M.lerp(30, 70, arma), 140, solta), 30, desce) + 110 * festa;   // pra cima e pra fora
       const oc = t < B(29) ? 1 : M.lerp(1, 0.01, M.clamp(M.spring(t - B(29), 3, 0.7)));
       lamp.seek({ humor: 'feliz', oculos: oc, luz: t < SOBE ? 0.25 : t < B(29) ? 0.25 + 0.6 * nivel : 1,
-        bracoE: [braco + 4 * Math.sin(t * 4), 20 * (1 - solta)], bracoD: [braco + 4 * Math.sin(t * 4 + 1), 20 * (1 - solta)] });
+        bracoE: [braco + 4 * Math.sin(t * 4), M.lerp(20, 30, Math.max(solta * (1 - desce), festa))], bracoD: [braco + 4 * Math.sin(t * 4 + 1), M.lerp(20, 30, Math.max(solta * (1 - desce), festa))] });
       // papéis pro alto: saem das mãos e passam do topo antes das datas
       folhas.forEach((f, i) => {
         const o = FOLHAS[i], tau = t - JOGA - o.atraso;
         if (tau < 0 || tau > 1.1) { f.style.visibility = 'hidden'; return; }
-        const x = 760 + o.vx * tau, y = 1090 + o.vy * tau + 2000 * tau * tau;
+        const x = (o.mao ? 840 : 680) + o.vx * tau, y = 1100 + o.vy * tau + 2000 * tau * tau;
         f.style.visibility = 'visible';
         f.style.transform = `translate(${(x - 37).toFixed(1)}px, ${(y - 48).toFixed(1)}px) rotate(${(o.giro * tau).toFixed(1)}deg) rotateX(${(tau * 520).toFixed(1)}deg)`;
       });

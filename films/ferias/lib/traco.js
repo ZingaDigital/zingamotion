@@ -213,7 +213,7 @@
     T.el(oculos, 'path', { d: 'M116 96 l12 0', stroke: '#fff', 'stroke-width': 4, 'stroke-linecap': 'round' });
 
     const pose = (b, ang, dobra) => {          // ângulo do ombro (graus, 0 = pra baixo), dobra do cotovelo
-      const a = ang * Math.PI / 180, l1 = 46, l2 = 40;
+      const a = ang * Math.PI / 180, l1 = 56, l2 = 48;   // longos o bastante pra mão sair do vidro com o braço erguido
       const ex = b.sx + Math.sin(a) * l1 * b.lado, ey = b.sy + Math.cos(a) * l1;
       const a2 = a + dobra * Math.PI / 180;
       const hx = ex + Math.sin(a2) * l2 * b.lado, hy = ey + Math.cos(a2) * l2;

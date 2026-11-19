@@ -18,7 +18,7 @@
   const ARREMESSO = [B(12.75), B(13.75), B(14.75)];
   const VOO = 0.375;
   const POUSO = [[742, 1072], [992, 1078], [690, 1080]];
-  const SOLTA = { x: 613, y: 887 };                   // mão no instante da soltura (pose 117,5° / 40°)
+  const SOLTA = { x: 628, y: 872 };                   // mão no instante da soltura (pose 117,5° / 40°)
   const vb = (p) => ({ x: LX + (p.x + 20) * LT / 240, y: LY + (p.y + 20) * LT / 240 });
   let folha, papel, amasso, bat, polo, fill, num, pct, rotulo, H, lamp, lixo, bolas = [], pill, pillMiolo, curBox, cur, rab, mesa, seta;
 
