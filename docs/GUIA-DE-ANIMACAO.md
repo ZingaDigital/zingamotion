@@ -18,7 +18,7 @@ Leia antes de programar qualquer plano. Vale para esta sessão e para as próxim
 - Legenda: `Z.legenda(pai, partes, { quebra })` + `Z.legendaSeek(L, t, entra, sai)`.
 
 ## Tipografia e cor
-- Título: [FONTE DE TÍTULO]. Interface: [FONTE DE INTERFACE]. Destaque: [COR] (só ela).
+- Título e interface: Switzer (900 display, 600 títulos, 500 texto). Destaque: rosa #f50953 no tema azul, navy #002140 no tema rosa.
 - Corpo mínimo na tela de 1080: 40 px para rótulo, 60 px para legenda (vira 13 e 20 px a 360 px).
 
 ## Armadilhas já pagas
@@ -28,3 +28,11 @@ Leia antes de programar qualquer plano. Vale para esta sessão e para as próxim
 - `<mask maskUnits="userSpaceOnUse">` sem x/y/width/height corta o que estiver fora da região padrão.
 - Captura de site pega no meio de animação: cubra o texto com a cor medida da própria captura e recomponha.
 - Som longo (sub, pad) por cima de uma batida esconde o bumbo; efeito que começa antes da batida também.
+
+## Gramática zinga-motion traduzida pro seek(t) (lib/zg.js)
+- `G.entra(t, t0, {de, dist, blur, s0, ry, mola})`: entra de uma direção, blur 12 a 0, opacidade só nos 30% iniciais.
+- `G.sai(t, t0, {para, dist})`: saída quádrupla (posição in-exp + blur 0 a 20 + escala 0,94 + opacidade a partir de 35%).
+- `G.palavrasSeek`: palavra a palavra, stagger 2 a 3 quadros; saída em escadinha de 2 quadros, mesma ordem da entrada.
+- Direções: P1 sai pra esquerda, P2 entra da direita; P3 sai pra cima, P4 entra de baixo; P5 entra de baixo, datas da esquerda e de cima.
+- Fundo troca em corte seco (G.TROCA = 8,36 s), quando o pill "Pausa" termina de cobrir a tela.
+- Conflitos resolvidos a favor do estúdio: nada de glow (o zinga-motion pede), título alinhado à esquerda, nunca centralizado.
