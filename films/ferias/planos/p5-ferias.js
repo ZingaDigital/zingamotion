@@ -23,7 +23,9 @@
     const r = M.mulberry32(500 + i);
     return { vx: -1150 + i * 360 + (r() - 0.5) * 160, vy: -(2300 + r() * 700), giro: (r() - 0.5) * 1000, atraso: r() * 0.05, mao: i % 2 };   // leque, das duas mãos
   });
-  let tampa, linhas = [], cab, est, fer, eco, letras = [], bat, polo, fill, raio, dia, sai1, d1, cap1, sai2, d2, cap2, H, lamp, folhas = [], logo, festas, rab;
+  // ?capa=1: versão estática pra capa do Reels (quadro da lâmpada jogando papel + datas embaixo, sem a bateria)
+  const CAPA = new URLSearchParams(location.search).has('capa');
+  let capa, tampa, linhas = [], cab, est, fer, eco, letras = [], bat, polo, fill, raio, dia, sai1, d1, cap1, sai2, d2, cap2, H, lamp, folhas = [], logo, festas, rab;
 
   const bloco = (el, y, over, data, l1, l2) => {
     const o = Z.div(el, { left: '74px', top: y + 'px', fontSize: '40px', fontWeight: 600, letterSpacing: '0.16em', color: G.COR.navy });
@@ -39,7 +41,7 @@
       tampa = Z.div(el, { background: `linear-gradient(160deg, ${G.COR.rosa} 0%, ${G.COR.rosaFundo} 100%)` });
       rab = T.rabiscos(el, [
         { f: 'sol', x: 945, y: 330, s: 0.9 }, { f: 'onda', x: 560, y: 1700, s: 1.3 }, { f: 'onda', x: 250, y: 1790, s: 1, r: 4 },
-        { f: 'estrela', x: 990, y: 1600, s: 0.5, r: 10 }, { f: 'espiral', x: 120, y: 1640, s: 0.55 },
+        { f: 'estrela', x: 990, y: CAPA ? 1780 : 1600, s: 0.5, r: 10 }, { f: 'espiral', x: 120, y: 1640, s: 0.55 },
       ], { cor: '#ffffff', op: 0.4, semente: 51 });
       cab = Z.div(el, { left: '72px', top: '246px', transformOrigin: '0px 0px' });
       est = G.texto(cab, [['Estamos de']], { x: 2, y: 0, tam: 64, peso: 600 });
@@ -69,6 +71,17 @@
           border: `4px solid ${G.COR.navy}`, boxSizing: 'border-box', boxShadow: `5px 6px 0 ${G.COR.navy}` });
         for (let k = 0; k < 3; k++) Z.div(f, { left: '10px', top: 18 + k * 20 + 'px', width: (k === 2 ? 30 : 46) + 'px', height: '5px', borderRadius: '3px', background: G.COR.navy, opacity: 0.6 });
         folhas.push(f);
+      }
+      if (CAPA) {
+        capa = Z.div(el, { inset: '0px' });
+        const col = (x, over, data) => {
+          const o = Z.div(capa, { left: x + 'px', top: '1452px', fontSize: '36px', fontWeight: 600, letterSpacing: '0.16em', color: G.COR.navy });
+          o.textContent = over;
+          const d = Z.div(capa, { left: (x - 8) + 'px', top: '1494px', fontSize: '116px', fontWeight: 900, lineHeight: 1, letterSpacing: '-0.015em', color: '#fff', whiteSpace: 'nowrap' });
+          d.textContent = data;
+        };
+        col(72, 'A PARTIR DE', '19 DEZ');
+        col(566, 'VOLTAMOS EM', '04 JAN');
       }
       // linhas da composição, na ordem de leitura: saem em escadinha no loop
       for (const grupo of [[cab], [sai1, d1.box, cap1.box], [bat, polo], [sai2, d2.box, cap2.box], [H.box, lamp.el], [logo, festas.box]]) {
@@ -105,6 +118,7 @@
         width: '18px', height: ph.toFixed(2) + 'px', borderRadius: '0 10px 10px 0' });
       const nasce = G.entra(t, B(17), { dur: 0.4, de: 'baixo', dist: 120, blur: 12, mola: 2.6 });
       G.poe(bat, nasce); G.poe(polo, nasce);
+      if (CAPA) { bat.style.visibility = polo.style.visibility = 'hidden'; }
       let kd = -1;
       for (let i = 0; i < DIAS.length; i++) if (t >= quandoDia(i)) kd = i;
       const alvo = kd <= 0 ? 0.03 : kd / U, ant = kd <= 1 ? 0.03 : (kd - 1) / U;
