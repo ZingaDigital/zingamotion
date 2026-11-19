@@ -23,6 +23,7 @@
 <script src="lib/audio.js"></script>
 <script src="lib/nucleo.js"></script>
 <script src="lib/zg.js"></script>
+<script src="lib/traco.js"></script>
 <script src="planos/p1-ano.js"></script>
 <script src="planos/p2-caixa.js"></script>
 <script src="planos/p3-bateria.js"></script>
@@ -59,9 +60,11 @@ window.ready = Promise.all([
 window.seek = function (t) {
   G.fundo(t);
   for (const p of Z.planos) {
-    const ativo = t >= p.inicio && (t < p.fim || p.fim >= DURACAO);
+    // loopDe: o plano também roda no fim, com o tempo do começo (t - DURACAO), por baixo da emenda do loop
+    const volta = p.loopDe !== undefined && t >= p.loopDe;
+    const ativo = volta || (t >= p.inicio && (t < p.fim || p.fim >= DURACAO));
     p.el.style.display = ativo ? '' : 'none';
-    if (ativo) p.seek(t, p.cam, Z);
+    if (ativo) p.seek(volta ? t - DURACAO : t, p.cam, Z);
   }
   Z.grao(document.getElementById('grao'), t);
 };

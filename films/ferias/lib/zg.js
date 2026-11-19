@@ -8,21 +8,24 @@
     rosa: '#f50953', rosaFundo: '#c2073f', branco: '#ffffff', mudo: '#a8bcd2', mudoRosa: '#ffe3ec',
     luzAzul: '#2478c9',
   };
-  // instante em que a peça vira tema rosa (o pill "Pausa" termina de cobrir a tela)
-  G.TROCA = 8.36;
+  // fundo atrás das folhas: navy até o clique em "Pausa" (b16), rosa nas férias, papel na emenda do loop
+  // (a folha da cena 1 e a da cena 4 cobrem a tela inteira e amassam revelando o que está atrás)
+  G.TROCA = 8.0;
+  G.P5 = 8.3;                                          // as férias começam a entrar quando a folha já é bolinha
   G.LOOP = 19.5;                                       // o rosa encolhe até virar o 1º dia da grade (o fim prepara o começo)
+  G.PAPEL = '#f5f3f0';
 
-  // ---------- fundo: degradê do tema + uma luz por canto (azul no azul, branca no rosa). Corte seco entre temas.
   G.fundo = (t) => {
     const f = document.getElementById('fundo'), luz = document.getElementById('luz');
-    const rosa = t >= G.TROCA && t < G.LOOP;
-    f.style.background = rosa
-      ? `linear-gradient(160deg, ${G.COR.rosa} 0%, ${G.COR.rosaFundo} 100%)`
-      : `linear-gradient(160deg, ${G.COR.navy} 0%, ${G.COR.navyFundo} 100%)`;
+    const tema = t >= G.LOOP ? 'papel' : t >= G.TROCA ? 'rosa' : 'azul';
+    // sempre o atalho completo: o degradê também é background-image (zerar a imagem apagava o tema)
+    f.style.background = tema === 'rosa' ? `linear-gradient(160deg, ${G.COR.rosa} 0%, ${G.COR.rosaFundo} 100%)`
+      : tema === 'papel' ? `radial-gradient(circle, rgba(0,33,64,.16) 2.2px, transparent 2.6px) 27px 27px / 54px 54px, ${G.PAPEL}`
+        : `linear-gradient(160deg, ${G.COR.navy} 0%, ${G.COR.navyFundo} 100%)`;
     const r = 760 + 40 * Math.sin(t * 1.3);
     Object.assign(luz.style, {
       width: 2 * r + 'px', height: 2 * r + 'px', left: (Z.W - r * 0.9).toFixed(1) + 'px', top: (-r * 0.85).toFixed(1) + 'px',
-      background: rosa ? '#ffffff' : G.COR.luzAzul, opacity: rosa ? '0.28' : '0.38',
+      background: tema === 'rosa' ? '#ffffff' : G.COR.luzAzul, opacity: tema === 'papel' ? '0' : tema === 'rosa' ? '0.24' : '0.34',
     });
   };
 

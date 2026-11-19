@@ -8,7 +8,7 @@ Material real: logo vetorial `logo-tokenizado.svg`, Switzer variável, tokens de
 de ícones e cards da marca.
 
 Conceito: **bateria criativa**. A agência é uma bateria que passou o ano descarregando. As férias são o
-carregador. A barra que carrega é o próprio período de férias: começa em 18 DEZ e enche em 04 JAN.
+carregador. A barra que carrega é o próprio período de férias: começa em 19 DEZ e enche em 04 JAN.
 
 ## Roteiro de batidas
 | Trecho | Batidas | Tempo | O que acontece | Recompensa visual |
@@ -18,7 +18,7 @@ carregador. A barra que carrega é o próprio período de férias: começa em 18
 | Ato 2 | 8 a 11 | 0:04 a 0:06 | a pilha é sugada pra dentro de uma bateria gigante; 100% → 47% → 12% → 2% | número despencando a cada batida |
 | Ato 3 | 12 a 15 | 0:06 a 0:08 | lâmpada das ideias pisca e apaga; cursor cansado arrasta até o botão "Pausa" | silêncio de meia batida antes do clique |
 | Virada | 16 a 19 | 0:08 a 0:10 | clique: o botão rosa engole a tela; "Estamos de FÉRIAS." | troca de cor da peça inteira, trilha muda |
-| Datas | 20 a 27 | 0:10 a 0:14 | "18 DEZ" cai; a bateria carrega enquanto os dias correm 19, 20 … 03; "04 JAN" cai com impacto | barra cheia = dia da volta |
+| Datas | 20 a 27 | 0:10 a 0:14 | "19 DEZ" cai; a bateria carrega enquanto os dias correm 20, 21 … 03; "04 JAN" cai com impacto | barra cheia = dia da volta |
 | Fim | 28 a 35 | 0:14 a 0:18 | lâmpada acende de novo; "Voltamos com a bateria cheia e ideias novas."; logo zinga; segura legível 2 s | quadro final é o post fixado |
 
 ## Planos
@@ -62,7 +62,7 @@ A bateria volta pequena, contorno branco, com raio de carga.
 
 ### P6 · As datas · 10,0 a 14,0 s (b20 a b27)
 **Quadros:** "FÉRIAS." sobe para o topo. Dois blocos à esquerda:
-"SAÍMOS" (overline) · **18 DEZ** (Black 200 px) · "sexta · 2026" — cai em b20.
+"A PARTIR DE" (overline) · **19 DEZ** (Black 178 px) · "sábado · 2026" — cai em b20.
 Entre os dois, a bateria vira barra horizontal e carrega; um contador de dias corre 19, 20 … 31, 01, 02, 03
 (b21 a b23,5), um tique por dia.
 "VOLTAMOS" · **04 JAN** · "segunda · 2027" — cai em b24 com impacto, barra 100%.

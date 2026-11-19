@@ -6,6 +6,15 @@
   const B = (n) => Z.b(n);
   const N = { C3: 130.81, E3: 164.81, G3: 196, A3: 220, C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392, A4: 440, B3: 246.94, F3: 174.61 };
   window.SOM = {
+    // papel amassando: rajada de estalos filtrados; o primeiro cai exatamente em t (na grade)
+    amassa(S, t, k = 1) {
+      for (let i = 0; i < 10; i++) S.ruid({ t: t + i * 0.028 + (i % 3) * 0.006, dur: 0.035, tipo: 'bandpass', f0: 1800 + ((i * 733) % 2400), q: 0.9, ganho: 0.11 * k });
+    },
+    // bolinha de papel batendo no chão
+    toc(S, t, k = 1) {
+      S.osc({ t, tipo: 'triangle', f0: 320, f1: 140, glide: 0.05, dur: 0.09, ganho: 0.25 * k });
+      S.ruid({ t, dur: 0.04, tipo: 'lowpass', f0: 1500, ganho: 0.12 * k });
+    },
     trilha(S) {
       // ---------- metade A ----------
       const A_ACORDE = [[110, 130.81, 164.81], [87.31, 110, 130.81], [130.81, 164.81, 196], [98, 123.47, 146.83]];
