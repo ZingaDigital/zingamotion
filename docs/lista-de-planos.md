@@ -1,5 +1,6 @@
 # Lista de planos: ferias (aviso de férias Zinga 2026/27)
 
+v3: 28 s (pausas de 1 s em 1,5 / 5,0 / 8,0 s reais + logo reveal 23 a 28 s). Tempos abaixo são do roteiro original.
 18 s · 9:16 (1080×1920) · 30 fps · 120 BPM (batida = 0,5 s) · 36 batidas · grade em films/ferias/beats.json
 Área segura combinada: Stories escondem o topo e o rodapé, a grade do perfil mostra o recorte 3:4 do centro
 (y 240 a 1680). Tudo que é informação fica entre y 260 e y 1480, x 72 a 940.

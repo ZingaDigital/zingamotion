@@ -66,7 +66,7 @@
     return {
       svg: s,
       seek(t) {
-        const v = ((Math.floor(t * 8) % 3) + 3) % 3;   // t pode ser negativo (plano rodando por baixo da emenda do loop)
+        const v = ((Math.floor((Z.T_REAL ?? t) * 8) % 3) + 3) % 3;   // ferve no tempo real (continua nas pausas de leitura)   // t pode ser negativo (plano rodando por baixo da emenda do loop)
         for (const it of itens) it.paths.forEach((p, i) => p.setAttribute('d', it.variantes[v][i]));
       },
     };

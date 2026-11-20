@@ -9,7 +9,7 @@
   let folha, amasso, celulas = [], num, over, T1, eco, rab, sub;
 
   Z.plano({
-    id: 'p1', inicio: 0, fim: AMASSA + 0.8, loopDe: G.LOOP,
+    id: 'p1', inicio: 0, fim: AMASSA + 0.8, loopDe: G.PAPEL_REAL,
     montar(el) {
       folha = T.papel(el);
       eco = T.eco(folha, '2026', { x: 20, y: 1590, tam: 430, cor: G.COR.navy, op: 0.13, copias: 4, passo: -0.19 });

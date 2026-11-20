@@ -10,14 +10,16 @@
   };
   // fundo atrás das folhas: navy até o clique em "Pausa" (b16), rosa nas férias, papel na emenda do loop
   // (a folha da cena 1 e a da cena 4 cobrem a tela inteira e amassam revelando o que está atrás)
-  G.TROCA = 8.0;
+  G.TROCA = 8.0;                                       // no tempo do roteiro (real: 11,0 s)
   G.P5 = 8.3;                                          // as férias começam a entrar quando a folha já é bolinha
-  G.LOOP = 19.5;                                       // o rosa encolhe até virar o 1º dia da grade (o fim prepara o começo)
+  G.LOOP = 1e9;                                        // v1/v2: saída do P5 no fim; agora quem fecha o loop é o logo (p6)
+  G.ROSA_REAL = 11.0;                                  // tempo real: clique em Pausa (b22)
+  G.PAPEL_REAL = 27.35;                                // tempo real: o rosa do logo encolhe até o 1º dia da grade
   G.PAPEL = '#f5f3f0';
 
   G.fundo = (t) => {
     const f = document.getElementById('fundo'), luz = document.getElementById('luz');
-    const tema = t >= G.LOOP ? 'papel' : t >= G.TROCA ? 'rosa' : 'azul';
+    const tema = t >= G.PAPEL_REAL ? 'papel' : t >= G.ROSA_REAL ? 'rosa' : 'azul';   // t real
     // sempre o atalho completo: o degradê também é background-image (zerar a imagem apagava o tema)
     f.style.background = tema === 'rosa' ? `linear-gradient(160deg, ${G.COR.rosa} 0%, ${G.COR.rosaFundo} 100%)`
       : tema === 'papel' ? `radial-gradient(circle, rgba(0,33,64,.16) 2.2px, transparent 2.6px) 27px 27px / 54px 54px, ${G.PAPEL}`

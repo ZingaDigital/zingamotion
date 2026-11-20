@@ -27,15 +27,15 @@
 <script src="planos/p1-ano.js"></script>
 <script src="planos/p2-caixa.js"></script>
 <script src="planos/p3-bateria.js"></script>
-<script src="planos/p4-ideias.js"></script>
 <script src="planos/p5-ferias.js"></script>
+<script src="planos/p6-logo.js"></script>
 <script src="planos/som.js"></script>
 </head>
 <body>
 <div id="palco"><div id="fundo"><div id="luz"></div></div><div id="planos"></div><div id="grao"></div></div>
 <svg id="filtros" xmlns="http://www.w3.org/2000/svg"></svg>
 <script>
-const DURACAO = 20;
+const DURACAO = 28;                                  // 20 s do roteiro + 3 pausas de leitura de 1 s + logo reveal
 window.FILM = { width: Z.W, height: Z.H, fps: 30, duration: DURACAO };
 const palco = document.getElementById('palco');
 palco.style.width = Z.W + 'px'; palco.style.height = Z.H + 'px';
@@ -57,24 +57,53 @@ window.ready = Promise.all([
   await document.fonts.ready;
 });
 
+// Pausas de leitura: o roteiro (tempo "virtual" dos planos p1 a p5) segura 1 s antes de cada transição dos três
+// primeiros takes. Durante a pausa a imagem fica, mas a câmera respira e os rabiscos continuam fervendo (tempo real).
+const PAUSAS = [[1.5, 1], [4.0, 1], [6.0, 1]];       // [instante no roteiro, duração]
+G.virtual = (t) => {                                  // tempo real -> tempo do roteiro
+  let desloc = 0;
+  for (const [h, d] of PAUSAS) { const hr = h + desloc; if (t <= hr) break; if (t < hr + d) return h; desloc += d; }
+  return t - desloc;
+};
+G.real = (v) => { let r = v; for (const [h, d] of PAUSAS) if (v > h + 1e-9) r += d; return r; };   // roteiro -> real (som)
+
 window.seek = function (t) {
+  Z.T_REAL = t;
+  const v = G.virtual(t);
   G.fundo(t);
   for (const p of Z.planos) {
-    // loopDe: o plano também roda no fim, com o tempo do começo (t - DURACAO), por baixo da emenda do loop
+    // p.real: o plano é escrito em tempo real (logo). loopDe (tempo real): o plano também roda no fim, com o tempo
+    // do começo (t - DURACAO), por baixo da emenda do loop
+    const tp = p.real ? t : v;
     const volta = p.loopDe !== undefined && t >= p.loopDe;
-    const ativo = volta || (t >= p.inicio && (t < p.fim || p.fim >= DURACAO));
+    const ativo = volta || (tp >= p.inicio && (tp < p.fim || p.fim >= DURACAO));
     p.el.style.display = ativo ? '' : 'none';
-    if (ativo) p.seek(volta ? t - DURACAO : t, p.cam, Z);
+    if (ativo) p.seek(volta ? t - DURACAO : tp, p.cam, Z);
   }
+  let resp = 1;
+  for (const [h] of PAUSAS) { const hr = G.real(h - 1e-6); resp += 0.014 * Math.sin(Math.PI * M.prog(t, hr, hr + 1)); }
+  document.getElementById('planos').style.transform = `scale(${resp.toFixed(4)})`;
   Z.grao(document.getElementById('grao'), t);
 };
+
+// efeitos dos planos p1 a p5 foram agendados no tempo do roteiro: o proxy empurra cada um pro tempo real
+const comPausas = (S) => new Proxy(S, { get(alvo, nome) {
+  const f = alvo[nome];
+  if (typeof f !== 'function') return f;
+  return (...a) => {
+    if ((nome === 'osc' || nome === 'ruid') && a[0] && typeof a[0].t === 'number') a[0] = { ...a[0], t: G.real(a[0].t) };
+    else if (nome === 'riser') { a[0] = G.real(a[0]); a[1] = G.real(a[1]); }
+    else if (typeof a[0] === 'number') a[0] = G.real(a[0]);
+    return f(...a);
+  };
+} });
 
 window.renderAudio = async function ({ trilha = true, foley = true } = {}) {
   const SR = 48000;
   const ctx = new OfflineAudioContext(2, Math.round(SR * (DURACAO + 1)), SR);
   const S = makeSynth(ctx, 0x2a1b);
   if (trilha) SOM.trilha(S);
-  if (foley) { for (const p of Z.planos) p.som?.(S, Z); }
+  if (foley) { const SV = comPausas(S); for (const p of Z.planos) p.som?.(p.real ? S : SV, Z); }
   return S.exportar(0.6);
 };
 
