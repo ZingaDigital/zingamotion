@@ -1,6 +1,7 @@
 # Estado da produção: ferias (aviso de férias Zinga 2026/27)
 
-- Etapa atual: 10 entrega da v3 (pausas de leitura de 1 s nos 3 primeiros takes + logo reveal no estilo de refs/logo/ref-logo.mp4)
+- Etapa atual: ENCERRADO. v3 aprovada pelo cliente em 22/11/2026 (vídeo, capa da lâmpada e capa do quadro final)
+- Histórico: 10 entrega da v3 (pausas de leitura de 1 s nos 3 primeiros takes + logo reveal no estilo de refs/logo/ref-logo.mp4)
 - Aprovado pelo cliente: conceito "bateria criativa" e uso das skills motion-reel + zinga-motion (19/11/2026).
   Datas CONFIRMADAS pelo cliente: férias a partir de sábado, 19/12/2026; volta segunda, 04/01/2027.
 - Última versão: resultados/ferias-v2-desenhado.mp4 (20,0 s, -14,1 LUFS, pico -1,7 dBTP, pior erro de sincronia 10 ms,
