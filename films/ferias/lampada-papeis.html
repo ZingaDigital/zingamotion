@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Lâmpada jogando papel</title>
+<style>
+  html, body { margin: 0; background: transparent; }
+  #palco { position: relative; width: 1080px; height: 1080px; overflow: hidden; }
+</style>
+<script src="lib/motion.js"></script>
+<script src="lib/nucleo.js"></script>
+<script src="lib/zg.js"></script>
+<script src="lib/traco.js"></script>
+</head>
+<body>
+<div id="palco"></div>
+<script>
+// A lâmpada de férias jogando os papéis pro alto, sem texto: mesma pose e mesmo instante da capa (b18 + 0,18 s).
+// ?fundo=rosa pinta o degradê da marca; sem parâmetro o fundo fica transparente (adesivo).
+const palco = document.getElementById('palco');
+if (new URLSearchParams(location.search).get('fundo') === 'rosa')
+  palco.style.background = `linear-gradient(160deg, ${G.COR.rosa} 0%, ${G.COR.rosaFundo} 100%)`;
+const tau0 = 0.105;
+const LX = 420, LY = 520;                               // lâmpada centralizada no quadro 1:1
+const VIRA = [22, -30, 34, -18, 28, -36, 16];          // imagem parada: folhas de frente pra câmera (sem perfil)
+for (let i = 0; i < 7; i++) {
+  const r = M.mulberry32(500 + i);
+  const o = { vx: -1150 + i * 360 + (r() - 0.5) * 160, vy: -(2300 + r() * 700), giro: (r() - 0.5) * 1000, atraso: r() * 0.05, mao: i % 2 };
+  const tau = tau0 - o.atraso;
+  const x = LX + (o.mao ? 200 : 40) + o.vx * tau, y = LY + 20 + o.vy * tau + 2000 * tau * tau;
+  const f = Z.div(palco, { left: '0px', top: '0px', width: '74px', height: '96px', background: '#fff', borderRadius: '6px',
+    border: `4px solid ${G.COR.navy}`, boxSizing: 'border-box', boxShadow: `5px 6px 0 ${G.COR.navy}`,
+    transform: `translate(${(x - 37).toFixed(1)}px, ${(y - 48).toFixed(1)}px) rotate(${(o.giro * tau).toFixed(1)}deg) rotateX(${VIRA[i]}deg)` });
+  for (let k = 0; k < 3; k++) Z.div(f, { left: '10px', top: 18 + k * 20 + 'px', width: (k === 2 ? 30 : 46) + 'px', height: '5px', borderRadius: '3px', background: G.COR.navy, opacity: 0.6 });
+}
+const lamp = T.lampada(palco, { x: LX, y: LY, tam: 240 });
+lamp.seek({ humor: 'feliz', oculos: 1, luz: 0.25, bracoE: [140, 30], bracoD: [140, 30] });
+window.ready = Promise.resolve();
+</script>
+</body>
+</html>
