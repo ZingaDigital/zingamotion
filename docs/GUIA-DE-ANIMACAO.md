@@ -36,3 +36,12 @@ Leia antes de programar qualquer plano. Vale para esta sessão e para as próxim
 - Direções: P1 sai pra esquerda, P2 entra da direita; P3 sai pra cima, P4 entra de baixo; P5 entra de baixo, datas da esquerda e de cima.
 - Fundo troca em corte seco (G.TROCA = 8,36 s), quando o pill "Pausa" termina de cobrir a tela.
 - Conflitos resolvidos a favor do estúdio: nada de glow (o zinga-motion pede), título alinhado à esquerda, nunca centralizado.
+
+## Palavra vazada (contorno) — regra do cliente
+- Nunca contorno com linhas internas nem cópias se cruzando ("entrelaçado" = amador).
+- A Switzer variável tem contornos sobrepostos dentro das letras: o eco usa `SwitzerContorno-Black.woff2`, uma instância
+  Black com as sobreposições fundidas. Fica em films/<filme>/fonts/ (fora do git, licença ITF FFL). Pra recriar:
+  `pip install fonttools brotli skia-pathops` e
+  `python3 -c "from fontTools.ttLib import TTFont; from fontTools.varLib import instancer as i; f=TTFont('Switzer-Variable.woff2'); g=i.instantiateVariableFont(f, {'wght': 900}, overlap=i.OverlapMode.REMOVE); g.flavor='woff2'; g.save('SwitzerContorno-Black.woff2')"`
+- `T.eco(..., { fundo })`: cada cópia é preenchida com a cor do fundo e empilhada da frente pra trás; a palavra cheia
+  (quando existe) leva z-index acima dos ecos.
