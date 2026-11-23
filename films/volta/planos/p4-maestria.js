@@ -4,12 +4,13 @@
 // última folha crescer e virar o rosa do P5 (íris).
 (() => {
   const B = (n) => Z.b(n);
-  const FRENTES = [['chat', 'Social', 'Media'], ['pincel', 'Branding', 'e Design'], ['camera', 'Vídeo e', 'Fotografia'], ['grafico', 'Tráfego', 'Pago']];
-  const CW = 440, CH = 250, POS = [[72, 560], [568, 560], [72, 850], [568, 850]];
-  const DE = ['esq', 'dir', 'esq', 'dir'];
-  const POUSO = [B(21), B(22), B(23), B(24)];
+  // frentes do site zinga.digital (Social Media, Branding e Design, Vídeo e Fotografia, Tráfego Pago) + Sites (seção do site)
+  const FRENTES = [['chat', 'Social', 'Media'], ['pincel', 'Branding', 'e Design'], ['camera', 'Vídeo e', 'Fotografia'], ['grafico', 'Tráfego', 'Pago'], ['site', 'Sites', '']];
+  const CW = 440, CH = 220, POS = [[72, 545], [568, 545], [72, 795], [568, 795], [72, 1045]];
+  const DE = ['esq', 'dir', 'esq', 'dir', 'esq'];
+  const POUSO = [B(21), B(22), B(23), B(24), B(25)];
   const IRIS = B(29.5);
-  const LX = 420, LY = 1190, LT = 240;
+  const LX = 640, LY = 1010, LT = 250;                 // ao lado da 5ª folha
   const vb = (p) => ({ x: LX + (p.x + 20) * LT / 240, y: LY + (p.y + 20) * LT / 240 });
   // gesto de regência por batida (ângulo do ombro direito, dobra do cotovelo)
   const GESTO = [[150, 30], [70, 50], [125, 15], [168, 20]];
@@ -28,8 +29,8 @@
         const c = Z.div(el, { left: x + 'px', top: y + 'px', width: CW + 'px', height: CH + 'px', background: '#fff', borderRadius: '12px',
           boxShadow: `10px 12px 0 ${G.COR.navy}`, border: `4px solid ${G.COR.navy}`, boxSizing: 'border-box' });
         Z.div(c, { left: (i % 2 ? 250 : 120) + 'px', top: '-20px', width: '120px', height: '34px', background: 'rgba(245, 9, 83, .38)', transform: `rotate(${i % 2 ? 4 : -5}deg)` });
-        G.tile(c, ic, { x: 26, y: 26, tam: 96 });
-        const t = G.texto(c, [[l1], [l2]], { x: 28, y: 132, tam: 46, peso: 700, lh: 1.05, cor: G.COR.navy });
+        G.tile(c, ic, { x: 24, y: 22, tam: 86 });
+        const t = G.texto(c, l2 ? [[l1], [l2]] : [[l1]], { x: 26, y: 118, tam: 44, peso: 700, lh: 1.05, cor: G.COR.navy });
         const st = T.carimbo(el, { tam: 116 });
         cards.push({ c, t, st, x, y });
       });
@@ -63,7 +64,7 @@
         const o = G.entra(t, ti - 0.22, { dur: 0.32, de: DE[i], dist: 700, ry: DE[i] === 'esq' ? 50 : -50, blur: 16 });
         o.r = (DE[i] === 'esq' ? -10 : 10) * (1 - G.E.outCubic(M.prog(t, ti - 0.22, ti + 0.1)));
         let pulso = 0;
-        for (let b = 25; b < 30; b++) pulso += M.kick(t, B(b) + i * 0.03, 0.035, 4, 0.45);
+        for (let b = 26; b < 30; b++) pulso += M.kick(t, B(b) + i * 0.03, 0.035, 4, 0.45);
         G.poe(c, G.soma(o, { y: M.kick(t, ti, 10, 3.4, 0.4), s: 1 + pulso }));
         G.palavrasSeek(tx, t, ti - 0.02, { passo: 1 / 30, dur: 0.3, dist: 24, blur: 8 });
         const ts = ti + 0.25;
@@ -75,7 +76,7 @@
         st.style.opacity = M.clamp((t - ts) * 12).toFixed(3);
       });
       // íris: o carimbo da última folha vira o rosa da próxima cena
-      const [x4, y4] = POS[3];
+      const [x4, y4] = POS[4];   // o carimbo da última folha (Sites) vira o rosa
       const cx = x4 + CW - 34, cy = y4 + 14;
       const pi = G.E.inExp(M.prog(t, IRIS, B(30.4)));
       const R = 2400 * pi + 58 * (pi > 0 ? 1 : 0);
@@ -84,8 +85,8 @@
     som(S) {
       POUSO.forEach((tp, i) => {
         S.swoosh(tp - 0.22, 0.22, 0.08, true);
-        S.pluck(tp, [523.25, 659.25, 783.99, 1046.5][i], 0.16);
-        S.pluck(tp, [261.63, 329.63, 392, 523.25][i], 0.12);
+        S.pluck(tp, [523.25, 659.25, 783.99, 880, 1046.5][i], 0.16);
+        S.pluck(tp, [261.63, 329.63, 392, 440, 523.25][i], 0.12);
         S.osc({ t: tp + 0.25, tipo: 'triangle', f0: 180, f1: 90, glide: 0.06, dur: 0.12, ganho: 0.3 });
         S.ruid({ t: tp + 0.25, dur: 0.05, tipo: 'lowpass', f0: 1800, ganho: 0.14 });
       });

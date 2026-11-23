@@ -3,7 +3,8 @@
 (() => {
   const B = (n) => Z.b(n);
   const TOCA = B(8), PULA = B(9), TEXTO = B(9.5);
-  const LX = 250, LY = 950, LT = 270;                  // lâmpada deitada na espreguiçadeira (base no assento)
+  const LX = 235, LY = 820, LT = 400;                  // lâmpada (maior) deitada na espreguiçadeira, base no assento
+  const REL = { x: 790, y: 1120, tam: 270 }, ANEL = { x: 790 + 135, y: 1120 + 140 };
   let cadeira, lamp, rel, aneis = [], oc, T2, rab;
 
   Z.plano({
@@ -15,12 +16,12 @@
       ], { cor: '#ffffff', op: 0.4, semente: 71 });
       T2 = G.texto(el, [['Bom dia, '], [['2027.', { cor: G.COR.navy }]]], { x: 72, y: 330, tam: 132, peso: 900, lh: 1, ls: '-0.015em' });
       T2.box.classList.add('legenda');
-      cadeira = T.espreguicadeira(el, { x: 40, y: 1040, larg: 640 });
-      rel = T.despertador(el, { x: 740, y: 1110, tam: 230 });
+      cadeira = T.espreguicadeira(el, { x: 40, y: 1010, larg: 760 });
+      rel = T.despertador(el, { x: REL.x, y: REL.y, tam: REL.tam });
       const s = T.svg(el, Z.W, Z.H, { left: '0px', top: '0px' });
       for (let k = 0; k < 3; k++) {
-        const r = 150 + k * 34;
-        aneis.push(T.el(s, 'path', { d: `M${855 - r * 0.6} ${1230 - r * 0.8} A${r} ${r} 0 0 1 ${855 + r * 0.6} ${1230 - r * 0.8}`, fill: 'none', stroke: '#fff', 'stroke-width': 7, 'stroke-linecap': 'round' }));
+        const r = 175 + k * 38;
+        aneis.push(T.el(s, 'path', { d: `M${ANEL.x - r * 0.6} ${ANEL.y - r * 0.8} A${r} ${r} 0 0 1 ${ANEL.x + r * 0.6} ${ANEL.y - r * 0.8}`, fill: 'none', stroke: '#fff', 'stroke-width': 7, 'stroke-linecap': 'round' }));
       }
       lamp = T.lampada(el, { x: LX, y: LY, tam: LT });
       // óculos que voam (cópia solta dos óculos do rosto)
@@ -39,13 +40,13 @@
       const hop = Math.max(0, Math.sin(Math.PI * M.prog(t, PULA, PULA + 0.45))) * 260;
       const resp = t < PULA ? Math.sin(t * 2.4) * 0.02 : 0;
       G.poe(lamp.el, G.soma(G.entra(t, B(6) + 0.12, { dur: 0.4, de: 'baixo', dist: 200, blur: 4, mola: 2.6 }),
-        { r: M.lerp(-66, 0, pp), x: M.lerp(0, 90, pp), y: M.lerp(0, -220, pp) - hop, sy: 1 + resp }));
+        { r: M.lerp(-66, 0, pp), x: M.lerp(0, 40, pp), y: M.lerp(0, -170, pp) - hop, sy: 1 + resp }));
       const acordada = t >= PULA;
       lamp.seek({ humor: acordada ? 'acordada' : 'feliz', oculos: acordada ? 0 : 1, luz: acordada ? 0.35 : 0.15,
         bracoE: acordada ? [150 + 10 * Math.sin(t * 9), 25] : [40, 50], bracoD: acordada ? [150 + 10 * Math.sin(t * 9 + 1), 25] : [40, 50] });
       // óculos voando em arco, girando, saindo pelo topo
       const pv = M.prog(t, PULA, PULA + 0.9);
-      const v = M.hop(pv, 370, 930, 980, -200, 520);
+      const v = M.hop(pv, 260, 1010, 980, -200, 560);
       oc.style.visibility = acordada && pv < 1 ? 'visible' : 'hidden';
       oc.style.transform = `translate(${v.x - 75}px, ${v.y - 30}px) rotate(${(pv * 720).toFixed(1)}deg)`;
       // despertador: treme forte enquanto toca; anéis de som piscando a cada semicolcheia
