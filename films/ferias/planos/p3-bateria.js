@@ -85,7 +85,7 @@
         const de = i === 0 ? 0 : NIVEIS[i - 1][1];
         if (t >= tn - (i === 0 ? 0.1 : 0)) nivel = M.lerp(de, v, M.spring(t - tn + (i === 0 ? 0.1 : 0), i === 0 ? 2.2 : 3.2, 0.5));
       });
-      nivel = M.clamp(nivel, 0, 1.03);
+      nivel = M.clamp(nivel, 0, 1);   // a mola não passa de 100% (nem no número nem na barra)
       const pad = s.b * 1.4, interno = s.w - 2 * s.b - 2 * pad;
       Object.assign(fill.style, { left: pad + 'px', top: pad + 'px', bottom: pad + 'px',
         width: Math.max(0, interno * nivel).toFixed(2) + 'px', borderRadius: Math.max(4, s.r * 0.45).toFixed(1) + 'px' });

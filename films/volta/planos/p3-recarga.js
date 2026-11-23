@@ -42,7 +42,7 @@
       el.style.transform = `translate(0px, ${(-sh).toFixed(2)}px) scale(${(1 + 0.01 * Math.sin(t * 1.7)).toFixed(4)})`;
       // exportação em fundo branco: o contorno branco da bateria sumiria, então vira navy
       if (new URLSearchParams(location.search).get('limpo') === 'branco') { bat.style.borderColor = G.COR.navy; polo.style.background = G.COR.navy; }
-      const nv = nivelEm(t);
+      const nv = M.clamp(nivelEm(t), 0, 1);   // a mola não passa de 100% (nem no número nem na barra)
       fill.style.width = Math.max(8, (BW - 2 * BB - 40) * nv).toFixed(1) + 'px';
       pct.textContent = String(Math.max(2, Math.round(nv * 100)));
       const nasce = G.entra(t, B(12), { dur: 0.4, s0: 0.5, dist: 0, blur: 8, mola: 2.6 });
