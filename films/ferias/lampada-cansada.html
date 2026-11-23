@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Lâmpada cansada</title>
+<style>
+  html, body { margin: 0; background: transparent; }
+  #palco { position: relative; width: 1080px; height: 1080px; overflow: hidden; }
+</style>
+<script src="lib/motion.js"></script>
+<script src="lib/nucleo.js"></script>
+<script src="lib/zg.js"></script>
+<script src="lib/traco.js"></script>
+</head>
+<body>
+<div id="palco"></div>
+<script>
+// A lâmpada cansada do esquete, sem texto: armando o arremesso de mais um rascunho amassado, com a lixeira e as
+// bolinhas que já erraram no chão. ?fundo=papel põe a folha de caderno pontilhada, a linha da mesa e o "zz";
+// sem parâmetro o fundo fica transparente (adesivo).
+const papel = new URLSearchParams(location.search).get('fundo') === 'papel';
+const palco = document.getElementById('palco');
+if (papel) T.papel(palco);
+const CHAO = 650, LT = 300, LX = 230, LY = CHAO - 345;    // a base da lâmpada encosta no chão
+if (papel) T.rabiscos(palco, [{ f: 'risco', x: 560, y: CHAO + 6, s: 5.2 }], { op: 0.9, larg: 6, semente: 7 }).seek(0);
+T.rabiscos(palco, [{ f: 'zz', x: 590, y: 320, s: 1.1, r: -8 }], { op: papel ? 0.35 : 0.5, semente: 31 }).seek(1);
+const lixo = T.lixeira(palco, { x: 700, y: CHAO - 196, tam: 170 });
+for (const [x, s, g] of [[655, 0.6, 20], [945, 0.55, 140]]) {
+  const b = T.bola(palco, 110 * s / 0.62, 40 + x);
+  b.style.visibility = 'visible';
+  b.style.transform = `translate(${x - 55 * s / 0.62}px, ${CHAO - 92 * s / 0.62}px) rotate(${g}deg)`;
+}
+const lamp = T.lampada(palco, { x: LX, y: LY, tam: LT });
+const mao = lamp.seek({ humor: 'cansada', oculos: 0, luz: 0, bracoE: [16, 12], bracoD: [115, 20] }).maoD;
+const hx = LX + (mao.x + 20) * LT / 240, hy = LY + (mao.y + 20) * LT / 240;
+const bola = T.bola(palco, 96, 61);
+bola.style.visibility = 'visible';
+bola.style.transform = `translate(${hx - 48}px, ${hy - 56}px) rotate(-20deg)`;
+window.ready = Promise.resolve();
+</script>
+</body>
+</html>
