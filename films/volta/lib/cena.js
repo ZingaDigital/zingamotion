@@ -54,6 +54,7 @@
     T.el(plug, 'rect', { x: 24, y: -12, width: 16, height: 6, rx: 2, fill: NAVY });
     T.el(plug, 'rect', { x: 24, y: 6, width: 16, height: 6, rx: 2, fill: NAVY });
     return {
+      svg: s,
       seek(d, px, py, ang) {
         borda.setAttribute('d', d); linha.setAttribute('d', d);
         plug.setAttribute('transform', `translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${ang.toFixed(1)})`);

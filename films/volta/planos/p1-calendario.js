@@ -67,6 +67,9 @@
       const pa = M.clamp(M.spring(t - ABRE, 2.4, 0.7), 0, 1.04);
       folha.style.visibility = t >= ABRE ? 'visible' : 'hidden';
       desam.seek(pa);
+      // cada risco dá um tranco na folha (a caneta bate no papel): a batida não fica parada
+      const tranco = RISCOS.reduce((a, r) => a + M.kick(t, r, 0.018, 5, 0.4), 0) + M.kick(t, CIRCULO + 0.375, 0.03, 4, 0.4);
+      if (t >= ABRE + 0.6) folha.style.transform = `rotate(${(tranco * 40).toFixed(3)}deg) scale(${(1 + tranco).toFixed(4)})`;
 
       // riscos dos dias 1 a 3 (traço escrito) e o círculo do 4
       xs.forEach(({ path, dia }, i) => {

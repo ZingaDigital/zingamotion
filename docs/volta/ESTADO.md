@@ -1,6 +1,6 @@
 # Estado da produção: volta (Zinga de volta, 04/01/2027)
 
-- Etapa: 8 crítica (render completo v1 rodando)
+- Etapa: 10 entrega da v1 (resultados/volta/volta-v1.mp4, 26 s, -14,1 LUFS, sincronia 30 ms, loop ok)
 - Aprovado pelo cliente: roteiro (docs/volta/roteiro.md) com a copy "Novas ideias. Bateria cheia." e "Prontos para atender."
 - Frentes de serviço: tiradas de zinga.digital ("Quatro frentes. Uma direção."): Social Media, Branding e Design Gráfico,
   Vídeo e Fotografia, Tráfego Pago. Nenhum número do site usado.

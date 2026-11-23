@@ -68,7 +68,7 @@
       S.pop(SOBE, 520, 0.24); S.swoosh(SOBE - 0.05, 0.3, 0.12, true);
       S.zip(B(33), 0.5, 0.08, true); S.ding(B(34), 2093, 0.1);
       S.swoosh(CHAMA, 0.3, 0.18, false);
-      S.impact(CHAMA + 0.375, 0.5); S.ding(CHAMA + 0.375, 1568, 0.12);
+      S.impact(B(39), 0.5); S.ding(B(39), 1568, 0.12);   // no tempo forte: o grave não mascara o bumbo
     },
   });
 })();

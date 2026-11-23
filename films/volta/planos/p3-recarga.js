@@ -54,6 +54,7 @@
       const ang = M.lerp(10, -90, M.clamp(pp));
       const d = `M${TERM.x} ${TERM.y} C${TERM.x + 150} ${TERM.y + 60}, ${px - 260} ${py + 260}, ${px} ${py + (pp > 0.5 ? 30 : 0)}`;
       cabo.seek(d, px, py, ang);
+      cabo.svg.style.opacity = M.prog(t, B(12) + 0.1, B(12) + 0.35).toFixed(3);   // nasce junto com a bateria e a lâmpada
       faisca.svg.style.display = t >= PLUGA && t < PLUGA + 0.25 ? '' : 'none';
 
       // lâmpada: acordada; acende com a carga; em 100% fica feliz e comemora
