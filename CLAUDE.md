@@ -9,6 +9,10 @@
 ## Visual
 - Padrões proibidos: título centralizado em cima de gradiente, tudo entrando com fade,
   etiquetas nos cantos e molduras no quadro, brilho (glow) em interface, explosão genérica de partículas.
+- Palavra vazada (contorno/stroke): JAMAIS entrelaçado. O traço segue só a borda externa de cada letra e cópias de
+  eco nunca se cruzam. Fonte variável tem contornos sobrepostos dentro das letras: use uma instância estática com as
+  sobreposições fundidas (fontTools instancer, OverlapMode.REMOVE) e preencha cada cópia com a cor do fundo,
+  empilhada da frente pra trás. Vale pra vídeo, quadro exportado e qualquer peça. Confira num recorte em resolução cheia.
 - Uma fonte de título, uma fonte de interface. Uma cor de destaque, a não ser que o briefing diga outra coisa.
 - A cada 2 a 4 segundos alguma coisa nova tem que acontecer na tela.
 

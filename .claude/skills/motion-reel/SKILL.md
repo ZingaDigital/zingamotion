@@ -110,6 +110,10 @@ folha nova e as notas numa tabela por rodada. Seja um diretor exigente, não um 
 - Proibido: etiquetas nos cantos, título centralizado em gradiente, tudo entrando com fade.
 - Texto essencial dentro da área segura do formato (`Z.SEGURO`) e legível a 360 px.
 - Toda batida sonora na grade medida, dentro de 1 quadro. -14 LUFS, pico real até -1 dBTP.
+- Palavra vazada sem entrelaçado, nunca: traço só na borda externa de cada letra (fonte sem sobreposição de contornos:
+  `fontTools.varLib.instancer.instantiateVariableFont(f, {'wght': 900}, overlap=OverlapMode.REMOVE)`, precisa de
+  `skia-pathops`) e cópias de eco preenchidas com a cor do fundo, empilhadas da frente pra trás. Sem opacidade na cópia
+  (opacidade deixa ver o cruzamento): misture a cor do traço com a do fundo. Confira num recorte em resolução cheia.
 - Interface real, mas tipografia legível: se a captura for densa demais para o celular, recorta e aproxima a câmera.
 
 ## Arquivos da skill

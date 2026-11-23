@@ -19,6 +19,8 @@ Leia antes de programar qualquer plano. Vale para esta sessão e para as próxim
 
 ## Tipografia e cor
 - Título: [FONTE DE TÍTULO]. Interface: [FONTE DE INTERFACE]. Destaque: [COR] (só ela).
+- Palavra vazada: jamais entrelaçada (contornos internos da fonte ou cópias se cruzando). Fonte sem sobreposição +
+  cópias preenchidas com a cor do fundo, da frente pra trás.
 - Corpo mínimo na tela de 1080: 40 px para rótulo, 60 px para legenda (vira 13 e 20 px a 360 px).
 
 ## Armadilhas já pagas
