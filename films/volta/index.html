@@ -21,6 +21,7 @@
   .plano > .cam { position: absolute; inset: 0; transform-origin: 50% 45%; transform-style: preserve-3d; }
   #filtros { position: absolute; width: 0; height: 0; }
   .w { display: inline-block; white-space: pre; }
+  body.limpo .legenda, body.limpo .eco { display: none !important; }
 </style>
 <script src="lib/motion.js"></script>
 <script src="lib/audio.js"></script>
@@ -62,9 +63,18 @@ window.ready = Promise.all([
   await document.fonts.ready;
 });
 
+const LIMPO = new URLSearchParams(location.search).get('limpo');
+if (LIMPO) document.body.classList.add('limpo');
 window.seek = function (t) {
   Z.T_REAL = t;
   G.fundo(t);
+  if (LIMPO) {
+    const f = document.getElementById('fundo');
+    f.style.background = LIMPO === 'branco' ? '#ffffff' : 'transparent';
+    document.getElementById('luz').style.display = 'none';
+    document.getElementById('grao').style.display = 'none';
+    document.body.style.background = 'transparent'; document.documentElement.style.background = 'transparent';
+  }
   for (const p of Z.planos) {
     // loopDe: o plano também roda no fim, com o tempo do começo (t - DURACAO), por baixo da emenda do loop
     const volta = p.loopDe !== undefined && t >= p.loopDe;

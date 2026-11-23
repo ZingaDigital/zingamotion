@@ -14,6 +14,7 @@
         { f: 'estrela', x: 120, y: 620, s: 0.5 },
       ], { cor: '#ffffff', op: 0.4, semente: 71 });
       T2 = G.texto(el, [['Bom dia, '], [['2027.', { cor: G.COR.navy }]]], { x: 72, y: 330, tam: 132, peso: 900, lh: 1, ls: '-0.015em' });
+      T2.box.classList.add('legenda');
       cadeira = T.espreguicadeira(el, { x: 40, y: 1040, larg: 640 });
       rel = T.despertador(el, { x: 740, y: 1110, tam: 230 });
       const s = T.svg(el, Z.W, Z.H, { left: '0px', top: '0px' });

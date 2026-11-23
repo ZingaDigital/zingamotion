@@ -22,6 +22,7 @@
       rab = T.rabiscos(el, [{ f: 'espiral', x: 960, y: 250, s: 0.7 }, { f: 'estrela', x: 990, y: 1260, s: 0.55 }, { f: 'onda', x: 160, y: 1300, s: 0.8 }],
         { op: 0.3, semente: 91 });
       H = G.texto(el, [['Cada cliente,'], [['com maestria.', { cor: G.COR.rosa }]]], { x: 72, y: 300, tam: 100, peso: 600, lh: 1.04, cor: G.COR.navy });
+      H.box.classList.add('legenda');
       FRENTES.forEach(([ic, l1, l2], i) => {
         const [x, y] = POS[i];
         const c = Z.div(el, { left: x + 'px', top: y + 'px', width: CW + 'px', height: CH + 'px', background: '#fff', borderRadius: '12px',

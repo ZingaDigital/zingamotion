@@ -25,7 +25,9 @@
       num = Z.div(el, { left: '62px', top: '380px', fontSize: '250px', fontWeight: 900, lineHeight: 1, letterSpacing: '-0.01em', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' });
       num.innerHTML = '<span></span><span style="font-size:120px;font-weight:600;color:#f50953">%</span>';
       pct = num.firstChild;
+      num.classList.add('legenda');
       rot = G.texto(el, [['Bateria ', ['criativa', { cor: G.COR.rosa }]]], { x: 72, y: 1066, tam: 64, peso: 600 });
+      rot.box.classList.add('legenda');
       bat = Z.div(el, { left: BX + 'px', top: BY + 'px', width: BW + 'px', height: BH + 'px', boxSizing: 'border-box', border: `${BB}px solid #fff`, borderRadius: '54px' });
       polo = Z.div(el, { left: (BX + BW + 4) + 'px', top: (BY + BH / 2 - 56) + 'px', width: '38px', height: '112px', background: '#fff', borderRadius: '0 22px 22px 0' });
       fill = Z.div(bat, { left: '20px', top: '20px', bottom: '20px', background: G.COR.rosa, borderRadius: '26px' });
@@ -38,6 +40,8 @@
       let sh = 0;
       for (const [tn] of NIVEIS.slice(1)) sh += M.kick(t, tn, 12, 5, 0.32);
       el.style.transform = `translate(0px, ${(-sh).toFixed(2)}px) scale(${(1 + 0.01 * Math.sin(t * 1.7)).toFixed(4)})`;
+      // exportação em fundo branco: o contorno branco da bateria sumiria, então vira navy
+      if (new URLSearchParams(location.search).get('limpo') === 'branco') { bat.style.borderColor = G.COR.navy; polo.style.background = G.COR.navy; }
       const nv = nivelEm(t);
       fill.style.width = Math.max(8, (BW - 2 * BB - 40) * nv).toFixed(1) + 'px';
       pct.textContent = String(Math.max(2, Math.round(nv * 100)));

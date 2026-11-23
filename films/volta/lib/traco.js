@@ -90,7 +90,7 @@
       const d = Z.div(pai, { left: x + 'px', top: y + 'px', fontFamily: '"SwitzerContorno", "Switzer", sans-serif', fontSize: tam + 'px', fontWeight: 900, lineHeight: 1,
         letterSpacing: '-0.02em', whiteSpace: 'nowrap', color: fundo || 'transparent', webkitTextStroke: `${traco}px ${tinta}`,
         opacity: fundo ? 1 : op, zIndex: copias - i });
-      d.textContent = texto;
+      d.textContent = texto; d.classList.add('eco');
       els.push(d);
     }
     return {
