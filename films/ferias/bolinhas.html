@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Bolinhas de papel</title>
+<style>
+  html, body { margin: 0; background: transparent; }
+  #palco { position: relative; overflow: hidden; }
+</style>
+<script src="lib/motion.js"></script>
+<script src="lib/nucleo.js"></script>
+<script src="lib/zg.js"></script>
+<script src="lib/traco.js"></script>
+</head>
+<body>
+<div id="palco"></div>
+<script>
+// Bolinhas de papel amassado do filme, avulsas e em pattern.
+// ?modo=soltas  -> cartela 1080 x 540 com 6 bolinhas em fundo transparente
+// ?modo=pattern&fundo=papel|rosa|navy -> 1080 x 1080 = 2 x 2 ladrilhos de 540 sem emenda (bolinhas e rabiscos que
+//   cruzam a borda reaparecem do outro lado), pra recortar um ladrilho de 540 e repetir à vontade.
+const q = new URLSearchParams(location.search);
+const palco = document.getElementById('palco');
+const NAVY = G.COR.navy;
+
+if (q.get('modo') === 'soltas') {
+  palco.style.width = '1080px'; palco.style.height = '540px';
+  // [centro x, centro y, tamanho, giro]
+  window.SOLTAS = [[150, 150, 190, 10], [420, 140, 160, 70], [690, 160, 200, 140], [950, 150, 150, 200], [280, 400, 170, 260], [700, 400, 180, 320]];
+  SOLTAS.forEach(([x, y, tam, g], i) => {
+    const b = T.bola(palco, tam, 100 + i * 17);
+    b.style.visibility = 'visible';
+    b.style.transform = `translate(${x - tam / 2}px, ${y - tam / 2}px) rotate(${g}deg)`;
+  });
+} else {
+  const L = 540, fundo = q.get('fundo') || 'papel';
+  palco.style.width = 2 * L + 'px'; palco.style.height = 2 * L + 'px';
+  if (fundo === 'papel') T.papel(palco);
+  else palco.style.background = fundo === 'rosa' ? G.COR.rosa : NAVY;
+  const tinta = fundo === 'papel' ? NAVY : '#ffffff';
+  const r = M.mulberry32(2026);
+  // bolinhas num ladrilho de 540: posições à mão pra não encavalar, tamanho e giro com semente
+  const BOLAS = [[70, 80, 96], [300, 40, 74], [470, 190, 110], [180, 250, 86], [390, 380, 78], [60, 430, 104], [260, 500, 70]];
+  const RAB = [['espiral', 420, 70, 0.55], ['estrela', 150, 160, 0.45], ['onda', 330, 250, 0.55], ['xis', 520, 330, 0.35],
+    ['estrela', 470, 470, 0.4], ['espiral', 160, 360, 0.45], ['onda', 90, 540, 0.5]];
+  const desl = [];
+  for (const i of [-1, 0, 1, 2]) for (const j of [-1, 0, 1, 2]) desl.push([i * L, j * L]);
+  const lista = [];
+  RAB.forEach(([f, x, y, s], k) => { for (const [dx, dy] of desl) lista.push({ f, x: x + dx, y: y + dy, s, r: (x * 7) % 40 - 20, semente: k }); });
+  T.rabiscos(palco, lista, { cor: tinta, op: fundo === 'papel' ? 0.3 : 0.35, larg: 5, semente: 77, w: 2 * L, h: 2 * L }).seek(0);
+  BOLAS.forEach(([x, y, tam], k) => {
+    const g = Math.floor(r() * 360);
+    for (const [dx, dy] of desl) {
+      const cx = x + dx, cy = y + dy;
+      if (cx < -tam || cy < -tam || cx > 2 * L + tam || cy > 2 * L + tam) continue;
+      const b = T.bola(palco, tam, 300 + k * 13);
+      b.style.visibility = 'visible';
+      b.style.transform = `translate(${cx - tam / 2}px, ${cy - tam / 2}px) rotate(${g}deg)`;
+    }
+  });
+}
+window.ready = Promise.resolve();
+</script>
+</body>
+</html>

@@ -60,7 +60,8 @@
       const tracos = FORMAS[it.f]();
       const paths = tracos.map(() => T.el(g, 'path', { fill: 'none', stroke: it.cor || cor, 'stroke-width': larg / (it.s || 1),
         'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
-      const variantes = [0, 1, 2].map((v) => tracos.map((pts) => tremido(pts, semente * 1000 + k * 37 + v * 7919, 2.6)));
+      const sk = it.semente ?? k;                         // cópias de pattern repetem a semente do original (sem emenda)
+      const variantes = [0, 1, 2].map((v) => tracos.map((pts) => tremido(pts, semente * 1000 + sk * 37 + v * 7919, 2.6)));
       return { g, paths, variantes };
     });
     return {
@@ -137,6 +138,7 @@
   };
 
   // ---------- bolinha de papel (adesivo) ----------
+  T._nb = 0;
   T.bola = (pai, tam = 120, semente = 9) => {
     const r = M.mulberry32(semente);
     const d = Z.div(pai, { left: '0px', top: '0px', width: tam + 'px', height: tam + 'px', zIndex: 70 });
@@ -145,9 +147,13 @@
     const pts = Array.from({ length: 14 }, (_, i) => { const a = i / 14 * Math.PI * 2, rr = 46 + r() * 12; return `${(60 + Math.cos(a) * rr).toFixed(1)},${(60 + Math.sin(a) * rr).toFixed(1)}`; }).join(' ');
     T.el(s, 'polygon', { points: pts, fill: '#fff', stroke: '#fff', 'stroke-width': 16, 'stroke-linejoin': 'round' });
     T.el(s, 'polygon', { points: pts, fill: '#ffffff', stroke: NAVY, 'stroke-width': 5, 'stroke-linejoin': 'round' });
+    // vincos recortados por dentro do contorno (nenhum risco sai da bolinha)
+    const cid = 'bolaClip' + (++T._nb);
+    T.el(T.el(s, 'clipPath', { id: cid }), 'polygon', { points: pts });
+    const vincos = T.el(s, 'g', { 'clip-path': `url(#${cid})` });
     for (let i = 0; i < 6; i++) {
       const x0 = 30 + r() * 60, y0 = 30 + r() * 60;
-      T.el(s, 'path', { d: `M${x0} ${y0}l${(r() - 0.5) * 40} ${(r() - 0.5) * 40}l${(r() - 0.5) * 30} ${(r() - 0.5) * 30}`, fill: 'none', stroke: NAVY, 'stroke-width': 3.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0.7 });
+      T.el(vincos, 'path', { d: `M${x0} ${y0}l${(r() - 0.5) * 40} ${(r() - 0.5) * 40}l${(r() - 0.5) * 30} ${(r() - 0.5) * 30}`, fill: 'none', stroke: NAVY, 'stroke-width': 3.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', opacity: 0.7 });
     }
     d.style.visibility = 'hidden';
     return d;
