@@ -14,7 +14,7 @@
   Z.plano({
     id: 'p1', inicio: 0, fim: B(6.4), loopDe: G.FECHA,
     montar(el) {
-      eco = T.eco(el, '2027', { x: 20, y: 1560, tam: 430, cor: G.COR.navy, op: 0.13, copias: 4, passo: -0.19 });
+      eco = T.eco(el, '2027', { x: 20, y: 1560, tam: 430, cor: G.COR.navy, op: 0.13, copias: 4, passo: -0.19, fundo: '#f5f3f0' });
       rab = T.rabiscos(el, [
         { f: 'espiral', x: 900, y: 330, s: 0.9, r: 10 }, { f: 'estrela', x: 150, y: 330, s: 0.6, r: -12 },
         { f: 'sol', x: 540, y: 300, s: 0.75 }, { f: 'onda', x: 860, y: 1520, s: 0.9 },

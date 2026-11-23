@@ -45,9 +45,9 @@
       ], { cor: '#ffffff', op: 0.4, semente: 51 });
       cab = Z.div(el, { left: '72px', top: '246px', transformOrigin: '0px 0px' });
       est = G.texto(cab, [['Estamos de']], { x: 2, y: 0, tam: 64, peso: 600 });
-      eco = T.eco(cab, 'férias.', { x: -6, y: 58, tam: 232, cor: '#ffffff', op: 0.6, copias: 3, passo: -0.26, traco: 3 });
+      eco = T.eco(cab, 'férias.', { x: -6, y: 58, tam: 232, cor: '#ffffff', op: 0.6, copias: 3, passo: -0.26, traco: 3, fundo: '#db0849' });
       fer = Z.div(cab, { left: '-6px', top: '58px', fontSize: '232px', fontWeight: 900, lineHeight: 1, letterSpacing: '-0.02em',
-        color: G.COR.navy, whiteSpace: 'nowrap' });
+        color: G.COR.navy, whiteSpace: 'nowrap', zIndex: 10 });   // a palavra cheia fica na frente dos ecos
       for (const ch of 'férias.') { const s = document.createElement('span'); s.className = 'w'; s.textContent = ch; fer.append(s); letras.push(s); }
 
       [sai1, d1, cap1] = bloco(el, 548, 'A PARTIR DE', '19 DEZ', 'sábado', '2026');

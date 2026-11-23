@@ -12,7 +12,7 @@
     id: 'p1', inicio: 0, fim: AMASSA + 0.8, loopDe: G.PAPEL_REAL,
     montar(el) {
       folha = T.papel(el);
-      eco = T.eco(folha, '2026', { x: 20, y: 1590, tam: 430, cor: G.COR.navy, op: 0.13, copias: 4, passo: -0.19 });
+      eco = T.eco(folha, '2026', { x: 20, y: 1590, tam: 430, cor: G.COR.navy, op: 0.13, copias: 4, passo: -0.19, fundo: '#f5f3f0' });
       rab = T.rabiscos(folha, [
         { f: 'espiral', x: 880, y: 380, s: 0.95, r: 10 }, { f: 'estrela', x: 730, y: 560, s: 0.55, r: -12 },
         { f: 'xis', x: 1000, y: 610, s: 0.45 }, { f: 'onda', x: 860, y: 250, s: 0.8, r: -6 },

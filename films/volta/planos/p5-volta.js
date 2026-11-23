@@ -16,8 +16,8 @@
       ], { cor: '#ffffff', op: 0.4, semente: 101 });
       cab = Z.div(el, { left: '72px', top: '246px', transformOrigin: '0px 0px' });
       est = G.texto(cab, [['Estamos de']], { x: 2, y: 0, tam: 64, peso: 600 });
-      eco = T.eco(cab, 'volta.', { x: -6, y: 58, tam: 232, cor: '#ffffff', op: 0.6, copias: 3, passo: -0.26, traco: 3 });
-      const fer = Z.div(cab, { left: '-6px', top: '58px', fontSize: '232px', fontWeight: 900, lineHeight: 1, letterSpacing: '-0.02em', color: G.COR.navy, whiteSpace: 'nowrap' });
+      eco = T.eco(cab, 'volta.', { x: -6, y: 58, tam: 232, cor: '#ffffff', op: 0.6, copias: 3, passo: -0.26, traco: 3, fundo: '#db0849' });
+      const fer = Z.div(cab, { left: '-6px', top: '58px', fontSize: '232px', fontWeight: 900, lineHeight: 1, letterSpacing: '-0.02em', color: G.COR.navy, whiteSpace: 'nowrap', zIndex: 10 });   // a palavra cheia fica na frente dos ecos
       for (const ch of 'volta.') { const s = document.createElement('span'); s.className = 'w'; s.textContent = ch; fer.append(s); letras.push(s); }
       over = Z.div(el, { left: '74px', top: '548px', fontSize: '40px', fontWeight: 600, letterSpacing: '0.16em', color: G.COR.navy });
       over.textContent = 'SEGUNDA';
@@ -33,7 +33,7 @@
       for (const grupo of [[cab], [over, data.box, cap.box], [bar, polo], [txt.box]]) {
         const l = Z.div(el, { inset: '0px' }); for (const n of grupo) l.append(n); linhas.push(l);
       }
-      P = G.texto(el, [['Prontos'], [['para atender.', { cor: G.COR.navy }]]], { x: 64, y: 560, tam: 150, peso: 900, lh: 1.0, ls: '-0.015em' });
+      P = G.texto(el, [['Prontos para'], [['atendê-lo', { cor: G.COR.navy }]], [['melhor.', { cor: G.COR.navy }]]], { x: 64, y: 470, tam: 136, peso: 900, lh: 1.0, ls: '-0.015em' });
     },
     seek(t, el) {
       rab.seek(t);

@@ -29,7 +29,7 @@
   Z.plano({
     id: 'p2', inicio: 1.88, fim: B(9.2), z: 2,
     montar(el) {
-      eco = T.eco(el, 'JOBS', { x: 30, y: 1500, tam: 400, cor: '#ffffff', op: 0.12, copias: 4, passo: -0.2 });
+      eco = T.eco(el, 'JOBS', { x: 30, y: 1500, tam: 400, cor: '#ffffff', op: 0.12, copias: 4, passo: -0.2, fundo: '#00172f' });
       rab = T.rabiscos(el, [
         { f: 'espiral', x: 990, y: 300, s: 0.7 }, { f: 'xis', x: 1010, y: 1440, s: 0.5 }, { f: 'estrela', x: 70, y: 1450, s: 0.5, r: 14 },
       ], { cor: '#ffffff', op: 0.25, semente: 23 });

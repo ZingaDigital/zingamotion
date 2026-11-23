@@ -74,11 +74,22 @@
   };
 
   // ---------- eco: palavra gigante vazada repetida em escadinha (gramática da referência) ----------
-  T.eco = (pai, texto, { x = 0, y = 0, tam = 400, cor = NAVY, op = 0.14, copias = 4, passo = 0.2, traco = 3 } = {}) => {
+  // mistura duas cores hex (a com peso p) — o traço já sai na cor final, sem opacidade (senão as cópias se cruzam)
+  const mix = (a, b, p) => {
+    const h = (c) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
+    const A = h(a), Bc = h(b);
+    return '#' + A.map((v, i) => Math.round(v * p + Bc[i] * (1 - p)).toString(16).padStart(2, '0')).join('');
+  };
+  // fundo: cor do fundo atrás do eco. Cada cópia é preenchida com ela e empilhada da frente pra trás: a da frente
+  // esconde as linhas da de trás e sobra só o contorno limpo de cada palavra (nada de entrelaçado).
+  T.eco = (pai, texto, { x = 0, y = 0, tam = 400, cor = NAVY, op = 0.14, copias = 4, passo = 0.2, traco = 3, fundo } = {}) => {
     const els = [];
+    const tinta = fundo ? mix(cor, fundo, op) : cor;
     for (let i = 0; i < copias; i++) {
-      const d = Z.div(pai, { left: x + 'px', top: y + 'px', fontSize: tam + 'px', fontWeight: 900, lineHeight: 1,
-        letterSpacing: '-0.02em', whiteSpace: 'nowrap', color: 'transparent', webkitTextStroke: `${traco}px ${cor}`, opacity: op });
+      // fonte sem sobreposição de contornos: o traço segue só a borda externa de cada letra (nada de entrelaçado)
+      const d = Z.div(pai, { left: x + 'px', top: y + 'px', fontFamily: '"SwitzerContorno", "Switzer", sans-serif', fontSize: tam + 'px', fontWeight: 900, lineHeight: 1,
+        letterSpacing: '-0.02em', whiteSpace: 'nowrap', color: fundo || 'transparent', webkitTextStroke: `${traco}px ${tinta}`,
+        opacity: fundo ? 1 : op, zIndex: copias - i });
       d.textContent = texto;
       els.push(d);
     }

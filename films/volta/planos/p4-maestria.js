@@ -18,7 +18,7 @@
   Z.plano({
     id: 'p4', inicio: B(20), fim: B(30.6), z: 4,
     montar(el) {
-      eco = T.eco(el, 'MAESTRIA', { x: 24, y: 1580, tam: 250, cor: G.COR.navy, op: 0.12, copias: 4, passo: -0.22 });
+      eco = T.eco(el, 'MAESTRIA', { x: 24, y: 1580, tam: 250, cor: G.COR.navy, op: 0.12, copias: 4, passo: -0.22, fundo: '#f5f3f0' });
       rab = T.rabiscos(el, [{ f: 'espiral', x: 960, y: 250, s: 0.7 }, { f: 'estrela', x: 990, y: 1260, s: 0.55 }, { f: 'onda', x: 160, y: 1300, s: 0.8 }],
         { op: 0.3, semente: 91 });
       H = G.texto(el, [['Cada cliente,'], [['com maestria.', { cor: G.COR.rosa }]]], { x: 72, y: 300, tam: 100, peso: 600, lh: 1.04, cor: G.COR.navy });
